@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+*.glb
+*.gltf
+*.obj
+*.ply
+!examples/sample_scene.json
+examples/*.glb
+examples/*.obj
+examples/*.ply

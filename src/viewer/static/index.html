@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HNX26EPS06 | 3D Scene Viewer & Inspector</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="canvas-container"></div>
+
+  <!-- Top Header Bar -->
+  <header class="top-bar">
+    <div class="brand">
+      <span class="project-tag">HNX26EPS06 MODE A</span>
+      <h1 class="title">Architectural 3D Scene Viewer</h1>
+    </div>
+    <div class="status-badge" id="scene-status">
+      <span class="dot"></span>
+      <span id="status-text">Valid Metric Scene (1 unit = 1m)</span>
+    </div>
+  </header>
+
+  <!-- Left Control Panel -->
+  <aside class="panel left-panel">
+    <div class="panel-section">
+      <h3>Camera Views</h3>
+      <div class="btn-group">
+        <button id="btn-view-persp" class="active">3D Orbit</button>
+        <button id="btn-view-top">Top (2D Plan)</button>
+        <button id="btn-view-reset">Reset Camera</button>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <h3>Visibility Layers</h3>
+      <label class="toggle-row">
+        <input type="checkbox" id="toggle-walls" checked>
+        <span>Walls</span>
+      </label>
+      <label class="toggle-row">
+        <input type="checkbox" id="toggle-doors" checked>
+        <span>Doors</span>
+      </label>
+      <label class="toggle-row">
+        <input type="checkbox" id="toggle-windows" checked>
+        <span>Windows</span>
+      </label>
+      <label class="toggle-row">
+        <input type="checkbox" id="toggle-floors" checked>
+        <span>Floors</span>
+      </label>
+      <label class="toggle-row">
+        <input type="checkbox" id="toggle-ceilings">
+        <span>Ceilings (Interior View)</span>
+      </label>
+      <label class="toggle-row">
+        <input type="checkbox" id="toggle-wireframe">
+        <span>Wireframe Overlay</span>
+      </label>
+      <label class="toggle-row">
+        <input type="checkbox" id="toggle-helpers" checked>
+        <span>Grid & Axes (1m)</span>
+      </label>
+    </div>
+
+    <div class="panel-section">
+      <h3>Accuracy & Metrics</h3>
+      <div id="metrics-summary" class="metrics-grid">
+        <div class="metric-item">
+          <span class="metric-label">Floor Area</span>
+          <span class="metric-val" id="metric-area">-- m²</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-label">Rooms</span>
+          <span class="metric-val" id="metric-rooms">--</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-label">Walls</span>
+          <span class="metric-val" id="metric-walls">--</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-label">Openings</span>
+          <span class="metric-val" id="metric-openings">--</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Right Visual Debug Inspector Panel -->
+  <aside class="panel right-panel">
+    <div class="panel-header">
+      <h2>Visual Debug Inspector</h2>
+      <span class="subtext">Click any object to inspect geometric truth</span>
+    </div>
+
+    <div id="inspector-content" class="inspector-body">
+      <div class="empty-state">
+        <p>No element selected</p>
+        <small>Click on any wall, floor, door, or window in the 3D scene to inspect dimensions and source coordinates.</small>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Bottom Navigation Hints -->
+  <footer class="bottom-hints">
+    <span><b>Left Click + Drag:</b> Orbit</span>
+    <span><b>Right Click + Drag:</b> Pan</span>
+    <span><b>Scroll:</b> Zoom</span>
+    <span><b>Click Object:</b> Inspect Properties</span>
+  </footer>
+
+  <script type="module" src="viewer.js"></script>
+</body>
+</html>
