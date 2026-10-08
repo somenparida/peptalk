@@ -52,8 +52,12 @@ class SceneAdapter:
 
         # 2. Coordinate system mapping
         coord_sys_raw = raw.get("coordinate_system", {})
-        up_axis = coord_sys_raw.get("up_axis", "Z")
-        horiz_axes = coord_sys_raw.get("horizontal_axes", ["X", "Y"])
+        if isinstance(coord_sys_raw, str):
+            up_axis = "Z"
+            horiz_axes = ["X", "Y"]
+        else:
+            up_axis = coord_sys_raw.get("up_axis", "Z")
+            horiz_axes = coord_sys_raw.get("horizontal_axes", ["X", "Y"])
         invert_y = bool(raw.get("invert_y_axis", False))
 
         def transform_point(p: Any) -> tuple[float, float]:
