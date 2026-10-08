@@ -69,6 +69,9 @@ def reconstruct(
             else:
                 scene_m = scene_raw
 
+            if "wall_height" not in scene_m:
+                scene_m["wall_height"] = 2.8
+
             report["scale"] = scene_m.get("scale", {})
 
             # Validate scene topology
@@ -168,6 +171,9 @@ def reconstruct(
             mpp, src, conf, c_warns = calibrate_scale(scene_px, usable_img_path)
             scene_m, a_warns = apply_scale(scene_px, mpp, scale_source=src, confidence=conf)
             scale_warns.extend(c_warns + a_warns)
+
+        if "wall_height" not in scene_m:
+            scene_m["wall_height"] = 2.8
 
         report["timings_s"]["scale"] = round(time.time() - t0, 3)
         report["scale"] = scene_m.get("scale", {})
