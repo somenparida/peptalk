@@ -53,18 +53,27 @@ def reconstruct(
         log.info("[1/6] Validating input: %s", input_path.name)
         usable_img_path, input_warnings = validate_input(input_path)
 
-        # Handle direct GLB 3D model input from Member 1 or Member 2
-        if input_path.suffix.lower() == ".glb":
-            log.info("Processing direct 3D GLB model input...")
-            from .glb_parser import parse_glb_to_scene
-            scene_m = parse_glb_to_scene(usable_img_path)
+        # Handle direct JSON blueprint scene input from Member 1
+        if input_path.suffix.lower() == ".json":
+            log.info("Processing direct Member 1 scene.json input...")
+            with open(usable_img_path, "r", encoding="utf-8") as f:
+                scene_raw = json.load(f)
 
-            report["implementations"] = {"ai": "pregenerated_glb", "geometry": "pregenerated_glb", "3d": "pregenerated_glb"}
+            report["implementations"] = {"ai": "member1_json", "geometry": "real", "3d": "real"}
+
+            # Calibrate scale if in pixel units or scale is uncalibrated
+            if scene_raw.get("units") == "pixels" or "scale" not in scene_raw:
+                mpp, src, conf, c_warns = calibrate_scale(scene_raw)
+                scene_m, a_warns = apply_scale(scene_raw, mpp, scale_source=src, confidence=conf)
+                scale_warns = c_warns + a_warns
+            else:
+                scene_m = scene_raw
+
             report["scale"] = scene_m.get("scale", {})
 
-            # Validate extracted scene topology
+            # Validate scene topology
             is_valid, errors, val_warnings, counters = validate_scene(scene_m)
-            all_warnings = input_warnings + val_warnings
+            all_warnings = input_warnings + scale_warns + val_warnings
 
             report["validation"] = {"valid": is_valid, "errors": errors, "warnings": all_warnings}
             report["geometry_counters"] = counters
@@ -79,10 +88,10 @@ def reconstruct(
             with open(scene_json_path, "w", encoding="utf-8") as f:
                 json.dump(scene_m, f, indent=2)
 
+            # Export 3D GLB model
             glb_dest = run_dir / "scene.glb"
-            if usable_img_path != glb_dest:
-                import shutil
-                shutil.copy(usable_img_path, glb_dest)
+            export_3d_func, export_impl = load_3d()
+            export_3d_func(scene_m, glb_dest)
 
             def rel_path_str(p: Path) -> str:
                 try:

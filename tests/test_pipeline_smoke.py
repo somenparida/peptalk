@@ -27,3 +27,13 @@ def test_pipeline_glb_input(tmp_path):
         run_folder = tmp_path / glb_img.stem
         assert (run_folder / "scene.json").exists()
         assert (run_folder / "scene.glb").exists()
+
+
+def test_pipeline_json_input(tmp_path):
+    json_file = BASE_DIR / "scene.json"
+    if json_file.exists():
+        res = reconstruct(json_file, out_root=tmp_path, mode="proposed")
+        assert res["report"]["status"] == "success"
+        run_folder = tmp_path / json_file.stem
+        assert (run_folder / "scene.json").exists()
+        assert (run_folder / "scene.glb").exists()
