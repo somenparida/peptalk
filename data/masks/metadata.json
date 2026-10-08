@@ -1,0 +1,25 @@
+{
+  "source_image": "test_floorplan.png",
+  "width": 512,
+  "height": 260,
+  "total_pixels": 133120,
+  "classes": {
+    "0": "floor",
+    "1": "wall",
+    "2": "door",
+    "3": "window"
+  },
+  "masks": {
+    "wall": "wall_mask.png",
+    "door": "door_mask.png",
+    "window": "window_mask.png",
+    "floor": "floor_mask.png"
+  },
+  "pixel_counts": {
+    "wall": 14631,
+    "door": 1003,
+    "window": 2070,
+    "floor": 115416
+  },
+  "status": "validated"
+}
