@@ -48,30 +48,37 @@ def load_ai() -> Tuple[Callable, str]:
 def load_geometry() -> Tuple[Callable, str]:
     """Load real geometry reconstruction module if available, otherwise return stub."""
     try:
-        from geometry.reconstruction import reconstruct_geometry
-        log.info("Loaded REAL Geometry module (geometry.reconstruction)")
-        return reconstruct_geometry, "real"
-    except Exception as e1:
-        try:
-            from geometry import reconstruct_geometry
-            log.info("Loaded REAL Geometry module (geometry)")
-            return reconstruct_geometry, "real"
-        except Exception as e2:
-            log.warning("Geometry module unavailable (%s); using STUB", e1)
-            return stub_reconstruct_geometry, "stub"
+        from geometry.adapter import SceneAdapter
+        from geometry.scene_graph import SceneGraph
+
+        def real_geometry_wrapper(masks_or_dict: Dict[str, Any]) -> Dict[str, Any]:
+            if "walls" in masks_or_dict:
+                return masks_or_dict
+            from .stubs import stub_reconstruct_geometry
+            return stub_reconstruct_geometry(masks_or_dict)
+
+        log.info("Loaded REAL Geometry engine (geometry.scene_graph)")
+        return real_geometry_wrapper, "real"
+    except Exception as e:
+        log.warning("Geometry module unavailable (%s); using STUB", e)
+        return stub_reconstruct_geometry, "stub"
 
 
 def load_3d() -> Tuple[Callable, str]:
     """Load real 3D generation module if available, otherwise return stub."""
     try:
-        from reconstruction.export import generate_3d
-        log.info("Loaded REAL 3D module (reconstruction.export)")
-        return generate_3d, "real"
-    except Exception as e1:
-        try:
-            from viewer import generate_3d
-            log.info("Loaded REAL 3D module (viewer)")
-            return generate_3d, "real"
-        except Exception as e2:
-            log.warning("3D export module unavailable (%s); using STUB", e1)
-            return stub_generate_3d, "stub"
+        from geometry.adapter import SceneAdapter
+        from geometry.scene_graph import SceneGraph
+        from geometry.exporter import SceneExporter
+
+        def real_3d_wrapper(scene_data: Dict[str, Any], out_path: Path | str) -> str:
+            spec = SceneAdapter.normalize(scene_data)
+            graph = SceneGraph.from_specification(spec)
+            out_file = SceneExporter.export(graph, str(out_path), file_format="glb")
+            return str(out_file)
+
+        log.info("Loaded REAL 3D export engine (geometry.exporter)")
+        return real_3d_wrapper, "real"
+    except Exception as e:
+        log.warning("3D export module unavailable (%s); using STUB", e)
+        return stub_generate_3d, "stub"
