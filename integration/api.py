@@ -108,3 +108,27 @@ async def api_reconstruct(
                 "debug": f"/outputs/{temp_input.stem}/",
             },
         )
+def get_latest_scene():
+    """Return the most recently generated scene.json payload directly as JSON."""
+    json_files = sorted(OUTPUTS_DIR.glob("**/scene.json"), key=lambda p: p.stat().st_mtime, reverse=True)
+    if not json_files:
+        raise HTTPException(status_code=404, detail="No scene.json generated yet.")
+    
+    import json
+    with open(json_files[0], "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+@app.get("/latest_model")
+def get_latest_model():
+    """Return the relative URL of the most recently generated scene.glb model."""
+    glb_files = sorted(OUTPUTS_DIR.glob("**/scene.glb"), key=lambda p: p.stat().st_mtime, reverse=True)
+    if not glb_files:
+        raise HTTPException(status_code=404, detail="No scene.glb model generated yet.")
+    
+    latest_glb = glb_files[0]
+    rel_path = latest_glb.relative_to(OUTPUTS_DIR)
+    return {
+        "model_url": f"/outputs/{rel_path}",
+        "plan_name": latest_glb.parent.name,
+    }
