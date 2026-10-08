@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+python-multipart
+pillow
+opencv-python
+numpy
+shapely
+pydantic>=2
+jsonschema
+matplotlib
+pytest
+pytesseract
+easyocr
+pymupdf
+trimesh

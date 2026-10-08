@@ -1,0 +1,83 @@
+{
+  "version": "1.0",
+  "units": "meters",
+  "source": {
+    "filename": "floorplan_01.png"
+  },
+  "scale": {
+    "value": 0.015,
+    "unit": "meters_per_pixel",
+    "source": "explicit",
+    "confidence": 0.9
+  },
+  "walls": [
+    {
+      "id": "wall_001",
+      "start": [0.0, 0.0],
+      "end": [5.0, 0.0],
+      "thickness": 0.20,
+      "height": 3.0,
+      "source": "detected",
+      "confidence": 0.94
+    },
+    {
+      "id": "wall_002",
+      "start": [5.0, 0.0],
+      "end": [5.0, 4.0],
+      "thickness": 0.20,
+      "height": 3.0,
+      "source": "detected",
+      "confidence": 0.92
+    },
+    {
+      "id": "wall_003",
+      "start": [5.0, 4.0],
+      "end": [0.0, 4.0],
+      "thickness": 0.20,
+      "height": 3.0,
+      "source": "detected",
+      "confidence": 0.95
+    },
+    {
+      "id": "wall_004",
+      "start": [0.0, 4.0],
+      "end": [0.0, 0.0],
+      "thickness": 0.20,
+      "height": 3.0,
+      "source": "detected",
+      "confidence": 0.91
+    }
+  ],
+  "doors": [
+    {
+      "id": "door_001",
+      "wall_id": "wall_001",
+      "position": 0.45,
+      "width": 0.90,
+      "height": 2.10,
+      "source": "detected",
+      "confidence": 0.88
+    }
+  ],
+  "windows": [
+    {
+      "id": "window_001",
+      "wall_id": "wall_003",
+      "position": 0.50,
+      "width": 1.20,
+      "sill_height": 0.90,
+      "height": 1.20,
+      "source": "detected",
+      "confidence": 0.91
+    }
+  ],
+  "rooms": [
+    {
+      "id": "room_001",
+      "label": "bedroom",
+      "polygon": [[0.0, 0.0], [5.0, 0.0], [5.0, 4.0], [0.0, 4.0]],
+      "source": "inferred",
+      "confidence": 0.82
+    }
+  ]
+}

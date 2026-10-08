@@ -1,0 +1,142 @@
+{
+  "split": "heldout",
+  "plans_evaluated": 4,
+  "baseline": {
+    "wall_iou": null,
+    "dim_error_m": 2.015,
+    "dim_rel_pct": 26.96,
+    "completeness_recall": 1.333,
+    "mean_invalid_geometry": 0.0,
+    "composite_score": 99.87
+  },
+  "proposed": {
+    "wall_iou": null,
+    "dim_error_m": 0.61,
+    "dim_rel_pct": 8.64,
+    "completeness_recall": 0.667,
+    "mean_invalid_geometry": 0.0,
+    "composite_score": 85.3
+  },
+  "per_plan": {
+    "plan_07": {
+      "proposed": {
+        "wall_iou": null,
+        "dim_error_m": 1.21,
+        "dim_rel_pct": 17.79,
+        "completeness_recall": 0.667,
+        "geometry_counters": {
+          "invalid_walls": 0,
+          "disconnected_walls": 0,
+          "doors_without_wall": 0,
+          "windows_without_wall": 0,
+          "self_intersecting_rooms": 0
+        },
+        "composite_score": 81.49
+      },
+      "baseline": {
+        "wall_iou": null,
+        "dim_error_m": 1.415,
+        "dim_rel_pct": 20.81,
+        "completeness_recall": 1.333,
+        "geometry_counters": {
+          "invalid_walls": 0,
+          "disconnected_walls": 0,
+          "doors_without_wall": 0,
+          "windows_without_wall": 0,
+          "self_intersecting_rooms": 0
+        },
+        "composite_score": 102.43
+      }
+    },
+    "plan_08": {
+      "proposed": {
+        "wall_iou": null,
+        "dim_error_m": 0.81,
+        "dim_rel_pct": 11.25,
+        "completeness_recall": 0.667,
+        "geometry_counters": {
+          "invalid_walls": 0,
+          "disconnected_walls": 0,
+          "doors_without_wall": 0,
+          "windows_without_wall": 0,
+          "self_intersecting_rooms": 0
+        },
+        "composite_score": 84.21
+      },
+      "baseline": {
+        "wall_iou": null,
+        "dim_error_m": 1.815,
+        "dim_rel_pct": 25.21,
+        "completeness_recall": 1.333,
+        "geometry_counters": {
+          "invalid_walls": 0,
+          "disconnected_walls": 0,
+          "doors_without_wall": 0,
+          "windows_without_wall": 0,
+          "self_intersecting_rooms": 0
+        },
+        "composite_score": 100.6
+      }
+    },
+    "plan_09": {
+      "proposed": {
+        "wall_iou": null,
+        "dim_error_m": 0.41,
+        "dim_rel_pct": 5.39,
+        "completeness_recall": 0.667,
+        "geometry_counters": {
+          "invalid_walls": 0,
+          "disconnected_walls": 0,
+          "doors_without_wall": 0,
+          "windows_without_wall": 0,
+          "self_intersecting_rooms": 0
+        },
+        "composite_score": 86.65
+      },
+      "baseline": {
+        "wall_iou": null,
+        "dim_error_m": 2.215,
+        "dim_rel_pct": 29.14,
+        "completeness_recall": 1.333,
+        "geometry_counters": {
+          "invalid_walls": 0,
+          "disconnected_walls": 0,
+          "doors_without_wall": 0,
+          "windows_without_wall": 0,
+          "self_intersecting_rooms": 0
+        },
+        "composite_score": 98.96
+      }
+    },
+    "plan_10": {
+      "proposed": {
+        "wall_iou": null,
+        "dim_error_m": 0.01,
+        "dim_rel_pct": 0.12,
+        "completeness_recall": 0.667,
+        "geometry_counters": {
+          "invalid_walls": 0,
+          "disconnected_walls": 0,
+          "doors_without_wall": 0,
+          "windows_without_wall": 0,
+          "self_intersecting_rooms": 0
+        },
+        "composite_score": 88.85
+      },
+      "baseline": {
+        "wall_iou": null,
+        "dim_error_m": 2.615,
+        "dim_rel_pct": 32.69,
+        "completeness_recall": 1.333,
+        "geometry_counters": {
+          "invalid_walls": 0,
+          "disconnected_walls": 0,
+          "doors_without_wall": 0,
+          "windows_without_wall": 0,
+          "self_intersecting_rooms": 0
+        },
+        "composite_score": 97.48
+      }
+    }
+  }
+}

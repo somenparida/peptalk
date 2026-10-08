@@ -1,0 +1,108 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SceneSchema",
+  "type": "object",
+  "required": ["version", "units", "walls", "doors", "windows", "rooms"],
+  "properties": {
+    "version": { "type": "string" },
+    "units": { "type": "string" },
+    "source": {
+      "type": "object",
+      "properties": {
+        "filename": { "type": "string" }
+      }
+    },
+    "scale": {
+      "type": "object",
+      "required": ["value", "unit", "source", "confidence"],
+      "properties": {
+        "value": { "type": "number", "exclusiveMinimum": 0 },
+        "unit": { "type": "string" },
+        "source": { "type": "string", "enum": ["explicit", "reference", "estimated"] },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "walls": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "start", "end", "thickness", "height", "source", "confidence"],
+        "properties": {
+          "id": { "type": "string" },
+          "start": {
+            "type": "array",
+            "items": { "type": "number" },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "end": {
+            "type": "array",
+            "items": { "type": "number" },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "thickness": { "type": "number", "exclusiveMinimum": 0 },
+          "height": { "type": "number", "exclusiveMinimum": 0 },
+          "source": { "type": "string", "enum": ["detected", "inferred", "estimated"] },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+        }
+      }
+    },
+    "doors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "wall_id", "position", "width", "height", "source", "confidence"],
+        "properties": {
+          "id": { "type": "string" },
+          "wall_id": { "type": "string" },
+          "position": { "type": "number", "minimum": 0, "maximum": 1 },
+          "width": { "type": "number", "exclusiveMinimum": 0 },
+          "height": { "type": "number", "exclusiveMinimum": 0 },
+          "source": { "type": "string", "enum": ["detected", "inferred", "estimated"] },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+        }
+      }
+    },
+    "windows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "wall_id", "position", "width", "sill_height", "height", "source", "confidence"],
+        "properties": {
+          "id": { "type": "string" },
+          "wall_id": { "type": "string" },
+          "position": { "type": "number", "minimum": 0, "maximum": 1 },
+          "width": { "type": "number", "exclusiveMinimum": 0 },
+          "sill_height": { "type": "number", "minimum": 0 },
+          "height": { "type": "number", "exclusiveMinimum": 0 },
+          "source": { "type": "string", "enum": ["detected", "inferred", "estimated"] },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+        }
+      }
+    },
+    "rooms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "polygon", "source", "confidence"],
+        "properties": {
+          "id": { "type": "string" },
+          "label": { "type": "string" },
+          "polygon": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": { "type": "number" },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "minItems": 3
+          },
+          "source": { "type": "string", "enum": ["detected", "inferred", "estimated"] },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+        }
+      }
+    }
+  }
+}

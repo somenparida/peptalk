@@ -1,0 +1,32 @@
+{
+  "plan": "plan_07",
+  "counts": {
+    "walls": 6,
+    "doors": 3,
+    "windows": 3,
+    "rooms": 3
+  },
+  "building_width_m": 6.8,
+  "building_length_m": 7.0,
+  "items": {
+    "doors": [
+      {
+        "center_m": [
+          3.0,
+          0.0
+        ]
+      }
+    ],
+    "windows": [
+      {
+        "center_m": [
+          2.0,
+          7.0
+        ]
+      }
+    ]
+  },
+  "masks": {
+    "wall": "data/masks/plan_07_wall.png"
+  }
+}

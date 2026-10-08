@@ -1,0 +1,32 @@
+{
+  "plan": "demo_02",
+  "counts": {
+    "walls": 5,
+    "doors": 2,
+    "windows": 2,
+    "rooms": 2
+  },
+  "building_width_m": 6.0,
+  "building_length_m": 5.0,
+  "items": {
+    "doors": [
+      {
+        "center_m": [
+          2.5,
+          0.0
+        ]
+      }
+    ],
+    "windows": [
+      {
+        "center_m": [
+          1.0,
+          5.0
+        ]
+      }
+    ]
+  },
+  "masks": {
+    "wall": "data/masks/demo_02_wall.png"
+  }
+}
