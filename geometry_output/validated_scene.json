@@ -1,0 +1,1194 @@
+{
+  "version": "1.0",
+  "units": "pixels",
+  "coordinate_system": "image",
+  "image": {
+    "width": 512,
+    "height": 260
+  },
+  "scale": {
+    "meters_per_pixel": null,
+    "source": "unknown",
+    "confidence": 0.0,
+    "metric_available": false
+  },
+  "defaults": {
+    "wall_height": 3.0,
+    "door_height": 2.1,
+    "window_sill_height": 0.9,
+    "window_height": 1.2
+  },
+  "walls": [
+    {
+      "id": "w1",
+      "source": {
+        "start": [
+          238.0,
+          18.0
+        ],
+        "end": [
+          79.5,
+          19.0
+        ],
+        "thickness": 16.0
+      },
+      "geometry": {
+        "start": [
+          238.0,
+          18.0
+        ],
+        "end": [
+          79.5,
+          19.0
+        ],
+        "thickness": 16.0,
+        "length": 158.5
+      },
+      "start": [
+        238.0,
+        18.0
+      ],
+      "end": [
+        79.5,
+        19.0
+      ],
+      "thickness": 16.0
+    },
+    {
+      "id": "w2",
+      "source": {
+        "start": [
+          79.5,
+          19.0
+        ],
+        "end": [
+          77.0,
+          73.0
+        ],
+        "thickness": 12.1
+      },
+      "geometry": {
+        "start": [
+          79.5,
+          19.0
+        ],
+        "end": [
+          77.0,
+          73.0
+        ],
+        "thickness": 12.1,
+        "length": 54.06
+      },
+      "start": [
+        79.5,
+        19.0
+      ],
+      "end": [
+        77.0,
+        73.0
+      ],
+      "thickness": 12.1
+    },
+    {
+      "id": "w3",
+      "source": {
+        "start": [
+          329.0,
+          17.5
+        ],
+        "end": [
+          270.0,
+          19.0
+        ],
+        "thickness": 15.9
+      },
+      "geometry": {
+        "start": [
+          329.0,
+          17.5
+        ],
+        "end": [
+          270.0,
+          19.0
+        ],
+        "thickness": 15.9,
+        "length": 59.02
+      },
+      "start": [
+        329.0,
+        17.5
+      ],
+      "end": [
+        270.0,
+        19.0
+      ],
+      "thickness": 15.9
+    },
+    {
+      "id": "w4",
+      "source": {
+        "start": [
+          374.0,
+          19.0
+        ],
+        "end": [
+          503.0,
+          18.0
+        ],
+        "thickness": 16.0
+      },
+      "geometry": {
+        "start": [
+          374.0,
+          19.0
+        ],
+        "end": [
+          503.0,
+          18.0
+        ],
+        "thickness": 16.0,
+        "length": 129.0
+      },
+      "start": [
+        374.0,
+        19.0
+      ],
+      "end": [
+        503.0,
+        18.0
+      ],
+      "thickness": 16.0
+    },
+    {
+      "id": "w5",
+      "source": {
+        "start": [
+          503.0,
+          18.0
+        ],
+        "end": [
+          504.0,
+          137.0
+        ],
+        "thickness": 8.4
+      },
+      "geometry": {
+        "start": [
+          503.0,
+          18.0
+        ],
+        "end": [
+          504.0,
+          137.0
+        ],
+        "thickness": 8.4,
+        "length": 119.0
+      },
+      "start": [
+        503.0,
+        18.0
+      ],
+      "end": [
+        504.0,
+        137.0
+      ],
+      "thickness": 8.4
+    },
+    {
+      "id": "w6",
+      "source": {
+        "start": [
+          311.9,
+          17.9
+        ],
+        "end": [
+          317.5,
+          145.0
+        ],
+        "thickness": 8.0
+      },
+      "geometry": {
+        "start": [
+          311.9,
+          17.93
+        ],
+        "end": [
+          317.5,
+          145.04
+        ],
+        "thickness": 8.0,
+        "length": 127.23
+      },
+      "start": [
+        311.9,
+        17.93
+      ],
+      "end": [
+        317.5,
+        145.04
+      ],
+      "thickness": 8.0
+    },
+    {
+      "id": "w7",
+      "source": {
+        "start": [
+          374.0,
+          19.0
+        ],
+        "end": [
+          372.0,
+          148.0
+        ],
+        "thickness": 4.0
+      },
+      "geometry": {
+        "start": [
+          374.0,
+          19.0
+        ],
+        "end": [
+          372.0,
+          148.0
+        ],
+        "thickness": 4.0,
+        "length": 129.02
+      },
+      "start": [
+        374.0,
+        19.0
+      ],
+      "end": [
+        372.0,
+        148.0
+      ],
+      "thickness": 4.0
+    },
+    {
+      "id": "w8",
+      "source": {
+        "start": [
+          294.0,
+          144.0
+        ],
+        "end": [
+          343.9,
+          146.2
+        ],
+        "thickness": 4.2
+      },
+      "geometry": {
+        "start": [
+          294.0,
+          144.0
+        ],
+        "end": [
+          343.9,
+          146.2
+        ],
+        "thickness": 4.2,
+        "length": 49.95
+      },
+      "start": [
+        294.0,
+        144.0
+      ],
+      "end": [
+        343.9,
+        146.2
+      ],
+      "thickness": 4.2
+    },
+    {
+      "id": "w9",
+      "source": {
+        "start": [
+          72.0,
+          150.0
+        ],
+        "end": [
+          84.0,
+          150.0
+        ],
+        "thickness": 4.0
+      },
+      "geometry": {
+        "start": [
+          72.0,
+          150.0
+        ],
+        "end": [
+          84.0,
+          150.0
+        ],
+        "thickness": 4.0,
+        "length": 12.0
+      },
+      "start": [
+        72.0,
+        150.0
+      ],
+      "end": [
+        84.0,
+        150.0
+      ],
+      "thickness": 4.0
+    },
+    {
+      "id": "w10",
+      "source": {
+        "start": [
+          374.0,
+          185.0
+        ],
+        "end": [
+          373.0,
+          219.0
+        ],
+        "thickness": 4.1
+      },
+      "geometry": {
+        "start": [
+          374.0,
+          185.0
+        ],
+        "end": [
+          366.0,
+          219.0
+        ],
+        "thickness": 4.1,
+        "length": 34.93
+      },
+      "start": [
+        374.0,
+        185.0
+      ],
+      "end": [
+        366.0,
+        219.0
+      ],
+      "thickness": 4.1
+    },
+    {
+      "id": "w11",
+      "source": {
+        "start": [
+          78.0,
+          190.0
+        ],
+        "end": [
+          80.0,
+          219.0
+        ],
+        "thickness": 12.9
+      },
+      "geometry": {
+        "start": [
+          78.0,
+          190.0
+        ],
+        "end": [
+          80.0,
+          219.0
+        ],
+        "thickness": 12.9,
+        "length": 29.07
+      },
+      "start": [
+        78.0,
+        190.0
+      ],
+      "end": [
+        80.0,
+        219.0
+      ],
+      "thickness": 12.9
+    },
+    {
+      "id": "w12",
+      "source": {
+        "start": [
+          80.0,
+          219.0
+        ],
+        "end": [
+          314.0,
+          218.0
+        ],
+        "thickness": 8.0
+      },
+      "geometry": {
+        "start": [
+          80.0,
+          219.0
+        ],
+        "end": [
+          314.0,
+          218.0
+        ],
+        "thickness": 8.0,
+        "length": 234.0
+      },
+      "start": [
+        80.0,
+        219.0
+      ],
+      "end": [
+        314.0,
+        218.0
+      ],
+      "thickness": 8.0
+    },
+    {
+      "id": "w13",
+      "source": {
+        "start": [
+          506.0,
+          194.0
+        ],
+        "end": [
+          503.0,
+          219.0
+        ],
+        "thickness": 10.2
+      },
+      "geometry": {
+        "start": [
+          506.0,
+          194.0
+        ],
+        "end": [
+          503.0,
+          219.0
+        ],
+        "thickness": 10.2,
+        "length": 25.18
+      },
+      "start": [
+        506.0,
+        194.0
+      ],
+      "end": [
+        503.0,
+        219.0
+      ],
+      "thickness": 10.2
+    },
+    {
+      "id": "w14",
+      "source": {
+        "start": [
+          503.0,
+          219.0
+        ],
+        "end": [
+          359.0,
+          219.0
+        ],
+        "thickness": 10.0
+      },
+      "geometry": {
+        "start": [
+          503.0,
+          219.0
+        ],
+        "end": [
+          366.0,
+          219.0
+        ],
+        "thickness": 10.0,
+        "length": 137.0
+      },
+      "start": [
+        503.0,
+        219.0
+      ],
+      "end": [
+        366.0,
+        219.0
+      ],
+      "thickness": 10.0
+    }
+  ],
+  "doors": [
+    {
+      "id": "d1",
+      "wall_id": "w8",
+      "source": {
+        "position": 1.0,
+        "width": 24.0
+      },
+      "geometry": {
+        "center": [
+          343.9,
+          146.2
+        ],
+        "start": [
+          331.91,
+          145.67
+        ],
+        "end": [
+          355.89,
+          146.73
+        ],
+        "width": 24.0,
+        "offset_from_start": 37.95
+      },
+      "position": 1.0,
+      "width": 24.0
+    },
+    {
+      "id": "d2",
+      "wall_id": "w10",
+      "source": {
+        "position": 0.0,
+        "width": 34.0
+      },
+      "geometry": {
+        "center": [
+          374.0,
+          185.0
+        ],
+        "start": [
+          377.89,
+          168.45
+        ],
+        "end": [
+          370.11,
+          201.55
+        ],
+        "width": 34.0,
+        "offset_from_start": 0.0
+      },
+      "position": 0.0,
+      "width": 34.0
+    },
+    {
+      "id": "d3",
+      "wall_id": "w11",
+      "source": {
+        "position": 0.0,
+        "width": 30.0
+      },
+      "geometry": {
+        "center": [
+          78.0,
+          190.0
+        ],
+        "start": [
+          76.97,
+          175.04
+        ],
+        "end": [
+          79.03,
+          204.96
+        ],
+        "width": 30.0,
+        "offset_from_start": 0.0
+      },
+      "position": 0.0,
+      "width": 30.0
+    },
+    {
+      "id": "d4",
+      "wall_id": "w14",
+      "source": {
+        "position": 1.0,
+        "width": 37.0
+      },
+      "geometry": {
+        "center": [
+          366.0,
+          219.0
+        ],
+        "start": [
+          384.5,
+          219.0
+        ],
+        "end": [
+          347.5,
+          219.0
+        ],
+        "width": 37.0,
+        "offset_from_start": 118.5
+      },
+      "position": 1.0,
+      "width": 37.0
+    }
+  ],
+  "windows": [
+    {
+      "id": "win1",
+      "wall_id": "w3",
+      "source": {
+        "position": 1.0,
+        "width": 17.0
+      },
+      "geometry": {
+        "center": [
+          270.0,
+          19.0
+        ],
+        "start": [
+          278.5,
+          18.78
+        ],
+        "end": [
+          261.5,
+          19.22
+        ],
+        "width": 17.0,
+        "offset_from_start": 50.52
+      },
+      "position": 1.0,
+      "width": 17.0
+    },
+    {
+      "id": "win2",
+      "wall_id": "w3",
+      "source": {
+        "position": 0.0,
+        "width": 19.0
+      },
+      "geometry": {
+        "center": [
+          329.0,
+          17.5
+        ],
+        "start": [
+          338.5,
+          17.26
+        ],
+        "end": [
+          319.5,
+          17.74
+        ],
+        "width": 19.0,
+        "offset_from_start": 0.0
+      },
+      "position": 0.0,
+      "width": 19.0
+    },
+    {
+      "id": "win3",
+      "wall_id": "w2",
+      "source": {
+        "position": 1.0,
+        "width": 69.0
+      },
+      "geometry": {
+        "center": [
+          77.0,
+          73.0
+        ],
+        "start": [
+          78.6,
+          38.54
+        ],
+        "end": [
+          75.4,
+          107.46
+        ],
+        "width": 69.0,
+        "offset_from_start": 19.56
+      },
+      "position": 1.0,
+      "width": 69.0
+    },
+    {
+      "id": "win4",
+      "wall_id": "w5",
+      "source": {
+        "position": 1.0,
+        "width": 45.0
+      },
+      "geometry": {
+        "center": [
+          504.0,
+          137.0
+        ],
+        "start": [
+          503.81,
+          114.5
+        ],
+        "end": [
+          504.19,
+          159.5
+        ],
+        "width": 45.0,
+        "offset_from_start": 96.5
+      },
+      "position": 1.0,
+      "width": 45.0
+    }
+  ],
+  "rooms": [
+    {
+      "id": "room1",
+      "label": "room1",
+      "source": {
+        "polygon": [
+          [
+            85.0,
+            27.0
+          ],
+          [
+            85.0,
+            214.0
+          ],
+          [
+            371.0,
+            214.0
+          ],
+          [
+            371.0,
+            148.0
+          ],
+          [
+            291.0,
+            146.0
+          ],
+          [
+            292.0,
+            142.0
+          ],
+          [
+            316.0,
+            142.0
+          ],
+          [
+            316.0,
+            52.0
+          ],
+          [
+            304.0,
+            51.0
+          ],
+          [
+            304.0,
+            27.0
+          ]
+        ]
+      },
+      "geometry": {
+        "polygon": [
+          [
+            85.0,
+            27.0
+          ],
+          [
+            85.0,
+            214.0
+          ],
+          [
+            371.0,
+            214.0
+          ],
+          [
+            371.0,
+            148.0
+          ],
+          [
+            291.0,
+            146.0
+          ],
+          [
+            292.0,
+            142.0
+          ],
+          [
+            316.0,
+            142.0
+          ],
+          [
+            316.0,
+            52.0
+          ],
+          [
+            304.0,
+            51.0
+          ],
+          [
+            304.0,
+            27.0
+          ]
+        ],
+        "area": 46465.0,
+        "perimeter": 992.19,
+        "bounds": [
+          85.0,
+          27.0,
+          371.0,
+          214.0
+        ],
+        "centroid": [
+          210.85,
+          125.71
+        ],
+        "num_vertices": 10
+      },
+      "polygon": [
+        [
+          85.0,
+          27.0
+        ],
+        [
+          85.0,
+          214.0
+        ],
+        [
+          371.0,
+          214.0
+        ],
+        [
+          371.0,
+          148.0
+        ],
+        [
+          291.0,
+          146.0
+        ],
+        [
+          292.0,
+          142.0
+        ],
+        [
+          316.0,
+          142.0
+        ],
+        [
+          316.0,
+          52.0
+        ],
+        [
+          304.0,
+          51.0
+        ],
+        [
+          304.0,
+          27.0
+        ]
+      ]
+    },
+    {
+      "id": "room2",
+      "label": "room2",
+      "source": {
+        "polygon": [
+          [
+            371.0,
+            27.0
+          ],
+          [
+            321.0,
+            27.0
+          ],
+          [
+            322.0,
+            142.0
+          ],
+          [
+            371.0,
+            142.0
+          ]
+        ]
+      },
+      "geometry": {
+        "polygon": [
+          [
+            371.0,
+            27.0
+          ],
+          [
+            321.0,
+            27.0
+          ],
+          [
+            322.0,
+            142.0
+          ],
+          [
+            371.0,
+            142.0
+          ]
+        ],
+        "area": 5692.5,
+        "perimeter": 329.0,
+        "bounds": [
+          321.0,
+          27.0,
+          371.0,
+          142.0
+        ],
+        "centroid": [
+          346.25,
+          84.31
+        ],
+        "num_vertices": 4
+      },
+      "polygon": [
+        [
+          371.0,
+          27.0
+        ],
+        [
+          321.0,
+          27.0
+        ],
+        [
+          322.0,
+          142.0
+        ],
+        [
+          371.0,
+          142.0
+        ]
+      ]
+    },
+    {
+      "id": "room3",
+      "label": "room3",
+      "source": {
+        "polygon": [
+          [
+            376.0,
+            27.0
+          ],
+          [
+            376.0,
+            214.0
+          ],
+          [
+            499.0,
+            214.0
+          ],
+          [
+            499.0,
+            27.0
+          ]
+        ]
+      },
+      "geometry": {
+        "polygon": [
+          [
+            376.0,
+            27.0
+          ],
+          [
+            376.0,
+            214.0
+          ],
+          [
+            499.0,
+            214.0
+          ],
+          [
+            499.0,
+            27.0
+          ]
+        ],
+        "area": 23001.0,
+        "perimeter": 620.0,
+        "bounds": [
+          376.0,
+          27.0,
+          499.0,
+          214.0
+        ],
+        "centroid": [
+          437.5,
+          120.5
+        ],
+        "num_vertices": 4
+      },
+      "polygon": [
+        [
+          376.0,
+          27.0
+        ],
+        [
+          376.0,
+          214.0
+        ],
+        [
+          499.0,
+          214.0
+        ],
+        [
+          499.0,
+          27.0
+        ]
+      ]
+    }
+  ],
+  "topology_operations": [
+    {
+      "type": "snap_endpoint",
+      "wall_id": "w10",
+      "endpoint": "end",
+      "original": [
+        373.0,
+        219.0
+      ],
+      "snapped": [
+        366.0,
+        219.0
+      ],
+      "distance": 7.0
+    },
+    {
+      "type": "snap_endpoint",
+      "wall_id": "w14",
+      "endpoint": "end",
+      "original": [
+        359.0,
+        219.0
+      ],
+      "snapped": [
+        366.0,
+        219.0
+      ],
+      "distance": 7.0
+    },
+    {
+      "type": "snap_t_junction",
+      "wall_id": "w6",
+      "target_wall_id": "w3",
+      "endpoint": "start",
+      "original": [
+        311.9,
+        17.9
+      ],
+      "snapped": [
+        311.9,
+        17.93
+      ],
+      "distance": 0.03
+    },
+    {
+      "type": "snap_t_junction",
+      "wall_id": "w6",
+      "target_wall_id": "w8",
+      "endpoint": "end",
+      "original": [
+        317.5,
+        145.0
+      ],
+      "snapped": [
+        317.5,
+        145.04
+      ],
+      "distance": 0.04
+    }
+  ],
+  "validation": {
+    "valid": true,
+    "issues": [
+      {
+        "type": "short_wall",
+        "element_type": "wall",
+        "element_id": "w9",
+        "severity": "warning",
+        "message": "Wall 'w9' is unusually short (length 12.00px < 15.0px)"
+      },
+      {
+        "type": "disconnected_wall",
+        "element_type": "wall",
+        "element_id": "w3",
+        "severity": "warning",
+        "message": "Wall 'w3' is isolated and disconnected from all other walls"
+      },
+      {
+        "type": "disconnected_wall",
+        "element_type": "wall",
+        "element_id": "w6",
+        "severity": "warning",
+        "message": "Wall 'w6' is isolated and disconnected from all other walls"
+      },
+      {
+        "type": "disconnected_wall",
+        "element_type": "wall",
+        "element_id": "w8",
+        "severity": "warning",
+        "message": "Wall 'w8' is isolated and disconnected from all other walls"
+      },
+      {
+        "type": "disconnected_wall",
+        "element_type": "wall",
+        "element_id": "w9",
+        "severity": "warning",
+        "message": "Wall 'w9' is isolated and disconnected from all other walls"
+      },
+      {
+        "type": "boundary_door_position",
+        "element_type": "door",
+        "element_id": "d1",
+        "severity": "warning",
+        "message": "Door 'd1' is positioned at the extreme wall boundary (position=1.0)"
+      },
+      {
+        "type": "boundary_door_position",
+        "element_type": "door",
+        "element_id": "d2",
+        "severity": "warning",
+        "message": "Door 'd2' is positioned at the extreme wall boundary (position=0.0)"
+      },
+      {
+        "type": "door_exceeds_wall_length",
+        "element_type": "door",
+        "element_id": "d3",
+        "severity": "warning",
+        "message": "Door 'd3' width (30.00px) exceeds referenced wall 'w11' length (29.07px)"
+      },
+      {
+        "type": "boundary_door_position",
+        "element_type": "door",
+        "element_id": "d3",
+        "severity": "warning",
+        "message": "Door 'd3' is positioned at the extreme wall boundary (position=0.0)"
+      },
+      {
+        "type": "boundary_door_position",
+        "element_type": "door",
+        "element_id": "d4",
+        "severity": "warning",
+        "message": "Door 'd4' is positioned at the extreme wall boundary (position=1.0)"
+      },
+      {
+        "type": "boundary_window_position",
+        "element_type": "window",
+        "element_id": "win1",
+        "severity": "warning",
+        "message": "Window 'win1' is positioned at the extreme wall boundary (position=1.0)"
+      },
+      {
+        "type": "boundary_window_position",
+        "element_type": "window",
+        "element_id": "win2",
+        "severity": "warning",
+        "message": "Window 'win2' is positioned at the extreme wall boundary (position=0.0)"
+      },
+      {
+        "type": "window_exceeds_wall_length",
+        "element_type": "window",
+        "element_id": "win3",
+        "severity": "warning",
+        "message": "Window 'win3' width (69.00px) exceeds referenced wall 'w2' length (54.06px)"
+      },
+      {
+        "type": "boundary_window_position",
+        "element_type": "window",
+        "element_id": "win3",
+        "severity": "warning",
+        "message": "Window 'win3' is positioned at the extreme wall boundary (position=1.0)"
+      },
+      {
+        "type": "boundary_window_position",
+        "element_type": "window",
+        "element_id": "win4",
+        "severity": "warning",
+        "message": "Window 'win4' is positioned at the extreme wall boundary (position=1.0)"
+      }
+    ]
+  }
+}
