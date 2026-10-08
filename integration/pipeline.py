@@ -53,12 +53,53 @@ def reconstruct(
         log.info("[1/6] Validating input: %s", input_path.name)
         usable_img_path, input_warnings = validate_input(input_path)
 
-        # Save original and processed images into output directory
-        orig_dest = run_dir / f"original{input_path.suffix}"
-        proc_dest = run_dir / "processed.png"
-        if input_path != orig_dest:
-            Image.open(input_path).save(orig_dest)
-        Image.open(usable_img_path).save(proc_dest)
+        # Handle direct GLB 3D model input from Member 1 or Member 2
+        if input_path.suffix.lower() == ".glb":
+            log.info("Processing direct 3D GLB model input...")
+            from .glb_parser import parse_glb_to_scene
+            scene_m = parse_glb_to_scene(usable_img_path)
+
+            report["implementations"] = {"ai": "pregenerated_glb", "geometry": "pregenerated_glb", "3d": "pregenerated_glb"}
+            report["scale"] = scene_m.get("scale", {})
+
+            # Validate extracted scene topology
+            is_valid, errors, val_warnings, counters = validate_scene(scene_m)
+            all_warnings = input_warnings + val_warnings
+
+            report["validation"] = {"valid": is_valid, "errors": errors, "warnings": all_warnings}
+            report["geometry_counters"] = counters
+            report["components"] = {
+                "walls": len(scene_m.get("walls", [])),
+                "doors": len(scene_m.get("doors", [])),
+                "windows": len(scene_m.get("windows", [])),
+                "rooms": len(scene_m.get("rooms", [])),
+            }
+
+            scene_json_path = run_dir / "scene.json"
+            with open(scene_json_path, "w", encoding="utf-8") as f:
+                json.dump(scene_m, f, indent=2)
+
+            glb_dest = run_dir / "scene.glb"
+            if usable_img_path != glb_dest:
+                import shutil
+                shutil.copy(usable_img_path, glb_dest)
+
+            def rel_path_str(p: Path) -> str:
+                try:
+                    return str(p.relative_to(OUTPUTS_DIR.parent))
+                except ValueError:
+                    return str(p)
+
+            report["status"] = "success"
+            report["timings_s"] = {"total": round(time.time() - t_start, 3)}
+            report["output"] = {
+                "scene": rel_path_str(scene_json_path),
+                "model": rel_path_str(glb_dest),
+                "report": rel_path_str(run_dir / "report.json"),
+            }
+
+            save_report(run_dir / "report.json", report)
+            return {"scene": scene_m, "glb": str(glb_dest), "report": report}
 
         # Step 2: AI Segmentation
         t0 = time.time()

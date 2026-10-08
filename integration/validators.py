@@ -30,10 +30,14 @@ def validate_input(path: Path | str) -> Tuple[Path, List[str]]:
         raise FileNotFoundError(f"Input file not found: {input_path}")
 
     ext = input_path.suffix.lower()
-    if ext not in [".png", ".jpg", ".jpeg", ".pdf"]:
-        raise ValueError(f"Unsupported file format '{ext}'. Allowed: .png, .jpg, .jpeg, .pdf")
+    if ext not in [".png", ".jpg", ".jpeg", ".pdf", ".glb"]:
+        raise ValueError(f"Unsupported file format '{ext}'. Allowed: .png, .jpg, .jpeg, .pdf, .glb")
 
     usable_path = input_path
+
+    if ext == ".glb":
+        warnings.append("Input is a pre-generated 3D GLB model file.")
+        return usable_path, warnings
 
     if ext == ".pdf":
         try:

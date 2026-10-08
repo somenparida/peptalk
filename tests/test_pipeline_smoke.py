@@ -17,3 +17,13 @@ def test_pipeline_smoke(tmp_path):
     assert (run_folder / "scene.glb").exists()
     assert (run_folder / "report.json").exists()
     assert (run_folder / "wall_mask.png").exists()
+
+
+def test_pipeline_glb_input(tmp_path):
+    glb_img = BASE_DIR / "test_output.glb"
+    if glb_img.exists():
+        res = reconstruct(glb_img, out_root=tmp_path, mode="proposed")
+        assert res["report"]["status"] == "success"
+        run_folder = tmp_path / glb_img.stem
+        assert (run_folder / "scene.json").exists()
+        assert (run_folder / "scene.glb").exists()
