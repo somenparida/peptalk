@@ -59,23 +59,59 @@ def convert_to_metric(
 
     # Scale doors
     for d in scaled_scene.get("doors", []):
-        geom = d["geometry"]
-        geom["center"] = [round(geom["center"][0] * s, 4), round(geom["center"][1] * s, 4)]
-        geom["start"] = [round(geom["start"][0] * s, 4), round(geom["start"][1] * s, 4)]
-        geom["end"] = [round(geom["end"][0] * s, 4), round(geom["end"][1] * s, 4)]
-        geom["width"] = round(geom["width"] * s, 4)
-        geom["offset_from_start"] = round(geom["offset_from_start"] * s, 4)
-        d["width"] = geom["width"]
+        d["width"] = round(float(d.get("width", 0.0)) * s, 4)
+        if "height" in d:
+            d["height"] = round(float(d["height"]) * s, 4)
+        if "offset" in d:
+            d["offset"] = round(float(d["offset"]) * s, 4)
+        if "opening_start" in d:
+            d["opening_start"] = round(float(d["opening_start"]) * s, 4)
+        if "opening_end" in d:
+            d["opening_end"] = round(float(d["opening_end"]) * s, 4)
+
+        geom = d.setdefault("geometry", {})
+        if "center" in geom:
+            geom["center"] = [round(geom["center"][0] * s, 4), round(geom["center"][1] * s, 4)]
+        if "start" in geom:
+            geom["start"] = [round(geom["start"][0] * s, 4), round(geom["start"][1] * s, 4)]
+        if "end" in geom:
+            geom["end"] = [round(geom["end"][0] * s, 4), round(geom["end"][1] * s, 4)]
+        if "opening_start" in geom:
+            geom["opening_start"] = round(geom["opening_start"] * s, 4)
+        if "opening_end" in geom:
+            geom["opening_end"] = round(geom["opening_end"] * s, 4)
+        geom["width"] = d["width"]
+        if "offset" in d:
+            geom["offset"] = d["offset"]
 
     # Scale windows
     for win in scaled_scene.get("windows", []):
-        geom = win["geometry"]
-        geom["center"] = [round(geom["center"][0] * s, 4), round(geom["center"][1] * s, 4)]
-        geom["start"] = [round(geom["start"][0] * s, 4), round(geom["start"][1] * s, 4)]
-        geom["end"] = [round(geom["end"][0] * s, 4), round(geom["end"][1] * s, 4)]
-        geom["width"] = round(geom["width"] * s, 4)
-        geom["offset_from_start"] = round(geom["offset_from_start"] * s, 4)
-        win["width"] = geom["width"]
+        win["width"] = round(float(win.get("width", 0.0)) * s, 4)
+        if "height" in win:
+            win["height"] = round(float(win["height"]) * s, 4)
+        if "sill_height" in win:
+            win["sill_height"] = round(float(win["sill_height"]) * s, 4)
+        if "offset" in win:
+            win["offset"] = round(float(win["offset"]) * s, 4)
+        if "opening_start" in win:
+            win["opening_start"] = round(float(win["opening_start"]) * s, 4)
+        if "opening_end" in win:
+            win["opening_end"] = round(float(win["opening_end"]) * s, 4)
+
+        geom = win.setdefault("geometry", {})
+        if "center" in geom:
+            geom["center"] = [round(geom["center"][0] * s, 4), round(geom["center"][1] * s, 4)]
+        if "start" in geom:
+            geom["start"] = [round(geom["start"][0] * s, 4), round(geom["start"][1] * s, 4)]
+        if "end" in geom:
+            geom["end"] = [round(geom["end"][0] * s, 4), round(geom["end"][1] * s, 4)]
+        if "opening_start" in geom:
+            geom["opening_start"] = round(geom["opening_start"] * s, 4)
+        if "opening_end" in geom:
+            geom["opening_end"] = round(geom["opening_end"] * s, 4)
+        geom["width"] = win["width"]
+        if "offset" in win:
+            geom["offset"] = win["offset"]
 
     # Scale rooms
     for r in scaled_scene.get("rooms", []):

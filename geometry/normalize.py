@@ -8,7 +8,7 @@ and scale conversion into the canonical validated_scene.json specification.
 from __future__ import annotations
 
 import copy
-from typing import Dict, Any, Optional, Tuple
+from typing import Dict, Any, Optional, Tuple, List
 
 from geometry.config import (
     DEFAULT_WALL_HEIGHT_METERS,
@@ -17,6 +17,7 @@ from geometry.config import (
     DEFAULT_WINDOW_HEIGHT_METERS,
     WALL_SNAP_TOLERANCE,
     CORNER_SNAP_TOLERANCE,
+    MERGE_COLLINEAR_FRAGMENTS,
 )
 from geometry.validator import validate_scene
 from geometry.topology import clean_topology
@@ -32,6 +33,7 @@ def normalize_scene(
     scale_confidence: float = 1.0,
     snap_tol: float = WALL_SNAP_TOLERANCE,
     corner_tol: float = CORNER_SNAP_TOLERANCE,
+    merge_collinear: bool = MERGE_COLLINEAR_FRAGMENTS,
 ) -> Tuple[Dict[str, Any], Dict[str, Any]]:
     """
     Main Member 2 pipeline execution.
@@ -40,15 +42,28 @@ def normalize_scene(
     # 1. Initial Validation on raw input
     initial_report = validate_scene(raw_scene)
 
-    # 2. Topology Cleanup (Snapping, Gaps, Provenance)
-    cleaned_scene = clean_topology(raw_scene, snap_tol=snap_tol, corner_tol=corner_tol)
+    # 2. Topology Cleanup (Snapping, Merging, Gaps, Artifacts)
+    cleaned_scene = clean_topology(
+        raw_scene,
+        snap_tol=snap_tol,
+        corner_tol=corner_tol,
+        merge_collinear=merge_collinear
+    )
     cleaned_walls = cleaned_scene["walls"]
     walls_map = {w["id"]: w for w in cleaned_walls}
+    reassignments = cleaned_scene.get("wall_reassignments", {})
+    raw_walls_map = {w["id"]: w for w in raw_scene.get("walls", [])}
 
-    # 3. Process Openings with explicit geometry
+    # 3. Process Openings with explicit geometry and host-wall remapping
     raw_doors = raw_scene.get("doors", [])
     raw_windows = raw_scene.get("windows", [])
-    doors, windows, opening_issues = process_openings(raw_doors, raw_windows, walls_map)
+    doors, windows, opening_issues = process_openings(
+        doors_data=raw_doors,
+        windows_data=raw_windows,
+        walls_map=walls_map,
+        wall_reassignments=reassignments,
+        raw_walls_map=raw_walls_map
+    )
 
     # 4. Process Rooms
     raw_rooms = raw_scene.get("rooms", [])
@@ -78,6 +93,8 @@ def normalize_scene(
             "window_height": DEFAULT_WINDOW_HEIGHT_METERS
         },
         "walls": cleaned_walls,
+        "removed_walls": cleaned_scene.get("removed_walls", []),
+        "wall_reassignments": reassignments,
         "doors": doors,
         "windows": windows,
         "rooms": rooms,
@@ -95,12 +112,43 @@ def normalize_scene(
 
     # 7. Final Validation on normalized output
     final_report = validate_scene(normalized)
-    final_report["issues"].extend(opening_issues)
-    final_report["issues"].extend(room_issues)
+
+    # Merge auxiliary issues from processing into final report
+    existing_keys = {(i["type"], i.get("element_id"), i.get("severity")) for i in final_report["issues"]}
+    for aux_iss in opening_issues + room_issues:
+        key = (aux_iss["type"], aux_iss.get("element_id"), aux_iss.get("severity"))
+        if key not in existing_keys:
+            final_report["issues"].append(aux_iss)
+            existing_keys.add(key)
+
+    # Re-bucket and update summary
+    final_report["errors"] = [i for i in final_report["issues"] if i["severity"].upper() == "ERROR"]
+    final_report["warnings"] = [i for i in final_report["issues"] if i["severity"].upper() == "WARNING"]
+    final_report["info"] = [i for i in final_report["issues"] if i["severity"].upper() == "INFO"]
+    has_errors = len(final_report["errors"]) > 0
+    final_report["valid"] = not has_errors
+    final_report["status"] = "FAIL" if has_errors else "PASS"
+
+    final_report["summary"] = {
+        "status": final_report["status"],
+        "wall_count": len(cleaned_walls),
+        "door_count": len(doors),
+        "window_count": len(windows),
+        "room_count": len(rooms),
+        "error_count": len(final_report["errors"]),
+        "warning_count": len(final_report["warnings"]),
+        "info_count": len(final_report["info"]),
+        "topology_snaps": len(cleaned_scene.get("topology_operations", [])),
+    }
+    final_report["stats"] = final_report["summary"]
 
     normalized["validation"] = {
+        "status": final_report["status"],
         "valid": final_report["valid"],
-        "issues": final_report["issues"]
+        "errors": final_report["errors"],
+        "warnings": final_report["warnings"],
+        "info": final_report["info"],
+        "summary": final_report["summary"]
     }
 
     return normalized, final_report

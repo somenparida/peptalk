@@ -1,119 +1,60 @@
 {
+  "status": "PASS",
   "valid": true,
-  "issues": [
-    {
-      "type": "short_wall",
-      "element_type": "wall",
-      "element_id": "w9",
-      "severity": "warning",
-      "message": "Wall 'w9' is unusually short (length 12.00px < 15.0px)"
-    },
-    {
-      "type": "disconnected_wall",
-      "element_type": "wall",
-      "element_id": "w3",
-      "severity": "warning",
-      "message": "Wall 'w3' is isolated and disconnected from all other walls"
-    },
-    {
-      "type": "disconnected_wall",
-      "element_type": "wall",
-      "element_id": "w6",
-      "severity": "warning",
-      "message": "Wall 'w6' is isolated and disconnected from all other walls"
-    },
-    {
-      "type": "disconnected_wall",
-      "element_type": "wall",
-      "element_id": "w8",
-      "severity": "warning",
-      "message": "Wall 'w8' is isolated and disconnected from all other walls"
-    },
-    {
-      "type": "disconnected_wall",
-      "element_type": "wall",
-      "element_id": "w9",
-      "severity": "warning",
-      "message": "Wall 'w9' is isolated and disconnected from all other walls"
-    },
+  "errors": [],
+  "warnings": [
     {
       "type": "boundary_door_position",
       "element_type": "door",
       "element_id": "d1",
-      "severity": "warning",
-      "message": "Door 'd1' is positioned at the extreme wall boundary (position=1.0)"
+      "severity": "WARNING",
+      "message": "Door 'd1' is positioned at the extreme wall boundary"
     },
     {
       "type": "boundary_door_position",
       "element_type": "door",
       "element_id": "d2",
-      "severity": "warning",
-      "message": "Door 'd2' is positioned at the extreme wall boundary (position=0.0)"
-    },
-    {
-      "type": "door_exceeds_wall_length",
-      "element_type": "door",
-      "element_id": "d3",
-      "severity": "warning",
-      "message": "Door 'd3' width (30.00px) exceeds referenced wall 'w11' length (29.07px)"
-    },
-    {
-      "type": "boundary_door_position",
-      "element_type": "door",
-      "element_id": "d3",
-      "severity": "warning",
-      "message": "Door 'd3' is positioned at the extreme wall boundary (position=0.0)"
-    },
-    {
-      "type": "boundary_door_position",
-      "element_type": "door",
-      "element_id": "d4",
-      "severity": "warning",
-      "message": "Door 'd4' is positioned at the extreme wall boundary (position=1.0)"
-    },
-    {
-      "type": "boundary_window_position",
-      "element_type": "window",
-      "element_id": "win1",
-      "severity": "warning",
-      "message": "Window 'win1' is positioned at the extreme wall boundary (position=1.0)"
-    },
-    {
-      "type": "boundary_window_position",
-      "element_type": "window",
-      "element_id": "win2",
-      "severity": "warning",
-      "message": "Window 'win2' is positioned at the extreme wall boundary (position=0.0)"
-    },
-    {
-      "type": "window_exceeds_wall_length",
-      "element_type": "window",
-      "element_id": "win3",
-      "severity": "warning",
-      "message": "Window 'win3' width (69.00px) exceeds referenced wall 'w2' length (54.06px)"
-    },
-    {
-      "type": "boundary_window_position",
-      "element_type": "window",
-      "element_id": "win3",
-      "severity": "warning",
-      "message": "Window 'win3' is positioned at the extreme wall boundary (position=1.0)"
-    },
-    {
-      "type": "boundary_window_position",
-      "element_type": "window",
-      "element_id": "win4",
-      "severity": "warning",
-      "message": "Window 'win4' is positioned at the extreme wall boundary (position=1.0)"
+      "severity": "WARNING",
+      "message": "Door 'd2' is positioned at the extreme wall boundary"
     }
   ],
-  "stats": {
-    "wall_count": 14,
+  "info": [],
+  "issues": [
+    {
+      "type": "boundary_door_position",
+      "element_type": "door",
+      "element_id": "d1",
+      "severity": "WARNING",
+      "message": "Door 'd1' is positioned at the extreme wall boundary"
+    },
+    {
+      "type": "boundary_door_position",
+      "element_type": "door",
+      "element_id": "d2",
+      "severity": "WARNING",
+      "message": "Door 'd2' is positioned at the extreme wall boundary"
+    }
+  ],
+  "summary": {
+    "status": "PASS",
+    "wall_count": 8,
     "door_count": 4,
     "window_count": 4,
     "room_count": 3,
     "error_count": 0,
-    "warning_count": 15,
-    "short_walls": 1
+    "warning_count": 2,
+    "info_count": 0,
+    "topology_snaps": 13
+  },
+  "stats": {
+    "status": "PASS",
+    "wall_count": 8,
+    "door_count": 4,
+    "window_count": 4,
+    "room_count": 3,
+    "error_count": 0,
+    "warning_count": 2,
+    "info_count": 0,
+    "topology_snaps": 13
   }
 }

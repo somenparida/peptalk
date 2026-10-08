@@ -32,27 +32,34 @@
         ],
         "thickness": 16.0
       },
+      "source_ids": [
+        "w1",
+        "w4",
+        "w3"
+      ],
+      "corrected": true,
+      "correction_reason": "merged_collinear_fragments",
       "geometry": {
         "start": [
-          238.0,
-          18.0
-        ],
-        "end": [
           79.5,
           19.0
         ],
-        "thickness": 16.0,
-        "length": 158.5
+        "end": [
+          503.0,
+          18.0
+        ],
+        "thickness": 15.97,
+        "length": 423.5
       },
       "start": [
-        238.0,
-        18.0
-      ],
-      "end": [
         79.5,
         19.0
       ],
-      "thickness": 16.0
+      "end": [
+        503.0,
+        18.0
+      ],
+      "thickness": 15.97
     },
     {
       "id": "w2",
@@ -67,97 +74,33 @@
         ],
         "thickness": 12.1
       },
+      "source_ids": [
+        "w2",
+        "w11"
+      ],
+      "corrected": true,
+      "correction_reason": "merged_collinear_fragments",
       "geometry": {
         "start": [
           79.5,
           19.0
         ],
         "end": [
-          77.0,
-          73.0
+          80.0,
+          219.0
         ],
-        "thickness": 12.1,
-        "length": 54.06
+        "thickness": 12.5,
+        "length": 200.0
       },
       "start": [
         79.5,
         19.0
       ],
       "end": [
-        77.0,
-        73.0
+        80.0,
+        219.0
       ],
-      "thickness": 12.1
-    },
-    {
-      "id": "w3",
-      "source": {
-        "start": [
-          329.0,
-          17.5
-        ],
-        "end": [
-          270.0,
-          19.0
-        ],
-        "thickness": 15.9
-      },
-      "geometry": {
-        "start": [
-          329.0,
-          17.5
-        ],
-        "end": [
-          270.0,
-          19.0
-        ],
-        "thickness": 15.9,
-        "length": 59.02
-      },
-      "start": [
-        329.0,
-        17.5
-      ],
-      "end": [
-        270.0,
-        19.0
-      ],
-      "thickness": 15.9
-    },
-    {
-      "id": "w4",
-      "source": {
-        "start": [
-          374.0,
-          19.0
-        ],
-        "end": [
-          503.0,
-          18.0
-        ],
-        "thickness": 16.0
-      },
-      "geometry": {
-        "start": [
-          374.0,
-          19.0
-        ],
-        "end": [
-          503.0,
-          18.0
-        ],
-        "thickness": 16.0,
-        "length": 129.0
-      },
-      "start": [
-        374.0,
-        19.0
-      ],
-      "end": [
-        503.0,
-        18.0
-      ],
-      "thickness": 16.0
+      "thickness": 12.5
     },
     {
       "id": "w5",
@@ -172,27 +115,33 @@
         ],
         "thickness": 8.4
       },
+      "source_ids": [
+        "w5",
+        "w13"
+      ],
+      "corrected": true,
+      "correction_reason": "merged_collinear_fragments",
       "geometry": {
         "start": [
           503.0,
           18.0
         ],
         "end": [
-          504.0,
-          137.0
+          503.0,
+          219.0
         ],
-        "thickness": 8.4,
-        "length": 119.0
+        "thickness": 9.3,
+        "length": 201.0
       },
       "start": [
         503.0,
         18.0
       ],
       "end": [
-        504.0,
-        137.0
+        503.0,
+        219.0
       ],
-      "thickness": 8.4
+      "thickness": 9.3
     },
     {
       "id": "w6",
@@ -210,18 +159,18 @@
       "geometry": {
         "start": [
           311.9,
-          17.93
+          18.45
         ],
         "end": [
           317.5,
           145.04
         ],
         "thickness": 8.0,
-        "length": 127.23
+        "length": 126.71
       },
       "start": [
         311.9,
-        17.93
+        18.45
       ],
       "end": [
         317.5,
@@ -245,18 +194,18 @@
       "geometry": {
         "start": [
           374.0,
-          19.0
+          18.3
         ],
         "end": [
           372.0,
           148.0
         ],
         "thickness": 4.0,
-        "length": 129.02
+        "length": 129.72
       },
       "start": [
         374.0,
-        19.0
+        18.3
       ],
       "end": [
         372.0,
@@ -300,41 +249,6 @@
       "thickness": 4.2
     },
     {
-      "id": "w9",
-      "source": {
-        "start": [
-          72.0,
-          150.0
-        ],
-        "end": [
-          84.0,
-          150.0
-        ],
-        "thickness": 4.0
-      },
-      "geometry": {
-        "start": [
-          72.0,
-          150.0
-        ],
-        "end": [
-          84.0,
-          150.0
-        ],
-        "thickness": 4.0,
-        "length": 12.0
-      },
-      "start": [
-        72.0,
-        150.0
-      ],
-      "end": [
-        84.0,
-        150.0
-      ],
-      "thickness": 4.0
-    },
-    {
       "id": "w10",
       "source": {
         "start": [
@@ -370,41 +284,6 @@
       "thickness": 4.1
     },
     {
-      "id": "w11",
-      "source": {
-        "start": [
-          78.0,
-          190.0
-        ],
-        "end": [
-          80.0,
-          219.0
-        ],
-        "thickness": 12.9
-      },
-      "geometry": {
-        "start": [
-          78.0,
-          190.0
-        ],
-        "end": [
-          80.0,
-          219.0
-        ],
-        "thickness": 12.9,
-        "length": 29.07
-      },
-      "start": [
-        78.0,
-        190.0
-      ],
-      "end": [
-        80.0,
-        219.0
-      ],
-      "thickness": 12.9
-    },
-    {
       "id": "w12",
       "source": {
         "start": [
@@ -417,309 +296,375 @@
         ],
         "thickness": 8.0
       },
+      "source_ids": [
+        "w12",
+        "w14"
+      ],
+      "corrected": true,
+      "correction_reason": "merged_collinear_fragments",
       "geometry": {
         "start": [
           80.0,
           219.0
         ],
         "end": [
-          314.0,
-          218.0
+          503.0,
+          219.0
         ],
-        "thickness": 8.0,
-        "length": 234.0
+        "thickness": 9.0,
+        "length": 423.0
       },
       "start": [
         80.0,
         219.0
       ],
       "end": [
-        314.0,
-        218.0
-      ],
-      "thickness": 8.0
-    },
-    {
-      "id": "w13",
-      "source": {
-        "start": [
-          506.0,
-          194.0
-        ],
-        "end": [
-          503.0,
-          219.0
-        ],
-        "thickness": 10.2
-      },
-      "geometry": {
-        "start": [
-          506.0,
-          194.0
-        ],
-        "end": [
-          503.0,
-          219.0
-        ],
-        "thickness": 10.2,
-        "length": 25.18
-      },
-      "start": [
-        506.0,
-        194.0
-      ],
-      "end": [
         503.0,
         219.0
       ],
-      "thickness": 10.2
-    },
-    {
-      "id": "w14",
-      "source": {
-        "start": [
-          503.0,
-          219.0
-        ],
-        "end": [
-          359.0,
-          219.0
-        ],
-        "thickness": 10.0
-      },
-      "geometry": {
-        "start": [
-          503.0,
-          219.0
-        ],
-        "end": [
-          366.0,
-          219.0
-        ],
-        "thickness": 10.0,
-        "length": 137.0
-      },
-      "start": [
-        503.0,
-        219.0
-      ],
-      "end": [
-        366.0,
-        219.0
-      ],
-      "thickness": 10.0
+      "thickness": 9.0
     }
   ],
+  "removed_walls": [
+    {
+      "id": "w9",
+      "source": {
+        "start": [
+          72.0,
+          150.0
+        ],
+        "end": [
+          84.0,
+          150.0
+        ],
+        "thickness": 4.0
+      },
+      "geometry": {
+        "start": [
+          72.0,
+          150.0
+        ],
+        "end": [
+          84.0,
+          150.0
+        ],
+        "thickness": 4.0,
+        "length": 12.0
+      },
+      "start": [
+        72.0,
+        150.0
+      ],
+      "end": [
+        84.0,
+        150.0
+      ],
+      "thickness": 4.0,
+      "corrected": true,
+      "correction_reason": "extraction_artifact_in_opening_gap"
+    }
+  ],
+  "wall_reassignments": {
+    "w4": "w1",
+    "w3": "w1",
+    "w11": "w2",
+    "w13": "w5",
+    "w14": "w12"
+  },
   "doors": [
     {
       "id": "d1",
+      "type": "door",
       "wall_id": "w8",
+      "source_wall_id": "w8",
+      "corrected": false,
+      "correction_reason": null,
       "source": {
+        "wall_id": "w8",
         "position": 1.0,
         "width": 24.0
       },
+      "offset": 37.95,
+      "width": 24.0,
+      "height": 2.1,
+      "opening_start": 25.95,
+      "opening_end": 49.95,
       "geometry": {
         "center": [
-          343.9,
-          146.2
-        ],
-        "start": [
           331.91,
           145.67
         ],
-        "end": [
-          355.89,
-          146.73
+        "start": [
+          319.92,
+          145.14
         ],
-        "width": 24.0,
-        "offset_from_start": 37.95
+        "end": [
+          343.9,
+          146.2
+        ],
+        "opening_start": 25.95,
+        "opening_end": 49.95,
+        "fits_within_wall": true
       },
-      "position": 1.0,
-      "width": 24.0
+      "position": 0.7598
     },
     {
       "id": "d2",
+      "type": "door",
       "wall_id": "w10",
+      "source_wall_id": "w10",
+      "corrected": false,
+      "correction_reason": null,
       "source": {
+        "wall_id": "w10",
         "position": 0.0,
         "width": 34.0
       },
+      "offset": 17.0,
+      "width": 34.0,
+      "height": 2.1,
+      "opening_start": 0.0,
+      "opening_end": 34.0,
       "geometry": {
         "center": [
-          374.0,
-          185.0
-        ],
-        "start": [
-          377.89,
-          168.45
-        ],
-        "end": [
           370.11,
           201.55
         ],
-        "width": 34.0,
-        "offset_from_start": 0.0
+        "start": [
+          374.0,
+          185.0
+        ],
+        "end": [
+          366.21,
+          218.1
+        ],
+        "opening_start": 0.0,
+        "opening_end": 34.0,
+        "fits_within_wall": true
       },
-      "position": 0.0,
-      "width": 34.0
+      "position": 0.4867
     },
     {
       "id": "d3",
-      "wall_id": "w11",
+      "type": "door",
+      "wall_id": "w2",
+      "source_wall_id": "w11",
+      "corrected": true,
+      "correction_reason": "host_wall_reassigned_after_topology_cleanup",
       "source": {
+        "wall_id": "w11",
         "position": 0.0,
         "width": 30.0
       },
+      "offset": 171.0,
+      "width": 30.0,
+      "height": 2.1,
+      "opening_start": 156.0,
+      "opening_end": 186.0,
       "geometry": {
         "center": [
-          78.0,
+          79.93,
           190.0
         ],
         "start": [
-          76.97,
-          175.04
+          79.89,
+          175.0
         ],
         "end": [
-          79.03,
-          204.96
+          79.96,
+          205.0
         ],
-        "width": 30.0,
-        "offset_from_start": 0.0
+        "opening_start": 156.0,
+        "opening_end": 186.0,
+        "fits_within_wall": true
       },
-      "position": 0.0,
-      "width": 30.0
+      "position": 0.855
     },
     {
       "id": "d4",
-      "wall_id": "w14",
+      "type": "door",
+      "wall_id": "w12",
+      "source_wall_id": "w14",
+      "corrected": true,
+      "correction_reason": "host_wall_reassigned_after_topology_cleanup",
       "source": {
+        "wall_id": "w14",
         "position": 1.0,
         "width": 37.0
       },
+      "offset": 279.0,
+      "width": 37.0,
+      "height": 2.1,
+      "opening_start": 260.5,
+      "opening_end": 297.5,
       "geometry": {
         "center": [
-          366.0,
+          359.0,
           219.0
         ],
         "start": [
-          384.5,
+          340.5,
           219.0
         ],
         "end": [
-          347.5,
+          377.5,
           219.0
         ],
-        "width": 37.0,
-        "offset_from_start": 118.5
+        "opening_start": 260.5,
+        "opening_end": 297.5,
+        "fits_within_wall": true
       },
-      "position": 1.0,
-      "width": 37.0
+      "position": 0.6596
     }
   ],
   "windows": [
     {
       "id": "win1",
-      "wall_id": "w3",
+      "type": "window",
+      "wall_id": "w1",
+      "source_wall_id": "w3",
+      "corrected": true,
+      "correction_reason": "host_wall_reassigned_after_topology_cleanup",
       "source": {
+        "wall_id": "w3",
         "position": 1.0,
         "width": 17.0
       },
+      "offset": 190.5,
+      "width": 17.0,
+      "height": 1.2,
+      "sill_height": 0.9,
+      "opening_start": 182.0,
+      "opening_end": 199.0,
       "geometry": {
         "center": [
           270.0,
-          19.0
+          18.55
         ],
         "start": [
-          278.5,
-          18.78
+          261.5,
+          18.57
         ],
         "end": [
-          261.5,
-          19.22
+          278.5,
+          18.53
         ],
-        "width": 17.0,
-        "offset_from_start": 50.52
+        "opening_start": 182.0,
+        "opening_end": 199.0,
+        "fits_within_wall": true
       },
-      "position": 1.0,
-      "width": 17.0
+      "position": 0.4498
     },
     {
       "id": "win2",
-      "wall_id": "w3",
+      "type": "window",
+      "wall_id": "w1",
+      "source_wall_id": "w3",
+      "corrected": true,
+      "correction_reason": "host_wall_reassigned_after_topology_cleanup",
       "source": {
+        "wall_id": "w3",
         "position": 0.0,
         "width": 19.0
       },
+      "offset": 249.5,
+      "width": 19.0,
+      "height": 1.2,
+      "sill_height": 0.9,
+      "opening_start": 240.0,
+      "opening_end": 259.0,
       "geometry": {
         "center": [
           329.0,
-          17.5
+          18.41
         ],
         "start": [
-          338.5,
-          17.26
+          319.5,
+          18.43
         ],
         "end": [
-          319.5,
-          17.74
+          338.5,
+          18.39
         ],
-        "width": 19.0,
-        "offset_from_start": 0.0
+        "opening_start": 240.0,
+        "opening_end": 259.0,
+        "fits_within_wall": true
       },
-      "position": 0.0,
-      "width": 19.0
+      "position": 0.5891
     },
     {
       "id": "win3",
+      "type": "window",
       "wall_id": "w2",
+      "source_wall_id": "w2",
+      "corrected": false,
+      "correction_reason": null,
       "source": {
+        "wall_id": "w2",
         "position": 1.0,
         "width": 69.0
       },
+      "offset": 53.99,
+      "width": 69.0,
+      "height": 1.2,
+      "sill_height": 0.9,
+      "opening_start": 19.49,
+      "opening_end": 88.49,
       "geometry": {
         "center": [
-          77.0,
-          73.0
+          79.63,
+          72.99
         ],
         "start": [
-          78.6,
-          38.54
+          79.55,
+          38.49
         ],
         "end": [
-          75.4,
-          107.46
+          79.72,
+          107.49
         ],
-        "width": 69.0,
-        "offset_from_start": 19.56
+        "opening_start": 19.49,
+        "opening_end": 88.49,
+        "fits_within_wall": true
       },
-      "position": 1.0,
-      "width": 69.0
+      "position": 0.2699
     },
     {
       "id": "win4",
+      "type": "window",
       "wall_id": "w5",
+      "source_wall_id": "w5",
+      "corrected": false,
+      "correction_reason": null,
       "source": {
+        "wall_id": "w5",
         "position": 1.0,
         "width": 45.0
       },
+      "offset": 119.0,
+      "width": 45.0,
+      "height": 1.2,
+      "sill_height": 0.9,
+      "opening_start": 96.5,
+      "opening_end": 141.5,
       "geometry": {
         "center": [
-          504.0,
+          503.0,
           137.0
         ],
         "start": [
-          503.81,
+          503.0,
           114.5
         ],
         "end": [
-          504.19,
+          503.0,
           159.5
         ],
-        "width": 45.0,
-        "offset_from_start": 96.5
+        "opening_start": 96.5,
+        "opening_end": 141.5,
+        "fits_within_wall": true
       },
-      "position": 1.0,
-      "width": 45.0
+      "position": 0.592
     }
   ],
   "rooms": [
@@ -1024,6 +969,7 @@
   "topology_operations": [
     {
       "type": "snap_endpoint",
+      "severity": "INFO",
       "wall_id": "w10",
       "endpoint": "end",
       "original": [
@@ -1038,6 +984,7 @@
     },
     {
       "type": "snap_endpoint",
+      "severity": "INFO",
       "wall_id": "w14",
       "endpoint": "end",
       "original": [
@@ -1052,6 +999,7 @@
     },
     {
       "type": "snap_t_junction",
+      "severity": "INFO",
       "wall_id": "w6",
       "target_wall_id": "w3",
       "endpoint": "start",
@@ -1067,6 +1015,7 @@
     },
     {
       "type": "snap_t_junction",
+      "severity": "INFO",
       "wall_id": "w6",
       "target_wall_id": "w8",
       "endpoint": "end",
@@ -1079,116 +1028,129 @@
         145.04
       ],
       "distance": 0.04
+    },
+    {
+      "type": "remove_artifact_wall",
+      "severity": "INFO",
+      "wall_id": "w9",
+      "length": 12.0,
+      "reason": "Wall is an extraction artifact in an opening gap"
+    },
+    {
+      "type": "merge_wall_fragment",
+      "severity": "INFO",
+      "absorbed_wall_id": "w4",
+      "target_wall_id": "w1",
+      "reason": "Merged into continuous architectural host wall"
+    },
+    {
+      "type": "merge_wall_fragment",
+      "severity": "INFO",
+      "absorbed_wall_id": "w3",
+      "target_wall_id": "w1",
+      "reason": "Merged into continuous architectural host wall"
+    },
+    {
+      "type": "merge_wall_fragment",
+      "severity": "INFO",
+      "absorbed_wall_id": "w11",
+      "target_wall_id": "w2",
+      "reason": "Merged into continuous architectural host wall"
+    },
+    {
+      "type": "merge_wall_fragment",
+      "severity": "INFO",
+      "absorbed_wall_id": "w13",
+      "target_wall_id": "w5",
+      "reason": "Merged into continuous architectural host wall"
+    },
+    {
+      "type": "merge_wall_fragment",
+      "severity": "INFO",
+      "absorbed_wall_id": "w14",
+      "target_wall_id": "w12",
+      "reason": "Merged into continuous architectural host wall"
+    },
+    {
+      "type": "snap_t_junction",
+      "severity": "INFO",
+      "wall_id": "w6",
+      "target_wall_id": "w1",
+      "endpoint": "start",
+      "original": [
+        311.9,
+        17.93
+      ],
+      "snapped": [
+        311.9,
+        18.45
+      ],
+      "distance": 0.52
+    },
+    {
+      "type": "snap_t_junction",
+      "severity": "INFO",
+      "wall_id": "w6",
+      "target_wall_id": "w8",
+      "endpoint": "end",
+      "original": [
+        317.5,
+        145.04
+      ],
+      "snapped": [
+        317.5,
+        145.04
+      ],
+      "distance": 0.0
+    },
+    {
+      "type": "snap_t_junction",
+      "severity": "INFO",
+      "wall_id": "w7",
+      "target_wall_id": "w1",
+      "endpoint": "start",
+      "original": [
+        374.0,
+        19.0
+      ],
+      "snapped": [
+        374.0,
+        18.3
+      ],
+      "distance": 0.7
     }
   ],
   "validation": {
+    "status": "PASS",
     "valid": true,
-    "issues": [
-      {
-        "type": "short_wall",
-        "element_type": "wall",
-        "element_id": "w9",
-        "severity": "warning",
-        "message": "Wall 'w9' is unusually short (length 12.00px < 15.0px)"
-      },
-      {
-        "type": "disconnected_wall",
-        "element_type": "wall",
-        "element_id": "w3",
-        "severity": "warning",
-        "message": "Wall 'w3' is isolated and disconnected from all other walls"
-      },
-      {
-        "type": "disconnected_wall",
-        "element_type": "wall",
-        "element_id": "w6",
-        "severity": "warning",
-        "message": "Wall 'w6' is isolated and disconnected from all other walls"
-      },
-      {
-        "type": "disconnected_wall",
-        "element_type": "wall",
-        "element_id": "w8",
-        "severity": "warning",
-        "message": "Wall 'w8' is isolated and disconnected from all other walls"
-      },
-      {
-        "type": "disconnected_wall",
-        "element_type": "wall",
-        "element_id": "w9",
-        "severity": "warning",
-        "message": "Wall 'w9' is isolated and disconnected from all other walls"
-      },
+    "errors": [],
+    "warnings": [
       {
         "type": "boundary_door_position",
         "element_type": "door",
         "element_id": "d1",
-        "severity": "warning",
-        "message": "Door 'd1' is positioned at the extreme wall boundary (position=1.0)"
+        "severity": "WARNING",
+        "message": "Door 'd1' is positioned at the extreme wall boundary"
       },
       {
         "type": "boundary_door_position",
         "element_type": "door",
         "element_id": "d2",
-        "severity": "warning",
-        "message": "Door 'd2' is positioned at the extreme wall boundary (position=0.0)"
-      },
-      {
-        "type": "door_exceeds_wall_length",
-        "element_type": "door",
-        "element_id": "d3",
-        "severity": "warning",
-        "message": "Door 'd3' width (30.00px) exceeds referenced wall 'w11' length (29.07px)"
-      },
-      {
-        "type": "boundary_door_position",
-        "element_type": "door",
-        "element_id": "d3",
-        "severity": "warning",
-        "message": "Door 'd3' is positioned at the extreme wall boundary (position=0.0)"
-      },
-      {
-        "type": "boundary_door_position",
-        "element_type": "door",
-        "element_id": "d4",
-        "severity": "warning",
-        "message": "Door 'd4' is positioned at the extreme wall boundary (position=1.0)"
-      },
-      {
-        "type": "boundary_window_position",
-        "element_type": "window",
-        "element_id": "win1",
-        "severity": "warning",
-        "message": "Window 'win1' is positioned at the extreme wall boundary (position=1.0)"
-      },
-      {
-        "type": "boundary_window_position",
-        "element_type": "window",
-        "element_id": "win2",
-        "severity": "warning",
-        "message": "Window 'win2' is positioned at the extreme wall boundary (position=0.0)"
-      },
-      {
-        "type": "window_exceeds_wall_length",
-        "element_type": "window",
-        "element_id": "win3",
-        "severity": "warning",
-        "message": "Window 'win3' width (69.00px) exceeds referenced wall 'w2' length (54.06px)"
-      },
-      {
-        "type": "boundary_window_position",
-        "element_type": "window",
-        "element_id": "win3",
-        "severity": "warning",
-        "message": "Window 'win3' is positioned at the extreme wall boundary (position=1.0)"
-      },
-      {
-        "type": "boundary_window_position",
-        "element_type": "window",
-        "element_id": "win4",
-        "severity": "warning",
-        "message": "Window 'win4' is positioned at the extreme wall boundary (position=1.0)"
+        "severity": "WARNING",
+        "message": "Door 'd2' is positioned at the extreme wall boundary"
       }
-    ]
+    ],
+    "info": [],
+    "summary": {
+      "status": "PASS",
+      "wall_count": 8,
+      "door_count": 4,
+      "window_count": 4,
+      "room_count": 3,
+      "error_count": 0,
+      "warning_count": 2,
+      "info_count": 0,
+      "topology_snaps": 13
+    }
   }
 }

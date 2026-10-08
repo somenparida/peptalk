@@ -1,8 +1,9 @@
 """
 Phase 1: Geometry Validator Module for Member 2.
 
-Performs comprehensive validation of raw scene.json inputs from Member 1:
-structural integrity, coordinate validity, topological anomalies, and relational sanity.
+Performs comprehensive validation of scene inputs (both raw and normalized):
+structural integrity, coordinate validity, topological connectivity, opening bounds,
+and polygon sanity. Implements 3-tier severity classification: ERROR, WARNING, INFO.
 """
 
 from __future__ import annotations
@@ -29,10 +30,26 @@ def _is_valid_point(pt: Any) -> bool:
         return False
 
 
+def _point_to_segment_dist(pt: Tuple[float, float], seg_s: Tuple[float, float], seg_e: Tuple[float, float]) -> float:
+    """Returns minimum Euclidean distance from point to finite segment."""
+    px, py = pt
+    x1, y1 = seg_s
+    x2, y2 = seg_e
+    dx = x2 - x1
+    dy = y2 - y1
+    seg_len_sq = dx * dx + dy * dy
+    if seg_len_sq < 1e-6:
+        return math.hypot(px - x1, py - y1)
+    t = max(0.0, min(1.0, ((px - x1) * dx + (py - y1) * dy) / seg_len_sq))
+    proj_x = x1 + t * dx
+    proj_y = y1 + t * dy
+    return math.hypot(px - proj_x, py - proj_y)
+
+
 def validate_scene(scene: Dict[str, Any]) -> Dict[str, Any]:
     """
-    Validates raw scene.json against structural, geometric, and relational rules.
-    Returns a structured validation report without modifying or discarding any geometry.
+    Validates scene geometry against structural, topological, and opening rules.
+    Returns structured report with tiered severity: ERROR, WARNING, INFO.
     """
     issues: List[Dict[str, Any]] = []
 
@@ -41,21 +58,27 @@ def validate_scene(scene: Dict[str, Any]) -> Dict[str, Any]:
             "type": issue_type,
             "element_type": element_type,
             "element_id": element_id,
-            "severity": severity,
+            "severity": severity.upper(),
             "message": message
         })
 
     if not isinstance(scene, dict):
+        err = {
+            "type": "invalid_schema",
+            "element_type": "scene",
+            "element_id": "root",
+            "severity": "ERROR",
+            "message": "Scene data must be a JSON object"
+        }
         return {
+            "status": "FAIL",
             "valid": False,
-            "issues": [{
-                "type": "invalid_schema",
-                "element_type": "scene",
-                "element_id": "root",
-                "severity": "error",
-                "message": "Scene data must be a JSON object"
-            }],
-            "stats": {}
+            "errors": [err],
+            "warnings": [],
+            "info": [],
+            "issues": [err],
+            "summary": {"status": "FAIL", "error_count": 1, "warning_count": 0, "info_count": 0},
+            "stats": {"error_count": 1, "warning_count": 0}
         }
 
     is_meters = str(scene.get("units", "pixels")).lower() in ["meters", "meter", "m"]
@@ -73,50 +96,58 @@ def validate_scene(scene: Dict[str, Any]) -> Dict[str, Any]:
     # 1. Wall Validation
     # ---------------------------------------------------------
     valid_walls_map: Dict[str, Dict[str, Any]] = {}
-    wall_endpoints: List[Tuple[str, str, Tuple[float, float]]] = []
 
     for idx, w in enumerate(raw_walls):
         w_id = str(w.get("id", f"wall_{idx+1}")) if isinstance(w, dict) else f"wall_{idx+1}"
 
         if not isinstance(w, dict):
-            add_issue("invalid_wall_entry", w_id, "error", f"Wall at index {idx} is not an object", "wall")
+            add_issue("invalid_wall_entry", w_id, "ERROR", f"Wall at index {idx} is not an object", "wall")
             continue
 
         # Check required fields
         for field in ["id", "start", "end", "thickness"]:
-            if field not in w:
-                add_issue("missing_wall_field", w_id, "error", f"Wall '{w_id}' is missing required field '{field}'", "wall")
+            if field not in w and (field not in w.get("geometry", {})):
+                add_issue("missing_wall_field", w_id, "ERROR", f"Wall '{w_id}' is missing required field '{field}'", "wall")
 
-        # Check coordinates
-        start_valid = _is_valid_point(w.get("start"))
-        end_valid = _is_valid_point(w.get("end"))
+        # Resolve coordinates (from top-level or nested geometry)
+        w_geom = w.get("geometry", {})
+        start_pt = w.get("start", w_geom.get("start"))
+        end_pt = w.get("end", w_geom.get("end"))
+
+        start_valid = _is_valid_point(start_pt)
+        end_valid = _is_valid_point(end_pt)
 
         if not start_valid or not end_valid:
-            add_issue("invalid_coordinates", w_id, "error", f"Wall '{w_id}' has invalid or non-numeric start/end coordinates", "wall")
+            add_issue("invalid_coordinates", w_id, "ERROR", f"Wall '{w_id}' has invalid or non-numeric start/end coordinates", "wall")
             continue
 
-        p_start = (float(w["start"][0]), float(w["start"][1]))
-        p_end = (float(w["end"][0]), float(w["end"][1]))
+        p_start = (float(start_pt[0]), float(start_pt[1]))
+        p_end = (float(end_pt[0]), float(end_pt[1]))
 
         # Check thickness
-        thickness = w.get("thickness")
+        thickness = w.get("thickness", w_geom.get("thickness"))
         try:
             th_val = float(thickness)
             if not math.isfinite(th_val) or th_val <= 0.0:
-                add_issue("invalid_thickness", w_id, "error", f"Wall '{w_id}' thickness ({thickness}) must be a positive finite number", "wall")
+                add_issue("invalid_thickness", w_id, "ERROR", f"Wall '{w_id}' thickness ({thickness}) must be a positive finite number", "wall")
+            else:
+                max_th = 1.0 if is_meters else 100.0
+                min_th = 0.05 if is_meters else 2.0
+                if th_val < min_th or th_val > max_th:
+                    add_issue("unusual_wall_thickness", w_id, "WARNING", f"Wall '{w_id}' thickness ({th_val:.2f}{unit_str}) is unusual", "wall")
         except (ValueError, TypeError):
-            add_issue("invalid_thickness", w_id, "error", f"Wall '{w_id}' thickness ({thickness}) is not a valid number", "wall")
+            add_issue("invalid_thickness", w_id, "ERROR", f"Wall '{w_id}' thickness ({thickness}) is not a valid number", "wall")
 
         # Check length & zero-length
         length = math.hypot(p_end[0] - p_start[0], p_end[1] - p_start[1])
         if length < 1e-4:
-            add_issue("zero_length_wall", w_id, "error", f"Wall '{w_id}' has zero or near-zero length ({length:.4f})", "wall")
+            add_issue("zero_length_wall", w_id, "ERROR", f"Wall '{w_id}' has zero or near-zero length ({length:.4f})", "wall")
         elif length < min_wall_len:
-            add_issue("short_wall", w_id, "warning", f"Wall '{w_id}' is unusually short (length {length:.2f}{unit_str} < {min_wall_len}{unit_str})", "wall")
+            add_issue("short_wall", w_id, "WARNING", f"Wall '{w_id}' is unusually short (length {length:.2f}{unit_str} < {min_wall_len}{unit_str})", "wall")
 
         # Check duplicate wall IDs
         if w_id in valid_walls_map:
-            add_issue("duplicate_wall_id", w_id, "error", f"Duplicate wall ID '{w_id}' detected", "wall")
+            add_issue("duplicate_wall_id", w_id, "ERROR", f"Duplicate wall ID '{w_id}' detected", "wall")
 
         valid_walls_map[w_id] = {
             "id": w_id,
@@ -126,8 +157,6 @@ def validate_scene(scene: Dict[str, Any]) -> Dict[str, Any]:
             "thickness": float(thickness) if isinstance(thickness, (int, float)) else 10.0,
             "raw": w
         }
-        wall_endpoints.append((w_id, "start", p_start))
-        wall_endpoints.append((w_id, "end", p_end))
 
     # Detect duplicate or nearly duplicate walls
     wall_ids = list(valid_walls_map.keys())
@@ -141,23 +170,44 @@ def validate_scene(scene: Dict[str, Any]) -> Dict[str, Any]:
                     math.hypot(w1["end"][0] - w2["start"][0], w1["end"][1] - w2["start"][1])
             dup_thresh = 0.05 if is_meters else 2.0
             if min(d_direct, d_rev) < dup_thresh:
-                add_issue("duplicate_wall_geometry", w1["id"], "warning",
+                add_issue("duplicate_wall_geometry", w1["id"], "WARNING",
                           f"Wall '{w1['id']}' and '{w2['id']}' are nearly identical duplicate segments", "wall")
 
-    # Detect disconnected / isolated walls
-    for w_id, w_info in valid_walls_map.items():
-        connected_start = False
-        connected_end = False
-        for other_id, pt_type, pt in wall_endpoints:
-            if other_id == w_id:
+    # Detect disconnected / isolated walls (accounting for endpoint-to-endpoint and T-junctions)
+    for i, w1_id in enumerate(wall_ids):
+        w1 = valid_walls_map[w1_id]
+        has_connection = False
+
+        for j, w2_id in enumerate(wall_ids):
+            if i == j:
                 continue
-            if math.hypot(w_info["start"][0] - pt[0], w_info["start"][1] - pt[1]) <= snap_tol:
-                connected_start = True
-            if math.hypot(w_info["end"][0] - pt[0], w_info["end"][1] - pt[1]) <= snap_tol:
-                connected_end = True
-        if not connected_start and not connected_end:
-            add_issue("disconnected_wall", w_id, "warning",
-                      f"Wall '{w_id}' is isolated and disconnected from all other walls", "wall")
+            w2 = valid_walls_map[w2_id]
+            # 1. Endpoint-to-endpoint distance
+            d_ss = math.hypot(w1["start"][0] - w2["start"][0], w1["start"][1] - w2["start"][1])
+            d_se = math.hypot(w1["start"][0] - w2["end"][0], w1["start"][1] - w2["end"][1])
+            d_es = math.hypot(w1["end"][0] - w2["start"][0], w1["end"][1] - w2["start"][1])
+            d_ee = math.hypot(w1["end"][0] - w2["end"][0], w1["end"][1] - w2["end"][1])
+            if min(d_ss, d_se, d_es, d_ee) <= snap_tol:
+                has_connection = True
+                break
+
+            # 2. T-junctions: w1 endpoint touching w2 body
+            d_s_body = _point_to_segment_dist(w1["start"], w2["start"], w2["end"])
+            d_e_body = _point_to_segment_dist(w1["end"], w2["start"], w2["end"])
+            if min(d_s_body, d_e_body) <= snap_tol:
+                has_connection = True
+                break
+
+            # 3. T-junctions: w2 endpoint touching w1 body
+            d_w2s_body = _point_to_segment_dist(w2["start"], w1["start"], w1["end"])
+            d_w2e_body = _point_to_segment_dist(w2["end"], w1["start"], w1["end"])
+            if min(d_w2s_body, d_w2e_body) <= snap_tol:
+                has_connection = True
+                break
+
+        if not has_connection and len(wall_ids) > 1:
+            add_issue("disconnected_wall", w1_id, "WARNING",
+                      f"Wall '{w1_id}' is isolated and disconnected from all other walls", "wall")
 
     # ---------------------------------------------------------
     # 2. Door Validation
@@ -166,42 +216,64 @@ def validate_scene(scene: Dict[str, Any]) -> Dict[str, Any]:
         d_id = str(d.get("id", f"door_{idx+1}")) if isinstance(d, dict) else f"door_{idx+1}"
 
         if not isinstance(d, dict):
-            add_issue("invalid_door_entry", d_id, "error", f"Door at index {idx} is not an object", "door")
+            add_issue("invalid_door_entry", d_id, "ERROR", f"Door at index {idx} is not an object", "door")
             continue
 
         w_ref = d.get("wall_id")
         if not w_ref or w_ref not in valid_walls_map:
-            add_issue("missing_wall_reference", d_id, "error",
+            add_issue("missing_wall_reference", d_id, "ERROR",
                       f"Door '{d_id}' references non-existent wall '{w_ref}'", "door")
             continue
 
         wall = valid_walls_map[w_ref]
+        wall_len = wall["length"]
 
         # Width check
         width = d.get("width")
         try:
             w_val = float(width)
             if not math.isfinite(w_val) or w_val <= 0.0:
-                add_issue("invalid_door_width", d_id, "error",
+                add_issue("invalid_door_width", d_id, "ERROR",
                           f"Door '{d_id}' width ({width}) must be a positive number", "door")
-            elif w_val > wall["length"]:
-                add_issue("door_exceeds_wall_length", d_id, "warning",
-                          f"Door '{d_id}' width ({w_val:.2f}{unit_str}) exceeds referenced wall '{w_ref}' length ({wall['length']:.2f}{unit_str})", "door")
+                continue
+            elif w_val > wall_len + 0.01:
+                add_issue("door_exceeds_wall_length", d_id, "WARNING",
+                          f"Door '{d_id}' width ({w_val:.2f}{unit_str}) exceeds referenced wall '{w_ref}' length ({wall_len:.2f}{unit_str})", "door")
         except (ValueError, TypeError):
-            add_issue("invalid_door_width", d_id, "error", f"Door '{d_id}' width ({width}) is not numeric", "door")
+            add_issue("invalid_door_width", d_id, "ERROR", f"Door '{d_id}' width ({width}) is not numeric", "door")
+            continue
 
-        # Position check (0.0 <= position <= 1.0)
-        pos = d.get("position")
-        try:
-            pos_val = float(pos)
-            if not math.isfinite(pos_val) or pos_val < 0.0 or pos_val > 1.0:
-                add_issue("invalid_door_position", d_id, "error",
-                          f"Door '{d_id}' position ({pos}) must be between 0.0 and 1.0 along wall", "door")
-            elif pos_val in (0.0, 1.0):
-                add_issue("boundary_door_position", d_id, "warning",
-                          f"Door '{d_id}' is positioned at the extreme wall boundary (position={pos_val})", "door")
-        except (ValueError, TypeError):
-            add_issue("invalid_door_position", d_id, "error", f"Door '{d_id}' position ({pos}) is not numeric", "door")
+        # Position / Offset check
+        offset = None
+        if "offset" in d:
+            try:
+                offset = float(d["offset"])
+            except (ValueError, TypeError):
+                pass
+
+        if offset is None and "position" in d:
+            pos = d.get("position")
+            try:
+                pos_val = float(pos)
+                if not math.isfinite(pos_val) or pos_val < 0.0 or pos_val > 1.0:
+                    add_issue("invalid_door_position", d_id, "ERROR",
+                              f"Door '{d_id}' position ({pos}) must be between 0.0 and 1.0 along wall", "door")
+                else:
+                    offset = pos_val * wall_len
+            except (ValueError, TypeError):
+                add_issue("invalid_door_position", d_id, "ERROR", f"Door '{d_id}' position ({pos}) is not numeric", "door")
+
+        if offset is not None:
+            half_w = w_val / 2.0
+            s_open = offset - half_w
+            e_open = offset + half_w
+
+            if s_open < -0.05 or e_open > wall_len + 0.05:
+                add_issue("door_outside_wall", d_id, "ERROR",
+                          f"Door '{d_id}' opening [{s_open:.2f}, {e_open:.2f}] extends outside wall '{w_ref}' length ({wall_len:.2f})", "door")
+            elif s_open <= 0.01 or e_open >= wall_len - 0.01:
+                add_issue("boundary_door_position", d_id, "WARNING",
+                          f"Door '{d_id}' is positioned at the extreme wall boundary", "door")
 
     # ---------------------------------------------------------
     # 3. Window Validation
@@ -210,42 +282,64 @@ def validate_scene(scene: Dict[str, Any]) -> Dict[str, Any]:
         win_id = str(win.get("id", f"win_{idx+1}")) if isinstance(win, dict) else f"win_{idx+1}"
 
         if not isinstance(win, dict):
-            add_issue("invalid_window_entry", win_id, "error", f"Window at index {idx} is not an object", "window")
+            add_issue("invalid_window_entry", win_id, "ERROR", f"Window at index {idx} is not an object", "window")
             continue
 
         w_ref = win.get("wall_id")
         if not w_ref or w_ref not in valid_walls_map:
-            add_issue("missing_wall_reference", win_id, "error",
+            add_issue("missing_wall_reference", win_id, "ERROR",
                       f"Window '{win_id}' references non-existent wall '{w_ref}'", "window")
             continue
 
         wall = valid_walls_map[w_ref]
+        wall_len = wall["length"]
 
         # Width check
         width = win.get("width")
         try:
             w_val = float(width)
             if not math.isfinite(w_val) or w_val <= 0.0:
-                add_issue("invalid_window_width", win_id, "error",
+                add_issue("invalid_window_width", win_id, "ERROR",
                           f"Window '{win_id}' width ({width}) must be a positive number", "window")
-            elif w_val > wall["length"]:
-                add_issue("window_exceeds_wall_length", win_id, "warning",
-                          f"Window '{win_id}' width ({w_val:.2f}{unit_str}) exceeds referenced wall '{w_ref}' length ({wall['length']:.2f}{unit_str})", "window")
+                continue
+            elif w_val > wall_len + 0.01:
+                add_issue("window_exceeds_wall_length", win_id, "WARNING",
+                          f"Window '{win_id}' width ({w_val:.2f}{unit_str}) exceeds referenced wall '{w_ref}' length ({wall_len:.2f}{unit_str})", "window")
         except (ValueError, TypeError):
-            add_issue("invalid_window_width", win_id, "error", f"Window '{win_id}' width ({width}) is not numeric", "window")
+            add_issue("invalid_window_width", win_id, "ERROR", f"Window '{win_id}' width ({width}) is not numeric", "window")
+            continue
 
-        # Position check
-        pos = win.get("position")
-        try:
-            pos_val = float(pos)
-            if not math.isfinite(pos_val) or pos_val < 0.0 or pos_val > 1.0:
-                add_issue("invalid_window_position", win_id, "error",
-                          f"Window '{win_id}' position ({pos}) must be between 0.0 and 1.0 along wall", "window")
-            elif pos_val in (0.0, 1.0):
-                add_issue("boundary_window_position", win_id, "warning",
-                          f"Window '{win_id}' is positioned at the extreme wall boundary (position={pos_val})", "window")
-        except (ValueError, TypeError):
-            add_issue("invalid_window_position", win_id, "error", f"Window '{win_id}' position ({pos}) is not numeric", "window")
+        # Position / Offset check
+        offset = None
+        if "offset" in win:
+            try:
+                offset = float(win["offset"])
+            except (ValueError, TypeError):
+                pass
+
+        if offset is None and "position" in win:
+            pos = win.get("position")
+            try:
+                pos_val = float(pos)
+                if not math.isfinite(pos_val) or pos_val < 0.0 or pos_val > 1.0:
+                    add_issue("invalid_window_position", win_id, "ERROR",
+                              f"Window '{win_id}' position ({pos}) must be between 0.0 and 1.0 along wall", "window")
+                else:
+                    offset = pos_val * wall_len
+            except (ValueError, TypeError):
+                add_issue("invalid_window_position", win_id, "ERROR", f"Window '{win_id}' position ({pos}) is not numeric", "window")
+
+        if offset is not None:
+            half_w = w_val / 2.0
+            s_open = offset - half_w
+            e_open = offset + half_w
+
+            if s_open < -0.05 or e_open > wall_len + 0.05:
+                add_issue("window_outside_wall", win_id, "ERROR",
+                          f"Window '{win_id}' opening [{s_open:.2f}, {e_open:.2f}] extends outside wall '{w_ref}' length ({wall_len:.2f})", "window")
+            elif s_open <= 0.01 or e_open >= wall_len - 0.01:
+                add_issue("boundary_window_position", win_id, "WARNING",
+                          f"Window '{win_id}' is positioned at the extreme wall boundary", "window")
 
     # ---------------------------------------------------------
     # 4. Room Validation
@@ -254,12 +348,12 @@ def validate_scene(scene: Dict[str, Any]) -> Dict[str, Any]:
         r_id = str(r.get("id", f"room_{idx+1}")) if isinstance(r, dict) else f"room_{idx+1}"
 
         if not isinstance(r, dict):
-            add_issue("invalid_room_entry", r_id, "error", f"Room at index {idx} is not an object", "room")
+            add_issue("invalid_room_entry", r_id, "ERROR", f"Room at index {idx} is not an object", "room")
             continue
 
-        poly_pts = r.get("polygon", [])
+        poly_pts = r.get("polygon", r.get("geometry", {}).get("polygon", []))
         if not isinstance(poly_pts, list) or len(poly_pts) < MIN_ROOM_VERTICES:
-            add_issue("insufficient_polygon_vertices", r_id, "error",
+            add_issue("insufficient_polygon_vertices", r_id, "ERROR",
                       f"Room '{r_id}' polygon has fewer than {MIN_ROOM_VERTICES} vertices ({len(poly_pts) if isinstance(poly_pts, list) else 0})", "room")
             continue
 
@@ -268,7 +362,7 @@ def validate_scene(scene: Dict[str, Any]) -> Dict[str, Any]:
         for pt_idx, pt in enumerate(poly_pts):
             if not _is_valid_point(pt):
                 has_invalid_coord = True
-                add_issue("invalid_room_coordinate", r_id, "error",
+                add_issue("invalid_room_coordinate", r_id, "ERROR",
                           f"Room '{r_id}' vertex {pt_idx} ({pt}) has invalid or non-numeric coordinates", "room")
             else:
                 valid_pts.append((float(pt[0]), float(pt[1])))
@@ -280,28 +374,48 @@ def validate_scene(scene: Dict[str, Any]) -> Dict[str, Any]:
         try:
             poly = Polygon(valid_pts)
             if not poly.is_valid:
-                add_issue("self_intersecting_room_polygon", r_id, "error",
+                add_issue("self_intersecting_room_polygon", r_id, "ERROR",
                           f"Room '{r_id}' polygon is self-intersecting or topologically invalid", "room")
             elif poly.area < min_room_area:
-                add_issue("degenerate_room_area", r_id, "error",
+                add_issue("degenerate_room_area", r_id, "ERROR",
                           f"Room '{r_id}' polygon area is degenerate or near-zero ({poly.area:.2f} {unit_str}²)", "room")
         except Exception as e:
-            add_issue("room_polygon_exception", r_id, "error",
+            add_issue("room_polygon_exception", r_id, "ERROR",
                       f"Failed to construct polygon for room '{r_id}': {e}", "room")
 
-    # Has any hard errors?
-    has_errors = any(i["severity"] == "error" for i in issues)
+    # Categorize issues by severity
+    errors = [i for i in issues if i["severity"] == "ERROR"]
+    warnings = [i for i in issues if i["severity"] == "WARNING"]
+    info = [i for i in issues if i["severity"] == "INFO"]
+    has_errors = len(errors) > 0
+    status_str = "FAIL" if has_errors else "PASS"
 
     return {
+        "status": status_str,
         "valid": not has_errors,
+        "errors": errors,
+        "warnings": warnings,
+        "info": info,
         "issues": issues,
+        "summary": {
+            "status": status_str,
+            "wall_count": len(raw_walls),
+            "door_count": len(raw_doors),
+            "window_count": len(raw_windows),
+            "room_count": len(raw_rooms),
+            "error_count": len(errors),
+            "warning_count": len(warnings),
+            "info_count": len(info),
+            "short_walls": len([i for i in issues if i["type"] == "short_wall"]),
+        },
         "stats": {
             "wall_count": len(raw_walls),
             "door_count": len(raw_doors),
             "window_count": len(raw_windows),
             "room_count": len(raw_rooms),
-            "error_count": len([i for i in issues if i["severity"] == "error"]),
-            "warning_count": len([i for i in issues if i["severity"] == "warning"]),
+            "error_count": len(errors),
+            "warning_count": len(warnings),
+            "info_count": len(info),
             "short_walls": len([i for i in issues if i["type"] == "short_wall"]),
         }
     }

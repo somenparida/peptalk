@@ -123,7 +123,7 @@ def main():
 
     # Generate preview image
     print("[*] Generating visual geometry preview...")
-    generate_preview(raw_scene, normalized_scene, str(preview_file))
+    generate_preview(raw_scene, normalized_scene, str(preview_file), validation_report=report)
     print(f"[OK] Saved: {preview_file}")
 
     # Print summary
