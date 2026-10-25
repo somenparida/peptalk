@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HNX26EPS06 | 3D Architectural Scene Viewer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg-dark: #101318;
+      --panel-bg: rgba(20, 24, 32, 0.92);
+      --panel-border: rgba(255, 255, 255, 0.09);
+      --accent: #38bdf8;
+      --accent-hover: #0ea5e9;
+      --accent-warm: #c2884a;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --surface-hover: rgba(255, 255, 255, 0.06);
+      --surface-active: rgba(56, 189, 248, 0.14);
+      --success: #34d399;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-main);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #viewport-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    /* Top Navigation Header */
+    header {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      right: 14px;
+      height: 52px;
+      background: var(--panel-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--panel-border);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      z-index: 10;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-tag {
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 5px;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-main);
+      letter-spacing: -0.2px;
+    }
+
+    .brand-sep {
+      color: var(--text-dim);
+      font-size: 12px;
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Header Controls */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--panel-border);
+      color: var(--text-main);
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      background: var(--surface-hover);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn.active {
+      background: var(--accent);
+      color: #0b1120;
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+
+    .btn-secondary {
+      font-size: 11px;
+      padding: 5px 9px;
+      color: var(--text-muted);
+    }
+
+    .btn-secondary:hover {
+      color: var(--text-main);
+    }
+
+    /* Left Floating Control Toolbar */
+    #quick-toolbar {
+      position: absolute;
+      top: 78px;
+      left: 14px;
+      background: var(--panel-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--panel-border);
+      border-radius: 10px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      z-index: 10;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      width: 170px;
+    }
+
+    .toolbar-header {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--text-dim);
+      padding: 4px 6px 6px 6px;
+      border-bottom: 1px solid var(--panel-border);
+      margin-bottom: 2px;
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .toggle-row:hover {
+      background: var(--surface-hover);
+    }
+
+    .toggle-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .toggle-row:hover .toggle-label {
+      color: var(--text-main);
+    }
+
+    .status-tag {
+      font-size: 9px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      padding: 2px 5px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-dim);
+      letter-spacing: 0.3px;
+    }
+
+    .status-tag.active {
+      background: rgba(56, 189, 248, 0.2);
+      color: var(--accent);
+    }
+
+    /* Right Inspector Sidebar */
+    #inspector-sidebar {
+      position: absolute;
+      top: 74px;
+      right: 14px;
+      bottom: 16px;
+      width: 345px;
+      background: var(--panel-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--panel-border);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 10;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: auto;
+      user-select: text;
+    }
+
+    #inspector-sidebar.collapsed {
+      transform: translateX(370px);
+    }
+
+    .sidebar-header {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--panel-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      user-select: none;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* Primary Unified Scroll Container */
+    .sidebar-scroll {
+      flex: 1 1 0px;
+      min-height: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(56, 189, 248, 0.55) rgba(0, 0, 0, 0.35);
+    }
+
+    .sidebar-scroll::-webkit-scrollbar {
+      width: 8px;
+    }
+    .sidebar-scroll::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 4px;
+      margin: 4px 0;
+    }
+    .sidebar-scroll::-webkit-scrollbar-thumb {
+      background: rgba(56, 189, 248, 0.55);
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+      background: rgba(56, 189, 248, 0.85);
+    }
+
+    /* Metrics Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .metric-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--panel-border);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    .metric-val {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-main);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .metric-label {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 3px;
+    }
+
+    /* Card Panels */
+    .panel-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--panel-border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 9px 12px;
+      background: rgba(255, 255, 255, 0.03);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--panel-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Enclosed Rooms Scroll Container */
+    #rooms-list-container {
+      flex: 1 1 auto;
+      max-height: 340px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: #38bdf8 rgba(15, 23, 42, 0.7);
+    }
+
+    #rooms-list-container::-webkit-scrollbar {
+      width: 7px;
+    }
+
+    #rooms-list-container::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.7);
+      border-left: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    #rooms-list-container::-webkit-scrollbar-thumb {
+      background: #38bdf8;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    #rooms-list-container::-webkit-scrollbar-thumb:hover {
+      background: #7dd3fc;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.7);
+    }
+
+    /* Layer Row */
+    .layer-item {
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .layer-item:hover {
+      background: var(--surface-hover);
+    }
+
+    .layer-tag {
+      font-size: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .layer-tag.hidden-tag {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-dim);
+    }
+
+    /* Room Items */
+    .room-row {
+      padding: 9px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .room-row:hover {
+      background: var(--surface-active);
+    }
+
+    .room-row.active-room {
+      background: rgba(56, 189, 248, 0.18);
+      border-left: 3px solid var(--accent);
+    }
+
+    .room-left {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .room-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .room-title {
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .room-sqm {
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Help & Onboarding Modal */
+    #help-modal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 480px;
+      max-width: 90vw;
+      background: #161b22;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+      padding: 24px;
+      z-index: 100;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+      display: none;
+    }
+
+    .modal-backdrop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(4px);
+      z-index: 99;
+      display: none;
+    }
+
+    .help-section {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--panel-border);
+    }
+
+    .help-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .help-item {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      font-size: 12px;
+      margin-bottom: 6px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .help-item strong {
+      color: var(--text-main);
+      font-weight: 600;
+      min-width: 110px;
+    }
+
+    kbd {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      padding: 2px 5px;
+      font-size: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-main);
+    }
+
+    /* Measurement Pill */
+    #measurement-pill {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0f172a;
+      border: 1px solid var(--accent);
+      border-radius: 30px;
+      padding: 8px 18px;
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-main);
+      display: none;
+      align-items: center;
+      gap: 14px;
+      z-index: 10;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Walkthrough HUD */
+    #walkthrough-hud {
+      position: absolute;
+      bottom: 24px;
+      left: 20px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--panel-border);
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 11px;
+      color: var(--text-muted);
+      display: none;
+      z-index: 10;
+      line-height: 1.7;
+    }
+
+    #crosshair {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.8);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      display: none;
+      z-index: 10;
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: absolute;
+      top: 78px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid var(--panel-border);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-main);
+      display: none;
+      z-index: 20;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      pointer-events: none;
+    }
+
+    /* Loader */
+    #loader {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg-dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      z-index: 100;
+      transition: opacity 0.3s ease;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(56, 189, 248, 0.15);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.75s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 3D Canvas -->
+  <div id="viewport-container"></div>
+
+  <!-- Loading Screen -->
+  <div id="loader">
+    <div class="spinner"></div>
+    <div style="font-size: 13px; font-weight: 500; color: var(--text-muted);">Constructing 3D Architectural Scene...</div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast"></div>
+
+  <!-- Walkthrough Center Reticle -->
+  <div id="crosshair"></div>
+
+  <!-- Measurement HUD Pill -->
+  <div id="measurement-pill">
+    <span>Ruler: <strong id="measure-dist" style="color: var(--accent);">0.00 m</strong></span>
+    <span style="color: var(--text-dim); font-size: 11px;" id="measure-deltas">dX: 0.00m  dY: 0.00m  dZ: 0.00m</span>
+    <button class="btn btn-secondary" id="btn-measure-clear">Clear</button>
+  </div>
+
+  <!-- Walkthrough HUD -->
+  <div id="walkthrough-hud">
+    <div style="font-weight: 600; color: var(--text-main); margin-bottom: 2px;">Walkthrough Mode (Eye Level 1.6m)</div>
+    <div>Walk: <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> | Look: Mouse</div>
+    <div>Exit: <kbd>ESC</kbd> to return to Orbit</div>
+  </div>
+
+  <!-- Top Navigation Header -->
+  <header>
+    <div class="brand">
+      <span class="brand-tag">HNX26EPS06</span>
+      <span class="brand-title">3D Blueprint Viewer</span>
+      <span class="brand-sep">|</span>
+      <span class="brand-sub">Floor Plan to 3D Scene</span>
+    </div>
+
+    <div class="header-actions">
+      <!-- Camera Mode -->
+      <button class="btn active" id="btn-mode-orbit" title="Orbit Third-Person View">Orbit View</button>
+      <button class="btn" id="btn-mode-walk" title="Walk Inside at Eye Level">Walkthrough</button>
+
+      <!-- View Presets -->
+      <button class="btn" id="btn-view-top" title="Top-Down Plan View">Top Plan</button>
+      <button class="btn" id="btn-view-iso" title="Perspective Isometric View">Isometric</button>
+
+      <!-- Actions -->
+      <label class="btn" style="cursor: pointer;" title="Open local GLB model">
+        Open GLB
+        <input type="file" id="file-input" accept=".glb,.gltf" style="display: none;">
+      </label>
+      <button class="btn" id="btn-screenshot" title="Save HD Screenshot">Snapshot</button>
+      <button class="btn btn-secondary" id="btn-open-help" title="Navigation Guide">Controls Guide</button>
+    </div>
+  </header>
+
+  <!-- Left Control Toolbar -->
+  <div id="quick-toolbar">
+    <div class="toolbar-header">Scene Controls</div>
+
+    <div class="toggle-row" id="tool-toggle-ceilings" title="Toggle roof ceiling visibility">
+      <span class="toggle-label">Ceilings</span>
+      <span class="status-tag" id="tag-ceilings">HIDDEN</span>
+    </div>
+
+    <div class="toggle-row" id="tool-toggle-cutaway" title="Slice upper walls for dollhouse section view">
+      <span class="toggle-label">Cutaway View</span>
+      <span class="status-tag" id="tag-cutaway">OFF</span>
+    </div>
+
+    <div class="toggle-row" id="tool-toggle-wireframe" title="Toggle geometric wireframe mesh">
+      <span class="toggle-label">Wireframe</span>
+      <span class="status-tag" id="tag-wireframe">OFF</span>
+    </div>
+
+    <div class="toggle-row" id="tool-toggle-xray" title="Toggle wall transparency">
+      <span class="toggle-label">X-Ray Mode</span>
+      <span class="status-tag" id="tag-xray">OFF</span>
+    </div>
+
+    <div class="toggle-row" id="tool-measure" title="Click any two points in 3D to measure distance">
+      <span class="toggle-label">Measure Ruler</span>
+      <span class="status-tag" id="tag-measure">OFF</span>
+    </div>
+
+    <div class="toggle-row" id="tool-toggle-sidebar" title="Show or hide scene details panel">
+      <span class="toggle-label">Inspector Panel</span>
+      <span class="status-tag active" id="tag-sidebar">OPEN</span>
+    </div>
+  </div>
+
+  <!-- Right Inspector Sidebar -->
+  <div id="inspector-sidebar">
+    <div class="sidebar-header">
+      <span class="sidebar-title">Scene Inspector</span>
+      <button class="btn btn-secondary" id="btn-close-sidebar">Hide</button>
+    </div>
+
+    <div class="sidebar-scroll">
+      <!-- High-Level Metrics -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-val" id="stat-area">0.0 <span style="font-size: 11px;">m²</span></div>
+          <div class="metric-label">Total Floor Area</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-val" id="stat-wall-length">0.0 <span style="font-size: 11px;">m</span></div>
+          <div class="metric-label">Wall Perimeter</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-val" id="stat-rooms">0</div>
+          <div class="metric-label">Enclosed Rooms</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-val" id="stat-openings">0</div>
+          <div class="metric-label">Doors & Windows</div>
+        </div>
+      </div>
+
+      <!-- Component Layers -->
+      <div class="panel-card">
+        <div class="card-header">
+          <span>Component Visibility</span>
+          <span style="font-size: 10px; color: var(--text-dim);">5 Layers</span>
+        </div>
+        <div id="layers-container">
+          <div class="layer-item" data-layer="Walls">
+            <span>Walls & Partitions</span>
+            <span class="layer-tag">VISIBLE</span>
+          </div>
+          <div class="layer-item" data-layer="Ceilings">
+            <span>Ceiling Slabs</span>
+            <span class="layer-tag hidden-tag">HIDDEN</span>
+          </div>
+          <div class="layer-item" data-layer="Floors">
+            <span>Floor Slabs</span>
+            <span class="layer-tag">VISIBLE</span>
+          </div>
+          <div class="layer-item" data-layer="Door">
+            <span>Doors & Timber Frames</span>
+            <span class="layer-tag">VISIBLE</span>
+          </div>
+          <div class="layer-item" data-layer="Window">
+            <span>Windows & Glass</span>
+            <span class="layer-tag">VISIBLE</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rooms List -->
+      <div class="panel-card" style="flex: 1; min-height: 220px; display: flex; flex-direction: column;">
+        <div class="card-header">
+          <span>Enclosed Rooms</span>
+          <span style="font-size: 10px; color: var(--text-dim);" id="rooms-count-tag">Click to Zoom</span>
+        </div>
+        <div id="rooms-list-container">
+          <div style="padding: 14px; font-size: 11px; color: var(--text-dim); text-align: center;">
+            No room metadata loaded.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help & Navigation Guide Modal -->
+  <div class="modal-backdrop" id="modal-backdrop"></div>
+  <div id="help-modal">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+      <h3 style="font-size: 15px; font-weight: 600;">Navigation & Controls Guide</h3>
+      <button class="btn btn-secondary" id="btn-close-help">Close</button>
+    </div>
+    <p style="font-size: 12px; color: var(--text-muted); line-height: 1.6;">
+      Welcome to the 3D Architectural Scene Viewer. Use these straightforward controls to explore the building:
+    </p>
+
+    <div class="help-section">
+      <div class="help-section-title">Mouse Navigation (Orbit Mode)</div>
+      <div class="help-item">
+        <strong>Rotate View</strong>
+        <span>Left Click and hold, then drag mouse in any direction.</span>
+      </div>
+      <div class="help-item">
+        <strong>Pan Camera</strong>
+        <span>Right Click (or Shift + Left Click) and drag to move sideways.</span>
+      </div>
+      <div class="help-item">
+        <strong>Zoom In / Out</strong>
+        <span>Scroll mouse wheel up or down.</span>
+      </div>
+      <div class="help-item">
+        <strong>Inspect a Room</strong>
+        <span>Click any room name in the right sidebar to fly straight inside it.</span>
+      </div>
+    </div>
+
+    <div class="help-section">
+      <div class="help-section-title">First-Person Walkthrough</div>
+      <div class="help-item">
+        <strong>Start Walking</strong>
+        <span>Click the "Walkthrough" button in the top bar.</span>
+      </div>
+      <div class="help-item">
+        <strong>Movement</strong>
+        <span>Use <kbd>W</kbd> (Forward), <kbd>A</kbd> (Left), <kbd>S</kbd> (Backward), <kbd>D</kbd> (Right).</span>
+      </div>
+      <div class="help-item">
+        <strong>Look Around</strong>
+        <span>Move your mouse to look in full 360 degrees at eye level (1.6m).</span>
+      </div>
+      <div class="help-item">
+        <strong>Exit Walk</strong>
+        <span>Press <kbd>ESC</kbd> to unlock mouse and return to Orbit mode.</span>
+      </div>
+    </div>
+
+    <div class="help-section">
+      <div class="help-section-title">Measurement Ruler</div>
+      <div class="help-item">
+        <strong>Measure Distance</strong>
+        <span>Click "Measure Ruler" on the left toolbar, then click point A and point B on any wall or floor to view exact distance in meters.</span>
+      </div>
+    </div>
+
+    <div style="margin-top: 18px; text-align: right;">
+      <button class="btn active" id="btn-help-ok" style="padding: 7px 18px;">Got It</button>
+    </div>
+  </div>
+
+  <!-- Three.js Implementation -->
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
+    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+    // Application State
+    let scene, camera, renderer, orbitControls, walkControls;
+    let modelGroup = new THREE.Group();
+    let currentModel = null;
+    let clock = new THREE.Clock();
+
+    // Measurement Tool State
+    let measureMode = false;
+    let measurePoints = [];
+    let measureLine = null;
+    let measureMarkers = [];
+    let raycaster = new THREE.Raycaster();
+    let mouse = new THREE.Vector2();
+
+    // Walkthrough State
+    let moveForward = false, moveBackward = false, moveLeft = false, moveRight = false;
+    let velocity = new THREE.Vector3();
+    let direction = new THREE.Vector3();
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.style.display = 'block';
+      clearTimeout(toast._timer);
+      toast._timer = setTimeout(() => {
+        toast.style.display = 'none';
+      }, 2200);
+    }
+
+    function init() {
+      const container = document.getElementById('viewport-container');
+
+      scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x11141a);
+      scene.fog = new THREE.FogExp2(0x11141a, 0.018);
+
+      camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 500);
+      camera.position.set(12, 14, 16);
+
+      renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.15;
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      container.appendChild(renderer.domElement);
+
+      // Orbit Controls
+      orbitControls = new OrbitControls(camera, renderer.domElement);
+      orbitControls.enableDamping = true;
+      orbitControls.dampingFactor = 0.05;
+      orbitControls.target.set(5, 1.4, 4);
+
+      // Walkthrough Controls
+      walkControls = new PointerLockControls(camera, renderer.domElement);
+
+      setupLighting();
+
+      // Architectural Ground Grid
+      const grid = new THREE.GridHelper(50, 50, 0x38bdf8, 0x1e2633);
+      grid.position.y = -0.16;
+      scene.add(grid);
+
+      scene.add(modelGroup);
+
+      window.addEventListener('resize', onWindowResize);
+      setupUIEvents();
+      setupWalkthroughEvents();
+      setupMeasurementEvents();
+
+      loadActiveModel();
+      animate();
+    }
+
+    function setupLighting() {
+      // Warm ambient base
+      const ambientLight = new THREE.AmbientLight(0xfffbf5, 0.95);
+      scene.add(ambientLight);
+
+      // Sky / Ground Hemisphere Light
+      const hemiLight = new THREE.HemisphereLight(0xffffff, 0x475569, 0.7);
+      hemiLight.position.set(0, 50, 0);
+      scene.add(hemiLight);
+
+      // Primary Warm Sun Light
+      const sunLight = new THREE.DirectionalLight(0xfffaed, 1.25);
+      sunLight.position.set(20, 32, 24);
+      sunLight.castShadow = true;
+      sunLight.shadow.mapSize.width = 2048;
+      sunLight.shadow.mapSize.height = 2048;
+      sunLight.shadow.camera.near = 0.5;
+      sunLight.shadow.camera.far = 90;
+      const d = 20;
+      sunLight.shadow.camera.left = -d;
+      sunLight.shadow.camera.right = d;
+      sunLight.shadow.camera.top = d;
+      sunLight.shadow.camera.bottom = -d;
+      sunLight.shadow.bias = -0.0003;
+      scene.add(sunLight);
+
+      // Fill Light 1 (Cool sky fill from opposite corner)
+      const skyFill = new THREE.DirectionalLight(0xcde3f5, 0.70);
+      skyFill.position.set(-20, 24, -20);
+      scene.add(skyFill);
+
+      // Fill Light 2 (Soft front-left fill for facade illumination)
+      const frontFill = new THREE.DirectionalLight(0xfff3e0, 0.50);
+      frontFill.position.set(-18, 16, 18);
+      scene.add(frontFill);
+    }
+
+    function loadActiveModel(fileUrl = '/scene.glb') {
+      const loader = new GLTFLoader();
+      document.getElementById('loader').style.display = 'flex';
+      document.getElementById('loader').style.opacity = '1';
+
+      loader.load(
+        fileUrl,
+        (gltf) => {
+          if (currentModel) {
+            modelGroup.remove(currentModel);
+          }
+          currentModel = gltf.scene;
+
+          // Convert coordinates: Trimesh Z-up to Three.js Y-up
+          currentModel.rotation.x = -Math.PI / 2;
+
+          // Apply rich, warm architectural materials
+          currentModel.traverse((child) => {
+            if (child.isMesh) {
+              child.castShadow = true;
+              child.receiveShadow = true;
+
+              // Ensure geometry has valid normals for lighting
+              if (child.geometry && !child.geometry.attributes.normal) {
+                child.geometry.computeVertexNormals();
+              }
+              // Delete vertex colors if present so standard materials render accurately
+              if (child.geometry && child.geometry.attributes.color) {
+                child.geometry.deleteAttribute('color');
+              }
+
+              const n = (child.name || '') + ' ' + (child.parent ? child.parent.name || '' : '');
+
+              if (n.includes('DoorHardware')) {
+                // Polished satin brass hardware levers and escutcheons
+                child.material = new THREE.MeshStandardMaterial({
+                  color: 0xdcb44b,
+                  roughness: 0.22,
+                  metalness: 0.88,
+                  side: THREE.DoubleSide,
+                });
+              } else if (n.includes('DoorLeaves')) {
+                // Warm amber cedar / honey oak door leaf with satin sheen
+                child.material = new THREE.MeshStandardMaterial({
+                  color: 0xb4733c,
+                  roughness: 0.42,
+                  metalness: 0.04,
+                  side: THREE.DoubleSide,
+                });
+              } else if (n.includes('DoorFrames')) {
+                // Warm espresso walnut timber frame and casing
+                child.material = new THREE.MeshStandardMaterial({
+                  color: 0x5f3c23,
+                  roughness: 0.55,
+                  metalness: 0.12,
+                  side: THREE.DoubleSide,
+                });
+              } else if (n.includes('WindowGlass')) {
+                // Tinted crystal architectural glass
+                child.material = new THREE.MeshPhysicalMaterial({
+                  color: 0x8cd2f5,
+                  transparent: true,
+                  opacity: 0.35,
+                  roughness: 0.05,
+                  metalness: 0.08,
+                  transmission: 0.85,
+                  ior: 1.52,
+                  side: THREE.DoubleSide,
+                });
+              } else if (n.includes('WindowFrames')) {
+                // Warm architectural bronze / timber frame
+                child.material = new THREE.MeshStandardMaterial({
+                  color: 0x735034,
+                  roughness: 0.50,
+                  metalness: 0.25,
+                  side: THREE.DoubleSide,
+                });
+              } else if (n.includes('WindowMullions')) {
+                // Warm timber divided-lite mullion crossbars
+                child.material = new THREE.MeshStandardMaterial({
+                  color: 0x64442c,
+                  roughness: 0.50,
+                  metalness: 0.20,
+                  side: THREE.DoubleSide,
+                });
+              } else if (n.includes('WindowSills')) {
+                // Soft warm ivory travertine stone
+                child.material = new THREE.MeshStandardMaterial({
+                  color: 0xf0ebde,
+                  roughness: 0.82,
+                  metalness: 0.0,
+                  side: THREE.DoubleSide,
+                });
+              } else if (n.includes('Walls') || n.includes('Lintels')) {
+                // Clean warm off-white architectural plaster
+                child.material = new THREE.MeshStandardMaterial({
+                  color: 0xf5f3ee,
+                  roughness: 0.85,
+                  metalness: 0.02,
+                  side: THREE.DoubleSide,
+                });
+              } else if (n.includes('Ceilings')) {
+                // Off-white ceiling slab
+                child.material = new THREE.MeshStandardMaterial({
+                  color: 0xfafafa,
+                  roughness: 0.90,
+                  metalness: 0.0,
+                  side: THREE.DoubleSide,
+                });
+              } else if (n.includes('Floors')) {
+                // Warm travertine floor slab
+                child.material = new THREE.MeshStandardMaterial({
+                  color: 0xdcd4c6,
+                  roughness: 0.75,
+                  metalness: 0.04,
+                  side: THREE.DoubleSide,
+                });
+              } else if (n.includes('Plinth')) {
+                // Foundation concrete plinth
+                child.material = new THREE.MeshStandardMaterial({
+                  color: 0x9e9e9e,
+                  roughness: 0.92,
+                  metalness: 0.0,
+                  side: THREE.DoubleSide,
+                });
+              } else {
+                // Fallback for any other architectural mesh
+                child.material = new THREE.MeshStandardMaterial({
+                  color: 0xe8e6e1,
+                  roughness: 0.85,
+                  side: THREE.DoubleSide,
+                });
+              }
+            }
+          });
+
+          // Add model to scene group
+          modelGroup.add(currentModel);
+
+          // Center OrbitControls
+          const box = new THREE.Box3().setFromObject(currentModel);
+          const center = box.getCenter(new THREE.Vector3());
+          orbitControls.target.copy(center);
+          camera.position.set(center.x + 8, center.y + 10, center.z + 12);
+          orbitControls.update();
+
+          // Hide ceilings by default in Orbit view so rooms, layout, and openings are immediately visible
+          toggleComponentVisibility('Ceilings', false);
+
+          fetchMetadata();
+
+          document.getElementById('loader').style.opacity = '0';
+          setTimeout(() => {
+            document.getElementById('loader').style.display = 'none';
+          }, 350);
+        },
+        undefined,
+        (err) => {
+          console.warn('Could not auto-load default scene, waiting for user file.', err);
+          document.getElementById('loader').style.display = 'none';
+        }
+      );
+    }
+
+    function fetchMetadata() {
+      fetch('/metadata.json')
+        .then(res => res.json())
+        .then(data => {
+          updateSidebarStats(data);
+        })
+        .catch(() => {
+          // Fallback basic mesh stats
+          let meshCount = 0;
+          modelGroup.traverse(c => { if (c.isMesh) meshCount++; });
+          document.getElementById('stat-wall-length').innerHTML = `${meshCount} <span style="font-size: 11px;">parts</span>`;
+        });
+    }
+
+    function updateSidebarStats(data) {
+      const metrics = data.scene_metrics || (data.floor_plan ? data.floor_plan : {});
+      const area = metrics.total_floor_area_sq_m || 0;
+      const wallLen = metrics.total_wall_length_m || 0;
+      const rooms = metrics.rooms || (data.floor_plan ? data.floor_plan.rooms : []);
+      const openings = metrics.openings || { total: 0 };
+
+      document.getElementById('stat-area').innerHTML = `${area.toFixed(1)} <span style="font-size: 11px;">m²</span>`;
+      document.getElementById('stat-wall-length').innerHTML = `${wallLen.toFixed(1)} <span style="font-size: 11px;">m</span>`;
+      document.getElementById('stat-rooms').textContent = rooms.length;
+      document.getElementById('stat-openings').textContent = openings.total || (openings.doors + openings.windows) || 0;
+
+      const countTag = document.getElementById('rooms-count-tag');
+      if (countTag) countTag.textContent = `${rooms.length} Rooms`;
+
+      const listEl = document.getElementById('rooms-list-container');
+      listEl.innerHTML = '';
+
+      rooms.forEach((r) => {
+        const row = document.createElement('div');
+        row.className = 'room-row';
+        const color = r.color ? `rgb(${r.color[0]}, ${r.color[1]}, ${r.color[2]})` : '#38bdf8';
+        row.innerHTML = `
+          <div class="room-left">
+            <span class="room-dot" style="background: ${color};"></span>
+            <span class="room-title">${r.name}</span>
+          </div>
+          <span class="room-sqm">${(r.area_sq_m || 0).toFixed(1)} m²</span>
+        `;
+        row.addEventListener('click', () => {
+          document.querySelectorAll('.room-row').forEach(el => el.classList.remove('active-room'));
+          row.classList.add('active-room');
+          focusRoom(r);
+        });
+        listEl.appendChild(row);
+      });
+    }
+
+    let animFrameId = null;
+    function animateCameraTo(targetPos, cameraPos, durationMs = 600) {
+      if (animFrameId) cancelAnimationFrame(animFrameId);
+
+      const startTarget = orbitControls.target.clone();
+      const startCamera = camera.position.clone();
+      const startTime = performance.now();
+
+      function step(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(1.0, elapsed / durationMs);
+        // Smooth easeInOutCubic curve
+        const t = progress < 0.5
+          ? 4 * progress * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+        orbitControls.target.lerpVectors(startTarget, targetPos, t);
+        camera.position.lerpVectors(startCamera, cameraPos, t);
+        orbitControls.update();
+
+        if (progress < 1.0) {
+          animFrameId = requestAnimationFrame(step);
+        } else {
+          animFrameId = null;
+        }
+      }
+
+      animFrameId = requestAnimationFrame(step);
+    }
+
+    function focusRoom(room) {
+      if (!room.points || room.points.length === 0) return;
+
+      const xs = [];
+      const ys = [];
+      room.points.forEach(p => {
+        if (Array.isArray(p)) {
+          xs.push(p[0]);
+          ys.push(p[1]);
+        } else if (p && typeof p === 'object') {
+          xs.push(p.x !== undefined ? p.x : p[0]);
+          ys.push(p.y !== undefined ? p.y : p[1]);
+        }
+      });
+
+      if (xs.length === 0 || ys.length === 0) return;
+
+      const minX = Math.min(...xs);
+      const maxX = Math.max(...xs);
+      const minY = Math.min(...ys);
+      const maxY = Math.max(...ys);
+
+      const centerX = (minX + maxX) * 0.5;
+      const centerY = (minY + maxY) * 0.5;
+      const spanX = Math.max(0.5, maxX - minX);
+      const spanY = Math.max(0.5, maxY - minY);
+      const roomRadius = Math.max(spanX, spanY, 3.0);
+
+      // Model was rotated around X by -90 deg (-Math.PI/2).
+      // Floor plan coordinate (X, Y) maps to Three.js world coordinates:
+      // X_world = X
+      // Y_world = height (elevation)
+      // Z_world = -Y
+      const targetPos = new THREE.Vector3(centerX, 0.4, -centerY);
+      const cameraPos = new THREE.Vector3(
+        centerX,
+        Math.max(4.0, roomRadius * 1.25),
+        -centerY + Math.max(3.2, roomRadius * 1.10)
+      );
+
+      // Automatically hide ceilings so room interior is clearly visible from above
+      const tagCeilings = document.getElementById('tag-ceilings');
+      if (tagCeilings && tagCeilings.textContent === 'VISIBLE') {
+        tagCeilings.textContent = 'HIDDEN';
+        tagCeilings.classList.remove('active');
+        toggleComponentVisibility('Ceilings', false);
+      }
+
+      // Smooth camera interpolation
+      animateCameraTo(targetPos, cameraPos, 650);
+      showToast(`Zoomed into ${room.name} (${(room.area_sq_m || 0).toFixed(1)} m²)`);
+    }
+
+    // Measurement Ruler Tool
+    function setupMeasurementEvents() {
+      const container = document.getElementById('viewport-container');
+
+      container.addEventListener('click', (e) => {
+        if (!measureMode || walkControls.isLocked) return;
+
+        mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObjects(modelGroup.children, true);
+
+        if (intersects.length > 0) {
+          const pt = intersects[0].point;
+          addMeasurementPoint(pt);
+        }
+      });
+    }
+
+    function addMeasurementPoint(point) {
+      const markerGeo = new THREE.SphereGeometry(0.06, 16, 16);
+      const markerMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
+      const marker = new THREE.Mesh(markerGeo, markerMat);
+      marker.position.copy(point);
+      scene.add(marker);
+      measureMarkers.push(marker);
+      measurePoints.push(point);
+
+      if (measurePoints.length === 1) {
+        showToast('Point 1 selected. Click point 2 to complete measurement.');
+      } else if (measurePoints.length === 2) {
+        const p1 = measurePoints[0];
+        const p2 = measurePoints[1];
+        const dist = p1.distanceTo(p2);
+        const dx = Math.abs(p2.x - p1.x);
+        const dy = Math.abs(p2.y - p1.y);
+        const dz = Math.abs(p2.z - p1.z);
+
+        const lineGeo = new THREE.BufferGeometry().setFromPoints([p1, p2]);
+        const lineMat = new THREE.LineBasicMaterial({ color: 0x38bdf8, linewidth: 2 });
+        measureLine = new THREE.Line(lineGeo, lineMat);
+        scene.add(measureLine);
+
+        document.getElementById('measure-dist').textContent = `${dist.toFixed(2)} m`;
+        document.getElementById('measure-deltas').textContent = `dX: ${dx.toFixed(2)}m  dY: ${dy.toFixed(2)}m  dZ: ${dz.toFixed(2)}m`;
+        document.getElementById('measurement-pill').style.display = 'flex';
+        showToast(`Measured Distance: ${dist.toFixed(2)} meters`);
+
+        measurePoints = [];
+      }
+    }
+
+    function clearMeasurements() {
+      measureMarkers.forEach(m => scene.remove(m));
+      measureMarkers = [];
+      measurePoints = [];
+      if (measureLine) {
+        scene.remove(measureLine);
+        measureLine = null;
+      }
+      document.getElementById('measurement-pill').style.display = 'none';
+      showToast('Measurements cleared.');
+    }
+
+    // UI Event Wiring
+    function setupUIEvents() {
+      // Ceilings Toggle
+      let ceilingsVisible = false;
+      const tagCeilings = document.getElementById('tag-ceilings');
+      const setCeilingsState = (visible) => {
+        ceilingsVisible = visible;
+        tagCeilings.textContent = ceilingsVisible ? 'VISIBLE' : 'HIDDEN';
+        tagCeilings.classList.toggle('active', ceilingsVisible);
+        const ceilingRow = document.querySelector('.layer-item[data-layer="Ceilings"] .layer-tag');
+        if (ceilingRow) {
+          ceilingRow.textContent = ceilingsVisible ? 'VISIBLE' : 'HIDDEN';
+          ceilingRow.classList.toggle('hidden-tag', !ceilingsVisible);
+        }
+        toggleComponentVisibility('Ceilings', ceilingsVisible);
+      };
+      document.getElementById('tool-toggle-ceilings').addEventListener('click', () => {
+        setCeilingsState(!ceilingsVisible);
+        showToast(`Ceilings ${ceilingsVisible ? 'Visible' : 'Hidden'}`);
+      });
+
+      // Roof Cutaway / Dollhouse View
+      let cutaway = false;
+      const tagCutaway = document.getElementById('tag-cutaway');
+      document.getElementById('tool-toggle-cutaway').addEventListener('click', () => {
+        cutaway = !cutaway;
+        tagCutaway.textContent = cutaway ? 'ACTIVE' : 'OFF';
+        tagCutaway.classList.toggle('active', cutaway);
+        toggleComponentVisibility('Ceilings', !cutaway);
+        modelGroup.traverse(child => {
+          if (child.name.includes('Wall') && child.isMesh) {
+            child.scale.z = cutaway ? 0.45 : 1.0;
+          }
+        });
+        showToast(cutaway ? 'Dollhouse Cutaway View Active' : 'Normal Wall Height Restored');
+      });
+
+      // Wireframe
+      let wireframe = false;
+      const tagWireframe = document.getElementById('tag-wireframe');
+      document.getElementById('tool-toggle-wireframe').addEventListener('click', () => {
+        wireframe = !wireframe;
+        tagWireframe.textContent = wireframe ? 'ON' : 'OFF';
+        tagWireframe.classList.toggle('active', wireframe);
+        modelGroup.traverse(child => {
+          if (child.isMesh && child.material) {
+            child.material.wireframe = wireframe;
+          }
+        });
+        showToast(`Wireframe ${wireframe ? 'Enabled' : 'Disabled'}`);
+      });
+
+      // X-Ray Mode
+      let xray = false;
+      const tagXray = document.getElementById('tag-xray');
+      document.getElementById('tool-toggle-xray').addEventListener('click', () => {
+        xray = !xray;
+        tagXray.textContent = xray ? 'ON' : 'OFF';
+        tagXray.classList.toggle('active', xray);
+        modelGroup.traverse(child => {
+          if (child.isMesh && child.material && !child.name.includes('Glass')) {
+            child.material.transparent = xray;
+            child.material.opacity = xray ? 0.35 : 1.0;
+          }
+        });
+        showToast(`X-Ray Mode ${xray ? 'Active' : 'Off'}`);
+      });
+
+      // Measure Tool Toggle
+      const tagMeasure = document.getElementById('tag-measure');
+      document.getElementById('tool-measure').addEventListener('click', () => {
+        measureMode = !measureMode;
+        tagMeasure.textContent = measureMode ? 'ACTIVE' : 'OFF';
+        tagMeasure.classList.toggle('active', measureMode);
+        if (!measureMode) {
+          clearMeasurements();
+        } else {
+          showToast('Measure Tool Active: Click two surfaces in 3D');
+        }
+      });
+
+      document.getElementById('btn-measure-clear').addEventListener('click', clearMeasurements);
+
+      // Top Plan View
+      document.getElementById('btn-view-top').addEventListener('click', () => {
+        camera.position.set(orbitControls.target.x, 22, orbitControls.target.z);
+        camera.lookAt(orbitControls.target);
+        orbitControls.update();
+        showToast('Top-Down Plan View');
+      });
+
+      // Isometric View
+      document.getElementById('btn-view-iso').addEventListener('click', () => {
+        camera.position.set(orbitControls.target.x + 12, 14, orbitControls.target.z + 16);
+        camera.lookAt(orbitControls.target);
+        orbitControls.update();
+        showToast('Isometric 3D View');
+      });
+
+      // Screenshot
+      document.getElementById('btn-screenshot').addEventListener('click', () => {
+        renderer.render(scene, camera);
+        const dataURL = renderer.domElement.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.download = `architectural_scene_${Date.now()}.png`;
+        link.href = dataURL;
+        link.click();
+        showToast('Snapshot captured and downloaded');
+      });
+
+      // Sidebar Toggle
+      const sidebar = document.getElementById('inspector-sidebar');
+      const tagSidebar = document.getElementById('tag-sidebar');
+      const toggleSidebar = () => {
+        const isCollapsed = sidebar.classList.toggle('collapsed');
+        tagSidebar.textContent = isCollapsed ? 'CLOSED' : 'OPEN';
+        tagSidebar.classList.toggle('active', !isCollapsed);
+      };
+
+      document.getElementById('tool-toggle-sidebar').addEventListener('click', toggleSidebar);
+      document.getElementById('btn-close-sidebar').addEventListener('click', toggleSidebar);
+
+      // When cursor enters sidebar or toolbar, temporarily disable OrbitControls
+      // so mouse wheel smoothly scrolls the HTML panel with zero 3D canvas interference
+      sidebar.addEventListener('mouseenter', () => { orbitControls.enabled = false; });
+      sidebar.addEventListener('mouseleave', () => { orbitControls.enabled = true; });
+
+      const toolbar = document.getElementById('quick-toolbar');
+      toolbar.addEventListener('mouseenter', () => { orbitControls.enabled = false; });
+      toolbar.addEventListener('mouseleave', () => { orbitControls.enabled = true; });
+
+      // Layer Toggles in Sidebar
+      document.querySelectorAll('.layer-item').forEach(el => {
+        el.addEventListener('click', (e) => {
+          const layer = e.currentTarget.getAttribute('data-layer');
+          const tag = e.currentTarget.querySelector('.layer-tag');
+          const isHidden = tag.classList.contains('hidden-tag');
+
+          if (isHidden) {
+            tag.classList.remove('hidden-tag');
+            tag.textContent = 'VISIBLE';
+            if (layer === 'Ceilings') {
+              ceilingsVisible = true;
+              tagCeilings.textContent = 'VISIBLE';
+              tagCeilings.classList.add('active');
+            }
+            toggleComponentVisibility(layer, true);
+          } else {
+            tag.classList.add('hidden-tag');
+            tag.textContent = 'HIDDEN';
+            if (layer === 'Ceilings') {
+              ceilingsVisible = false;
+              tagCeilings.textContent = 'HIDDEN';
+              tagCeilings.classList.remove('active');
+            }
+            toggleComponentVisibility(layer, false);
+          }
+        });
+      });
+
+      // Stop wheel propagation on rooms container so inner scrolling is buttery smooth
+      const roomsContainer = document.getElementById('rooms-list-container');
+      if (roomsContainer) {
+        roomsContainer.addEventListener('wheel', (e) => {
+          e.stopPropagation();
+        }, { passive: true });
+      }
+
+      // Help Modal
+      const modal = document.getElementById('help-modal');
+      const backdrop = document.getElementById('modal-backdrop');
+      const openHelp = () => {
+        modal.style.display = 'block';
+        backdrop.style.display = 'block';
+      };
+      const closeHelp = () => {
+        modal.style.display = 'none';
+        backdrop.style.display = 'none';
+      };
+
+      document.getElementById('btn-open-help').addEventListener('click', openHelp);
+      document.getElementById('btn-close-help').addEventListener('click', closeHelp);
+      document.getElementById('btn-help-ok').addEventListener('click', closeHelp);
+      backdrop.addEventListener('click', closeHelp);
+
+      // File Drag & Drop / Input Picker
+      const fileInput = document.getElementById('file-input');
+      fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+          const file = e.target.files[0];
+          const url = URL.createObjectURL(file);
+          loadActiveModel(url);
+          showToast(`Loaded ${file.name}`);
+        }
+      });
+    }
+
+    function toggleComponentVisibility(name, visible) {
+      modelGroup.traverse(child => {
+        if (child.name.toLowerCase().includes(name.toLowerCase())) {
+          child.visible = visible;
+        }
+      });
+    }
+
+    // Walkthrough Mode Logic
+    function setupWalkthroughEvents() {
+      const btnOrbit = document.getElementById('btn-mode-orbit');
+      const btnWalk = document.getElementById('btn-mode-walk');
+      const hud = document.getElementById('walkthrough-hud');
+      const crosshair = document.getElementById('crosshair');
+
+      btnWalk.addEventListener('click', () => {
+        btnOrbit.classList.remove('active');
+        btnWalk.classList.add('active');
+        walkControls.lock();
+      });
+
+      btnOrbit.addEventListener('click', () => {
+        btnWalk.classList.remove('active');
+        btnOrbit.classList.add('active');
+        walkControls.unlock();
+      });
+
+      walkControls.addEventListener('lock', () => {
+        hud.style.display = 'block';
+        crosshair.style.display = 'block';
+        orbitControls.enabled = false;
+        camera.position.y = 1.6; // True architectural eye level
+        toggleComponentVisibility('Ceilings', true);
+        showToast('Entered Walkthrough Mode. Move with W, A, S, D');
+      });
+
+      walkControls.addEventListener('unlock', () => {
+        hud.style.display = 'none';
+        crosshair.style.display = 'none';
+        orbitControls.enabled = true;
+        btnWalk.classList.remove('active');
+        btnOrbit.classList.add('active');
+        toggleComponentVisibility('Ceilings', ceilingsVisible);
+        showToast('Returned to Orbit Mode');
+      });
+
+      const onKeyDown = (event) => {
+        switch (event.code) {
+          case 'ArrowUp':
+          case 'KeyW': moveForward = true; break;
+          case 'ArrowLeft':
+          case 'KeyA': moveLeft = true; break;
+          case 'ArrowDown':
+          case 'KeyS': moveBackward = true; break;
+          case 'ArrowRight':
+          case 'KeyD': moveRight = true; break;
+        }
+      };
+
+      const onKeyUp = (event) => {
+        switch (event.code) {
+          case 'ArrowUp':
+          case 'KeyW': moveForward = false; break;
+          case 'ArrowLeft':
+          case 'KeyA': moveLeft = false; break;
+          case 'ArrowDown':
+          case 'KeyS': moveBackward = false; break;
+          case 'ArrowRight':
+          case 'KeyD': moveRight = false; break;
+        }
+      };
+
+      document.addEventListener('keydown', onKeyDown);
+      document.addEventListener('keyup', onKeyUp);
+    }
+
+    function updateWalkthrough(delta) {
+      if (!walkControls.isLocked) return;
+
+      velocity.x -= velocity.x * 10.0 * delta;
+      velocity.z -= velocity.z * 10.0 * delta;
+
+      direction.z = Number(moveForward) - Number(moveBackward);
+      direction.x = Number(moveRight) - Number(moveLeft);
+      direction.normalize();
+
+      const speed = 7.5;
+      if (moveForward || moveBackward) velocity.z -= direction.z * speed * delta;
+      if (moveLeft || moveRight) velocity.x -= direction.x * speed * delta;
+
+      walkControls.moveRight(-velocity.x * delta);
+      walkControls.moveForward(-velocity.z * delta);
+
+      // Lock eye level above floor slab
+      camera.position.y = 1.6;
+    }
+
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      const delta = clock.getDelta();
+
+      if (walkControls.isLocked) {
+        updateWalkthrough(delta);
+      } else {
+        orbitControls.update();
+      }
+
+      renderer.render(scene, camera);
+    }
+
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>

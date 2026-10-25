@@ -1,0 +1,503 @@
+{
+  "floor_plan": {
+    "scale": 1.0,
+    "wall_count": 9,
+    "room_count": 6,
+    "openings": {
+      "doors": 6,
+      "windows": 5,
+      "total": 11
+    },
+    "total_area_sq_m": 80.0,
+    "total_wall_length_m": 62.5,
+    "walls": [
+      {
+        "id": "W_EXT_S",
+        "start": [
+          0.0,
+          0.0
+        ],
+        "end": [
+          10.0,
+          0.0
+        ],
+        "thickness": 0.25,
+        "height": 2.8,
+        "length": 10.0,
+        "openings": [
+          {
+            "id": "WIN_KITCHEN",
+            "type": "WINDOW",
+            "start_dist": 1.5,
+            "end_dist": 3.0,
+            "width": 1.5,
+            "height": 1.2,
+            "sill_height": 0.9,
+            "metadata": {}
+          },
+          {
+            "id": "WIN_BATH",
+            "type": "WINDOW",
+            "start_dist": 5.2,
+            "end_dist": 6.0,
+            "width": 0.8,
+            "height": 0.8,
+            "sill_height": 1.4,
+            "metadata": {}
+          },
+          {
+            "id": "DOOR_ENTRY",
+            "type": "DOOR",
+            "start_dist": 7.8,
+            "end_dist": 8.8,
+            "width": 1.0,
+            "height": 2.1,
+            "sill_height": 0.0,
+            "metadata": {
+              "hinge": "start",
+              "swing_side": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "W_EXT_E",
+        "start": [
+          10.0,
+          0.0
+        ],
+        "end": [
+          10.0,
+          8.0
+        ],
+        "thickness": 0.25,
+        "height": 2.8,
+        "length": 8.0,
+        "openings": [
+          {
+            "id": "WIN_BED2",
+            "type": "WINDOW",
+            "start_dist": 3.6,
+            "end_dist": 5.0,
+            "width": 1.4,
+            "height": 1.3,
+            "sill_height": 0.85,
+            "metadata": {}
+          },
+          {
+            "id": "WIN_MBED",
+            "type": "WINDOW",
+            "start_dist": 6.0,
+            "end_dist": 7.5,
+            "width": 1.5,
+            "height": 1.4,
+            "sill_height": 0.75,
+            "metadata": {}
+          }
+        ]
+      },
+      {
+        "id": "W_EXT_N",
+        "start": [
+          10.0,
+          8.0
+        ],
+        "end": [
+          0.0,
+          8.0
+        ],
+        "thickness": 0.25,
+        "height": 2.8,
+        "length": 10.0,
+        "openings": [
+          {
+            "id": "WIN_LIVING",
+            "type": "WINDOW",
+            "start_dist": 6.0,
+            "end_dist": 8.5,
+            "width": 2.5,
+            "height": 1.5,
+            "sill_height": 0.65,
+            "metadata": {}
+          }
+        ]
+      },
+      {
+        "id": "W_EXT_W",
+        "start": [
+          0.0,
+          8.0
+        ],
+        "end": [
+          0.0,
+          0.0
+        ],
+        "thickness": 0.25,
+        "height": 2.8,
+        "length": 8.0,
+        "openings": []
+      },
+      {
+        "id": "W_SPINE",
+        "start": [
+          4.5,
+          0.0
+        ],
+        "end": [
+          4.5,
+          8.0
+        ],
+        "thickness": 0.2,
+        "height": 2.8,
+        "length": 8.0,
+        "openings": [
+          {
+            "id": "DOOR_CORRIDOR",
+            "type": "DOOR",
+            "start_dist": 3.8,
+            "end_dist": 4.7,
+            "width": 0.9,
+            "height": 2.1,
+            "sill_height": 0.0,
+            "metadata": {
+              "hinge": "start",
+              "swing_side": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "W_INT_KIT",
+        "start": [
+          0.0,
+          3.5
+        ],
+        "end": [
+          4.5,
+          3.5
+        ],
+        "thickness": 0.15,
+        "height": 2.8,
+        "length": 4.5,
+        "openings": [
+          {
+            "id": "DOOR_KITCHEN",
+            "type": "DOOR",
+            "start_dist": 1.2,
+            "end_dist": 2.1,
+            "width": 0.9,
+            "height": 2.1,
+            "sill_height": 0.0,
+            "metadata": {
+              "hinge": "start",
+              "swing_side": -1
+            }
+          }
+        ]
+      },
+      {
+        "id": "W_INT_BED2",
+        "start": [
+          4.5,
+          3.0
+        ],
+        "end": [
+          10.0,
+          3.0
+        ],
+        "thickness": 0.15,
+        "height": 2.8,
+        "length": 5.5,
+        "openings": [
+          {
+            "id": "DOOR_BATH",
+            "type": "DOOR",
+            "start_dist": 0.4,
+            "end_dist": 1.3,
+            "width": 0.9,
+            "height": 2.1,
+            "sill_height": 0.0,
+            "metadata": {
+              "hinge": "start",
+              "swing_side": -1
+            }
+          },
+          {
+            "id": "DOOR_BED2",
+            "type": "DOOR",
+            "start_dist": 3.2,
+            "end_dist": 4.1,
+            "width": 0.9,
+            "height": 2.1,
+            "sill_height": 0.0,
+            "metadata": {
+              "hinge": "start",
+              "swing_side": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "W_INT_MBED",
+        "start": [
+          4.5,
+          5.5
+        ],
+        "end": [
+          10.0,
+          5.5
+        ],
+        "thickness": 0.15,
+        "height": 2.8,
+        "length": 5.5,
+        "openings": [
+          {
+            "id": "DOOR_MBED",
+            "type": "DOOR",
+            "start_dist": 0.4,
+            "end_dist": 1.3,
+            "width": 0.9,
+            "height": 2.1,
+            "sill_height": 0.0,
+            "metadata": {
+              "hinge": "start",
+              "swing_side": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "W_INT_BATH",
+        "start": [
+          7.0,
+          0.0
+        ],
+        "end": [
+          7.0,
+          3.0
+        ],
+        "thickness": 0.15,
+        "height": 2.8,
+        "length": 3.0,
+        "openings": []
+      }
+    ],
+    "rooms": [
+      {
+        "id": "room_kitchen",
+        "name": "Kitchen & Dining",
+        "points": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            4.5,
+            0.0
+          ],
+          [
+            4.5,
+            3.5
+          ],
+          [
+            0.0,
+            3.5
+          ]
+        ],
+        "area_sq_m": 15.75,
+        "perimeter_m": 16.0,
+        "color": [
+          238,
+          224,
+          212,
+          255
+        ],
+        "metadata": {}
+      },
+      {
+        "id": "room_living",
+        "name": "Living Room",
+        "points": [
+          [
+            0.0,
+            3.5
+          ],
+          [
+            4.5,
+            3.5
+          ],
+          [
+            4.5,
+            8.0
+          ],
+          [
+            0.0,
+            8.0
+          ]
+        ],
+        "area_sq_m": 20.25,
+        "perimeter_m": 18.0,
+        "color": [
+          242,
+          238,
+          230,
+          255
+        ],
+        "metadata": {}
+      },
+      {
+        "id": "room_bath",
+        "name": "Bathroom",
+        "points": [
+          [
+            4.5,
+            0.0
+          ],
+          [
+            7.0,
+            0.0
+          ],
+          [
+            7.0,
+            3.0
+          ],
+          [
+            4.5,
+            3.0
+          ]
+        ],
+        "area_sq_m": 7.5,
+        "perimeter_m": 11.0,
+        "color": [
+          218,
+          236,
+          240,
+          255
+        ],
+        "metadata": {}
+      },
+      {
+        "id": "room_foyer",
+        "name": "Foyer & Hall",
+        "points": [
+          [
+            7.0,
+            0.0
+          ],
+          [
+            10.0,
+            0.0
+          ],
+          [
+            10.0,
+            3.0
+          ],
+          [
+            7.0,
+            3.0
+          ]
+        ],
+        "area_sq_m": 9.0,
+        "perimeter_m": 12.0,
+        "color": [
+          232,
+          230,
+          222,
+          255
+        ],
+        "metadata": {}
+      },
+      {
+        "id": "room_bed2",
+        "name": "Bedroom 2",
+        "points": [
+          [
+            4.5,
+            3.0
+          ],
+          [
+            10.0,
+            3.0
+          ],
+          [
+            10.0,
+            5.5
+          ],
+          [
+            4.5,
+            5.5
+          ]
+        ],
+        "area_sq_m": 13.75,
+        "perimeter_m": 16.0,
+        "color": [
+          224,
+          236,
+          228,
+          255
+        ],
+        "metadata": {}
+      },
+      {
+        "id": "room_mbed",
+        "name": "Master Bedroom",
+        "points": [
+          [
+            4.5,
+            5.5
+          ],
+          [
+            10.0,
+            5.5
+          ],
+          [
+            10.0,
+            8.0
+          ],
+          [
+            4.5,
+            8.0
+          ]
+        ],
+        "area_sq_m": 13.75,
+        "perimeter_m": 16.0,
+        "color": [
+          232,
+          226,
+          236,
+          255
+        ],
+        "metadata": {}
+      }
+    ],
+    "validation": {
+      "has_errors": false,
+      "error_count": 0,
+      "warning_count": 0,
+      "info_count": 0,
+      "issues": []
+    },
+    "metadata": {
+      "name": "2-Bedroom Benchmark Apartment",
+      "generator": "SyntheticBenchmarkGenerator"
+    }
+  },
+  "image_metadata": {
+    "image_width_px": 650,
+    "image_height_px": 600,
+    "pixels_per_meter": 50.0,
+    "scale_m_per_px": 0.02,
+    "origin_m": [
+      -1.5,
+      -1.5
+    ],
+    "scale_bar": {
+      "start_px": [
+        40,
+        565
+      ],
+      "length_px": 250,
+      "length_m": 5.0
+    }
+  }
+}
