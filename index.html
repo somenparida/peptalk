@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HNX26 PS06 — 3D Reconstruction Viewer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./src/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <!-- 3D Canvas Container -->
+      <div id="canvas-container"></div>
+
+      <!-- Top Technical Bar -->
+      <header id="top-bar">
+        <div class="brand">
+          <div class="brand-badge">HNX26 • PS06</div>
+          <div class="brand-title">Architectural 3D Reconstruction</div>
+          <div class="role-badge">Member 3 Engine</div>
+        </div>
+        <div class="pipeline-status">
+          <span class="status-indicator"></span>
+          <span id="engine-status">Reconstruction Active</span>
+        </div>
+      </header>
+
+      <!-- Control Panel / Floating Sidebar -->
+      <aside id="control-panel">
+        <div class="panel-section">
+          <div class="section-title">SCENE SOURCE</div>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <button id="btn-load-validated-scene" class="btn btn-primary" title="Load Member 2 validated_scene.json">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              Validated Scene
+            </button>
+            <div class="btn-group">
+              <button id="btn-load-member2-scene" class="btn btn-secondary" title="Load Member 2 sample_scene.json">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                Sample Scene
+              </button>
+              <button id="btn-load-test-scene" class="btn btn-secondary" title="Reload standard test scene.json">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 2v6h6"/><path d="M21 12A9 9 0 0 0 6 5.3L3 8"/><path d="M21 22v-6h-6"/><path d="M3 12a9 9 0 0 0 15 6.7l3-2.7"/></svg>
+                Test Scene
+              </button>
+            </div>
+          </div>
+          <div style="margin-top: 8px;">
+            <label class="btn btn-secondary" style="width: 100%; display: flex; justify-content: center; align-items: center; gap: 6px;" title="Upload custom scene.json">
+              <input type="file" id="file-scene-input" accept=".json" style="display: none;" />
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              Upload JSON
+            </label>
+          </div>
+        </div>
+
+        <div class="panel-section">
+          <div class="section-title">CAMERA & VIEW</div>
+          <div class="btn-group">
+            <button id="btn-reset-cam" class="btn btn-secondary" title="Reset Camera to default viewpoint">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              Reset Camera
+            </button>
+            <button id="btn-toggle-view" class="btn btn-secondary" title="Switch between 3D and Top-Down 2D view">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+              Top-Down (2D)
+            </button>
+          </div>
+        </div>
+
+        <div class="panel-section">
+          <div class="section-title">LAYER VISIBILITY</div>
+          <div class="toggle-grid">
+            <label class="toggle-chip active" id="chip-walls">
+              <input type="checkbox" id="toggle-walls" checked />
+              <span>Walls</span>
+            </label>
+            <label class="toggle-chip active" id="chip-floor">
+              <input type="checkbox" id="toggle-floor" checked />
+              <span>Floor</span>
+            </label>
+            <label class="toggle-chip active" id="chip-doors">
+              <input type="checkbox" id="toggle-doors" checked />
+              <span>Doors</span>
+            </label>
+            <label class="toggle-chip active" id="chip-windows">
+              <input type="checkbox" id="toggle-windows" checked />
+              <span>Windows</span>
+            </label>
+            <label class="toggle-chip active" id="chip-labels">
+              <input type="checkbox" id="toggle-labels" checked />
+              <span>Labels</span>
+            </label>
+            <label class="toggle-chip active" id="chip-dimensions">
+              <input type="checkbox" id="toggle-dimensions" checked />
+              <span>Dimensions</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="panel-section">
+          <div class="section-title">SCENE METRICS</div>
+          <div class="metrics-grid">
+            <div class="metric-box">
+              <span class="metric-num" id="stat-rooms">0</span>
+              <span class="metric-label">Rooms</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-num" id="stat-walls">0</span>
+              <span class="metric-label">Walls</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-num" id="stat-doors">0</span>
+              <span class="metric-label">Doors</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-num" id="stat-windows">0</span>
+              <span class="metric-label">Windows</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-section" id="panel-validation">
+          <div class="section-title">VALIDATION STATUS</div>
+          <div id="stat-validation-badge" style="font-family: var(--font-mono); font-size: 11px; padding: 4px 8px; border-radius: 4px; background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); color: #fbbf24; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
+            <span id="stat-validation-text">Valid: 15 warnings</span>
+            <span id="stat-validation-count" style="font-weight: 700;">15</span>
+          </div>
+          <div id="validation-warnings-list" style="max-height: 110px; overflow-y: auto; font-family: var(--font-mono); font-size: 10px; line-height: 1.4; color: #cbd5e1; background: rgba(0,0,0,0.3); border-radius: 4px; padding: 6px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 4px;">
+          </div>
+        </div>
+
+        <div class="panel-section">
+          <div class="section-title">EXPORT & PIPELINE</div>
+          <div class="btn-group">
+            <button id="btn-export-glb" class="btn btn-accent" title="Export 3D model to GLB format">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export GLB
+            </button>
+          </div>
+          <div id="export-status" class="export-status-box" style="display: none;"></div>
+        </div>
+
+        <div class="panel-section technical-info">
+          <div class="coord-info">
+            <span class="coord-key">COORDINATES:</span>
+            <span>X = X, Y = Height, Z = Y</span>
+          </div>
+          <div class="coord-info">
+            <span class="coord-key">UNITS:</span>
+            <span id="stat-units">meters</span>
+          </div>
+          <div class="coord-info">
+            <span class="coord-key">SCALE:</span>
+            <span>1 unit = 1 meter</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Bottom Status/Helper Overlay -->
+      <footer id="bottom-bar">
+        <div class="nav-hint">
+          <span><kbd>Left Click + Drag</kbd> Orbit</span>
+          <span><kbd>Right Click + Drag</kbd> Pan</span>
+          <span><kbd>Scroll</kbd> Zoom</span>
+        </div>
+        <div id="render-fps" class="badge-fps">60 FPS</div>
+      </footer>
+    </div>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

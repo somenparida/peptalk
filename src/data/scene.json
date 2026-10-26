@@ -1,0 +1,61 @@
+{
+  "units": "meters",
+  "settings": {
+    "wallHeight": 3,
+    "floorThickness": 0.1
+  },
+  "walls": [
+    {
+      "id": "w1",
+      "start": [0, 0],
+      "end": [6, 0],
+      "thickness": 0.2
+    },
+    {
+      "id": "w2",
+      "start": [6, 0],
+      "end": [6, 4],
+      "thickness": 0.2
+    },
+    {
+      "id": "w3",
+      "start": [6, 4],
+      "end": [0, 4],
+      "thickness": 0.2
+    },
+    {
+      "id": "w4",
+      "start": [0, 4],
+      "end": [0, 0],
+      "thickness": 0.2
+    }
+  ],
+  "doors": [
+    {
+      "id": "d1",
+      "wall_id": "w1",
+      "position": 0.5,
+      "width": 0.9
+    }
+  ],
+  "windows": [
+    {
+      "id": "win1",
+      "wall_id": "w3",
+      "position": 0.5,
+      "width": 1.5
+    }
+  ],
+  "rooms": [
+    {
+      "id": "room1",
+      "name": "Test Room",
+      "polygon": [
+        [0.2, 0.2],
+        [5.8, 0.2],
+        [5.8, 3.8],
+        [0.2, 3.8]
+      ]
+    }
+  ]
+}
