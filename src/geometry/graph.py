@@ -72,6 +72,29 @@ class WallGraph:
                 counts["complex"] += 1
         return counts
 
+    def get_dead_end_endpoints(self) -> List[Tuple[str, Point2D]]:
+        """Return list of (wall_id, endpoint) for all degree-1 dead ends."""
+        dead_ends: List[Tuple[str, Point2D]] = []
+        for node in self.graph.nodes:
+            if self.graph.degree(node) == 1:
+                # Find incident edge
+                for neighbor in self.graph.neighbors(node):
+                    edge_data = self.graph.get_edge_data(node, neighbor)
+                    wall_id = edge_data.get("wall_id", "") if edge_data else ""
+                    pt = self._node_coords.get(node, Point2D(node[0], node[1]))
+                    dead_ends.append((wall_id, pt))
+        return dead_ends
+
+    def get_isolated_walls(self) -> List[WallEdge]:
+        """Return walls where both endpoints are dead ends (degree 1 on both ends)."""
+        isolated: List[WallEdge] = []
+        for u, v, data in self.graph.edges(data=True):
+            if self.graph.degree(u) == 1 and self.graph.degree(v) == 1:
+                wid = data.get("wall_id", "")
+                if wid in self.walls_by_id:
+                    isolated.append(self.walls_by_id[wid])
+        return isolated
+
     def get_connected_components(self) -> List[List[WallEdge]]:
         """Return connected subgraphs of walls."""
         components = []

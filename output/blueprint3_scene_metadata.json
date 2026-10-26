@@ -966,7 +966,7 @@
     "validation": {
       "has_errors": false,
       "error_count": 0,
-      "warning_count": 2,
+      "warning_count": 5,
       "info_count": 114,
       "issues": [
         {
@@ -1762,9 +1762,42 @@
         },
         {
           "level": "WARNING",
+          "code": "DEAD_END_WALL",
+          "message": "Wall 'cv_wall_1' terminates at dead-end endpoint (0.00, 0.02). Preserving source geometry (insufficient evidence to prune or snap).",
+          "entity_id": "cv_wall_1",
+          "details": {
+            "wall_id": "cv_wall_1",
+            "endpoint": [
+              0.0,
+              0.016071428571428573
+            ]
+          }
+        },
+        {
+          "level": "WARNING",
+          "code": "DEAD_END_WALL",
+          "message": "Wall 'cv_wall_1' terminates at dead-end endpoint (0.00, 7.75). Preserving source geometry (insufficient evidence to prune or snap).",
+          "entity_id": "cv_wall_1",
+          "details": {
+            "wall_id": "cv_wall_1",
+            "endpoint": [
+              0.0,
+              7.746428571428573
+            ]
+          }
+        },
+        {
+          "level": "WARNING",
           "code": "DEAD_END_WALLS",
-          "message": "Floor plan has 2 dead-end wall endpoints (unconnected floating partitions).",
+          "message": "Floor plan has 2 dead-end wall endpoints (unconnected floating partitions). Preserved as source geometry.",
           "entity_id": null,
+          "details": {}
+        },
+        {
+          "level": "WARNING",
+          "code": "ISOLATED_WALL",
+          "message": "Wall 'cv_wall_1' is completely disconnected (dead ends at both endpoints). Preserving source geometry.",
+          "entity_id": "cv_wall_1",
           "details": {}
         },
         {

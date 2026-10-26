@@ -853,7 +853,7 @@
     "validation": {
       "has_errors": false,
       "error_count": 0,
-      "warning_count": 1,
+      "warning_count": 3,
       "info_count": 136,
       "issues": [
         {
@@ -1803,8 +1803,34 @@
         },
         {
           "level": "WARNING",
+          "code": "DEAD_END_WALL",
+          "message": "Wall 'cv_wall_6_a_merged_cv_wall_6_b_a' terminates at dead-end endpoint (15.77, 1.20). Preserving source geometry (insufficient evidence to prune or snap).",
+          "entity_id": "cv_wall_6_a_merged_cv_wall_6_b_a",
+          "details": {
+            "wall_id": "cv_wall_6_a_merged_cv_wall_6_b_a",
+            "endpoint": [
+              15.771428571428572,
+              1.2
+            ]
+          }
+        },
+        {
+          "level": "WARNING",
+          "code": "DEAD_END_WALL",
+          "message": "Wall 'cv_wall_21_merged_cv_wall_31_merged_cv_wall_33_merged_cv_wall_9_merged_cv_wall_20' terminates at dead-end endpoint (15.62, 1.20). Preserving source geometry (insufficient evidence to prune or snap).",
+          "entity_id": "cv_wall_21_merged_cv_wall_31_merged_cv_wall_33_merged_cv_wall_9_merged_cv_wall_20",
+          "details": {
+            "wall_id": "cv_wall_21_merged_cv_wall_31_merged_cv_wall_33_merged_cv_wall_9_merged_cv_wall_20",
+            "endpoint": [
+              15.621428571428572,
+              1.2
+            ]
+          }
+        },
+        {
+          "level": "WARNING",
           "code": "DEAD_END_WALLS",
-          "message": "Floor plan has 2 dead-end wall endpoints (unconnected floating partitions).",
+          "message": "Floor plan has 2 dead-end wall endpoints (unconnected floating partitions). Preserved as source geometry.",
           "entity_id": null,
           "details": {}
         },
