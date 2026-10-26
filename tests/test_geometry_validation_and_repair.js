@@ -260,6 +260,110 @@ async function runMember2Tests() {
     );
   });
 
+  // -------------------------------------------------------------------------
+  // SUITE 9: VERIFICATION OF THE SIX NOTICES & HIGH-CONFIDENCE REPAIRS
+  // -------------------------------------------------------------------------
+  console.log('\n--- SUITE 9: RESOLUTION OF THE SIX NOTICES & TOPOLOGY AUDIT ---');
+
+  // 9.1 Wall w9 retained geometry
+  const w9 = cleanedScene.walls.find(w => w.id === 'w9');
+  assert(!!w9 && Math.abs(w9.length - 0.24) < 0.01, '9.1 Wall w9 retains exact 0.24m length without artificial stretching');
+
+  // 9.2 Validation report w9 notices
+  const w9Issues = report.issues.filter(i => i.element_id === 'w9');
+  assert(w9Issues.length === 2 && w9Issues.every(i => !i.auto_repaired && i.manual_review_required),
+    '9.2 Wall w9 has exactly 2 unresolved notices retained for manual architectural review');
+
+  // 9.3 Door d1 repositioning on w8
+  const cd1 = cleanedScene.doors.find(d => d.id === 'd1');
+  const d1SpanStart = cd1.offset - cd1.width / 2;
+  const d1SpanEnd = cd1.offset + cd1.width / 2;
+  assert(cd1.wall_id === 'w8' && d1SpanStart >= 0.49 && d1SpanEnd <= 1.00,
+    `9.3 Door d1 repositioned inside wall w8 (span: [${d1SpanStart.toFixed(2)}, ${d1SpanEnd.toFixed(2)}]m on 1.00m wall)`);
+
+  // 9.4 Door d2 centering on w10
+  const cd2 = cleanedScene.doors.find(d => d.id === 'd2');
+  const d2SpanStart = cd2.offset - cd2.width / 2;
+  const d2SpanEnd = cd2.offset + cd2.width / 2;
+  assert(cd2.wall_id === 'w10' && d2SpanStart >= 0.005 && d2SpanEnd <= 0.695,
+    `9.4 Door d2 centered on wall w10 (span: [${d2SpanStart.toFixed(2)}, ${d2SpanEnd.toFixed(2)}]m on 0.70m wall)`);
+
+  // 9.5 Door d4 clearance on w14
+  const cd4 = cleanedScene.doors.find(d => d.id === 'd4');
+  const d4SpanEnd = cd4.offset + cd4.width / 2;
+  assert(cd4.wall_id === 'w14' && d4SpanEnd <= 2.65,
+    `9.5 Door d4 repositioned on wall w14 with 10cm corner casing clearance (end offset: ${d4SpanEnd.toFixed(2)}m on 2.74m wall)`);
+
+  // 9.6 Window win1 clearance and pier separation on w3
+  const cwin1 = cleanedScene.windows.find(w => w.id === 'win1');
+  const cwin2 = cleanedScene.windows.find(w => w.id === 'win2');
+  const win1SpanStart = cwin1.offset - cwin1.width / 2;
+  const win1SpanEnd = cwin1.offset + cwin1.width / 2;
+  const win2SpanEnd = cwin2.offset + cwin2.width / 2;
+  const pierSeparation = win1SpanStart - win2SpanEnd;
+  assert(cwin1.wall_id === 'w3' && win1SpanEnd <= 1.09 && pierSeparation >= 0.25,
+    `9.6 Window win1 fits on w3 with 10cm end clearance and ${(pierSeparation * 100).toFixed(0)}cm solid pier separation from win2`);
+
+  // 9.7 Window win2 start clearance
+  const win2SpanStart = cwin2.offset - cwin2.width / 2;
+  assert(cwin2.wall_id === 'w3' && win2SpanStart >= 0.09,
+    `9.7 Window win2 fits on w3 with ${(win2SpanStart * 100).toFixed(0)}cm start corner clearance`);
+
+  // 9.8 Summary issue counts
+  const repSummary = cleanedVal.validationReport.summary;
+  assert(repSummary.total_initial_issues === 17 && repSummary.auto_repaired === 15 && repSummary.remaining_unresolved === 2,
+    `9.8 Diagnostic summary confirms: ${repSummary.total_initial_issues} initial, ${repSummary.auto_repaired} repaired, ${repSummary.remaining_unresolved} unresolved`);
+
+  // 9.9 Idempotency of repair operations
+  const secondRepair = TopologyRepairer.repair(cleanedScene);
+  assert(secondRepair.operations.length === 0,
+    `9.9 TopologyRepairer is strictly idempotent: 2nd pass generated 0 new operations (was: ${secondRepair.operations.length})`);
+
+  // -------------------------------------------------------------------------
+  // SUITE 10: FORENSIC VERIFICATION & RETENTION OF WALL W9 (PHASES 1-5)
+  // -------------------------------------------------------------------------
+  console.log('\n--- SUITE 10: WALL W9 FORENSIC CLASSIFICATION & INTEGRITY ---');
+
+  // 10.1 Wall w9 semantic classification and status
+  assert(w9.classification === 'candidate_annotation_or_transverse_stub',
+    `10.1 Wall w9 has semantic classification '${w9.classification}'`);
+  assert(w9.status === 'retained_pending_manual_review',
+    `10.2 Wall w9 has provenance status '${w9.status}'`);
+
+  // 10.3 Dimensional fidelity: length is exactly 0.24m and not extended to 0.30m
+  assert(Math.abs(w9.length - 0.24) < 0.001 && w9.length < 0.30,
+    `10.3 Wall w9 length is strictly 0.24m (was not extended to 0.30m threshold)`);
+  assert(w9.start[0] === 1.44 && w9.start[1] === 3.0 && w9.end[0] === 1.68 && w9.end[1] === 3.0,
+    `10.4 Wall w9 spans exactly [1.44, 3.0] to [1.68, 3.0] across West exterior envelope`);
+
+  // 10.5 Connectivity gap: 0.80m to w11 and 1.54m to w2
+  const w11 = cleanedScene.walls.find(w => w.id === 'w11');
+  const w2 = cleanedScene.walls.find(w => w.id === 'w2');
+  const gapToW11 = Math.abs(w11.start[1] - w9.start[1]); // 3.80 - 3.00 = 0.80m
+  const gapToW2 = Math.abs(w9.start[1] - w2.end[1]);     // 3.00 - 1.46 = 1.54m
+  assert(Math.abs(gapToW11 - 0.80) < 0.01,
+    `10.5 Gap from w9 to nearest wall w11 is exactly ${gapToW11.toFixed(2)}m (exceeds 0.15m tolerance)`);
+  assert(Math.abs(gapToW2 - 1.54) < 0.01,
+    `10.6 Gap from w9 to upper wall w2 is exactly ${gapToW2.toFixed(2)}m`);
+
+  // 10.7 Prevention of unjustified wall connections
+  const snappedDist = Math.hypot(w9.end[0] - w11.start[0], w9.end[1] - w11.start[1]);
+  assert(snappedDist > 0.70,
+    `10.7 w9 is not arbitrarily snapped to w11 across open space (distance: ${snappedDist.toFixed(2)}m)`);
+
+  // 10.8 Validator sub_type distinctions and actionable diagnostic guidance
+  const shortIssue = report.issues.find(i => i.element_id === 'w9' && i.type === 'short_wall');
+  const discoIssue = report.issues.find(i => i.element_id === 'w9' && i.type === 'disconnected_wall');
+  assert(shortIssue && shortIssue.sub_type === 'indeterminate_transverse_segment' && !!shortIssue.additional_evidence_needed,
+    '10.8 Short wall issue carries sub_type indeterminate_transverse_segment and notes additional evidence needed');
+  assert(discoIssue && discoIssue.sub_type === 'indeterminate_network_gap' && !!discoIssue.additional_evidence_needed,
+    '10.9 Disconnected wall issue carries sub_type indeterminate_network_gap and notes additional evidence needed');
+
+  // 10.10 Idempotency: 3rd pass produces zero changes
+  const thirdRepair = TopologyRepairer.repair(secondRepair.repairedScene);
+  assert(thirdRepair.operations.length === 0,
+    `10.10 Multi-pass idempotency confirmed: 3rd repair pass generated 0 operations`);
+
   console.log('\n================================================================');
   console.log(`MEMBER 2 SUITE: ${passedTests} / ${totalTests} TESTS PASSED (${((passedTests / totalTests) * 100).toFixed(1)}%)`);
   console.log('================================================================\n');

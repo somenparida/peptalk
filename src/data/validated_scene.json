@@ -9,11 +9,11 @@
   "scale": {
     "meters_per_pixel": 0.02,
     "source": "explicit",
-    "confidence": 1.0,
+    "confidence": 1,
     "metric_available": true
   },
   "defaults": {
-    "wall_height": 3.0,
+    "wall_height": 3,
     "door_height": 2.1,
     "window_sill_height": 0.9,
     "window_height": 1.2
@@ -23,14 +23,14 @@
       "id": "w1",
       "source": {
         "start": [
-          238.0,
-          18.0
+          238,
+          18
         ],
         "end": [
           79.5,
-          19.0
+          19
         ],
-        "thickness": 16.0
+        "thickness": 16
       },
       "geometry": {
         "start": [
@@ -59,11 +59,11 @@
       "source": {
         "start": [
           79.5,
-          19.0
+          19
         ],
         "end": [
-          77.0,
-          73.0
+          77,
+          73
         ],
         "thickness": 12.1
       },
@@ -93,12 +93,12 @@
       "id": "w3",
       "source": {
         "start": [
-          329.0,
+          329,
           17.5
         ],
         "end": [
-          270.0,
-          19.0
+          270,
+          19
         ],
         "thickness": 15.9
       },
@@ -128,14 +128,14 @@
       "id": "w4",
       "source": {
         "start": [
-          374.0,
-          19.0
+          374,
+          19
         ],
         "end": [
-          503.0,
-          18.0
+          503,
+          18
         ],
-        "thickness": 16.0
+        "thickness": 16
       },
       "geometry": {
         "start": [
@@ -163,12 +163,12 @@
       "id": "w5",
       "source": {
         "start": [
-          503.0,
-          18.0
+          503,
+          18
         ],
         "end": [
-          504.0,
-          137.0
+          504,
+          137
         ],
         "thickness": 8.4
       },
@@ -203,9 +203,9 @@
         ],
         "end": [
           317.5,
-          145.0
+          145
         ],
-        "thickness": 8.0
+        "thickness": 8
       },
       "geometry": {
         "start": [
@@ -233,14 +233,14 @@
       "id": "w7",
       "source": {
         "start": [
-          374.0,
-          19.0
+          374,
+          19
         ],
         "end": [
-          372.0,
-          148.0
+          372,
+          148
         ],
-        "thickness": 4.0
+        "thickness": 4
       },
       "geometry": {
         "start": [
@@ -268,8 +268,8 @@
       "id": "w8",
       "source": {
         "start": [
-          294.0,
-          144.0
+          294,
+          144
         ],
         "end": [
           343.9,
@@ -303,47 +303,49 @@
       "id": "w9",
       "source": {
         "start": [
-          72.0,
-          150.0
+          72,
+          150
         ],
         "end": [
-          84.0,
-          150.0
+          84,
+          150
         ],
-        "thickness": 4.0
+        "thickness": 4
       },
       "geometry": {
         "start": [
           1.44,
-          3.0
+          3
         ],
         "end": [
           1.68,
-          3.0
+          3
         ],
         "thickness": 0.08,
         "length": 0.24
       },
       "start": [
         1.44,
-        3.0
+        3
       ],
       "end": [
         1.68,
-        3.0
+        3
       ],
-      "thickness": 0.08
+      "thickness": 0.08,
+      "classification": "candidate_annotation_or_transverse_stub",
+      "status": "retained_pending_manual_review"
     },
     {
       "id": "w10",
       "source": {
         "start": [
-          374.0,
-          185.0
+          374,
+          185
         ],
         "end": [
-          373.0,
-          219.0
+          373,
+          219
         ],
         "thickness": 4.1
       },
@@ -373,12 +375,12 @@
       "id": "w11",
       "source": {
         "start": [
-          78.0,
-          190.0
+          78,
+          190
         ],
         "end": [
-          80.0,
-          219.0
+          80,
+          219
         ],
         "thickness": 12.9
       },
@@ -408,14 +410,14 @@
       "id": "w12",
       "source": {
         "start": [
-          80.0,
-          219.0
+          80,
+          219
         ],
         "end": [
-          314.0,
-          218.0
+          314,
+          218
         ],
-        "thickness": 8.0
+        "thickness": 8
       },
       "geometry": {
         "start": [
@@ -443,12 +445,12 @@
       "id": "w13",
       "source": {
         "start": [
-          506.0,
-          194.0
+          506,
+          194
         ],
         "end": [
-          503.0,
-          219.0
+          503,
+          219
         ],
         "thickness": 10.2
       },
@@ -478,14 +480,14 @@
       "id": "w14",
       "source": {
         "start": [
-          503.0,
-          219.0
+          503,
+          219
         ],
         "end": [
-          359.0,
-          219.0
+          359,
+          219
         ],
-        "thickness": 10.0
+        "thickness": 10
       },
       "geometry": {
         "start": [
@@ -515,8 +517,8 @@
       "id": "d1",
       "wall_id": "w8",
       "source": {
-        "position": 1.0,
-        "width": 24.0
+        "position": 1,
+        "width": 24
       },
       "geometry": {
         "center": [
@@ -534,15 +536,15 @@
         "width": 0.48,
         "offset_from_start": 0.759
       },
-      "position": 1.0,
+      "position": 1,
       "width": 0.48
     },
     {
       "id": "d2",
       "wall_id": "w10",
       "source": {
-        "position": 0.0,
-        "width": 34.0
+        "position": 0,
+        "width": 34
       },
       "geometry": {
         "center": [
@@ -558,17 +560,17 @@
           4.031
         ],
         "width": 0.68,
-        "offset_from_start": 0.0
+        "offset_from_start": 0
       },
-      "position": 0.0,
+      "position": 0,
       "width": 0.68
     },
     {
       "id": "d3",
       "wall_id": "w11",
       "source": {
-        "position": 0.0,
-        "width": 30.0
+        "position": 0,
+        "width": 30
       },
       "geometry": {
         "center": [
@@ -584,17 +586,17 @@
           4.0992
         ],
         "width": 0.6,
-        "offset_from_start": 0.0
+        "offset_from_start": 0
       },
-      "position": 0.0,
+      "position": 0,
       "width": 0.6
     },
     {
       "id": "d4",
       "wall_id": "w14",
       "source": {
-        "position": 1.0,
-        "width": 37.0
+        "position": 1,
+        "width": 37
       },
       "geometry": {
         "center": [
@@ -612,7 +614,7 @@
         "width": 0.74,
         "offset_from_start": 2.37
       },
-      "position": 1.0,
+      "position": 1,
       "width": 0.74
     }
   ],
@@ -621,8 +623,8 @@
       "id": "win1",
       "wall_id": "w3",
       "source": {
-        "position": 1.0,
-        "width": 17.0
+        "position": 1,
+        "width": 17
       },
       "geometry": {
         "center": [
@@ -640,15 +642,15 @@
         "width": 0.34,
         "offset_from_start": 1.0104
       },
-      "position": 1.0,
+      "position": 1,
       "width": 0.34
     },
     {
       "id": "win2",
       "wall_id": "w3",
       "source": {
-        "position": 0.0,
-        "width": 19.0
+        "position": 0,
+        "width": 19
       },
       "geometry": {
         "center": [
@@ -664,17 +666,17 @@
           0.3548
         ],
         "width": 0.38,
-        "offset_from_start": 0.0
+        "offset_from_start": 0
       },
-      "position": 0.0,
+      "position": 0,
       "width": 0.38
     },
     {
       "id": "win3",
       "wall_id": "w2",
       "source": {
-        "position": 1.0,
-        "width": 69.0
+        "position": 1,
+        "width": 69
       },
       "geometry": {
         "center": [
@@ -692,15 +694,15 @@
         "width": 1.38,
         "offset_from_start": 0.3912
       },
-      "position": 1.0,
+      "position": 1,
       "width": 1.38
     },
     {
       "id": "win4",
       "wall_id": "w5",
       "source": {
-        "position": 1.0,
-        "width": 45.0
+        "position": 1,
+        "width": 45
       },
       "geometry": {
         "center": [
@@ -718,7 +720,7 @@
         "width": 0.9,
         "offset_from_start": 1.93
       },
-      "position": 1.0,
+      "position": 1,
       "width": 0.9
     }
   ],
@@ -729,44 +731,44 @@
       "source": {
         "polygon": [
           [
-            85.0,
-            27.0
+            85,
+            27
           ],
           [
-            85.0,
-            214.0
+            85,
+            214
           ],
           [
-            371.0,
-            214.0
+            371,
+            214
           ],
           [
-            371.0,
-            148.0
+            371,
+            148
           ],
           [
-            291.0,
-            146.0
+            291,
+            146
           ],
           [
-            292.0,
-            142.0
+            292,
+            142
           ],
           [
-            316.0,
-            142.0
+            316,
+            142
           ],
           [
-            316.0,
-            52.0
+            316,
+            52
           ],
           [
-            304.0,
-            51.0
+            304,
+            51
           ],
           [
-            304.0,
-            27.0
+            304,
+            27
           ]
         ]
       },
@@ -876,20 +878,20 @@
       "source": {
         "polygon": [
           [
-            371.0,
-            27.0
+            371,
+            27
           ],
           [
-            321.0,
-            27.0
+            321,
+            27
           ],
           [
-            322.0,
-            142.0
+            322,
+            142
           ],
           [
-            371.0,
-            142.0
+            371,
+            142
           ]
         ]
       },
@@ -951,20 +953,20 @@
       "source": {
         "polygon": [
           [
-            376.0,
-            27.0
+            376,
+            27
           ],
           [
-            376.0,
-            214.0
+            376,
+            214
           ],
           [
-            499.0,
-            214.0
+            499,
+            214
           ],
           [
-            499.0,
-            27.0
+            499,
+            27
           ]
         ]
       },
@@ -1027,28 +1029,28 @@
       "wall_id": "w10",
       "endpoint": "end",
       "original": [
-        373.0,
-        219.0
+        373,
+        219
       ],
       "snapped": [
-        366.0,
-        219.0
+        366,
+        219
       ],
-      "distance": 7.0
+      "distance": 7
     },
     {
       "type": "snap_endpoint",
       "wall_id": "w14",
       "endpoint": "end",
       "original": [
-        359.0,
-        219.0
+        359,
+        219
       ],
       "snapped": [
-        366.0,
-        219.0
+        366,
+        219
       ],
-      "distance": 7.0
+      "distance": 7
     },
     {
       "type": "snap_t_junction",
@@ -1072,7 +1074,7 @@
       "endpoint": "end",
       "original": [
         317.5,
-        145.0
+        145
       ],
       "snapped": [
         317.5,

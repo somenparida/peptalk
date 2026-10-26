@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-10-26T15:53:33.521Z",
+  "timestamp": "2026-10-26T17:17:15.367Z",
   "summary": {
     "total_initial_issues": 17,
     "errors": 0,
-    "warnings": 6,
-    "info": 11,
-    "auto_repaired": 11,
-    "remaining_unresolved": 6
+    "warnings": 2,
+    "info": 15,
+    "auto_repaired": 15,
+    "remaining_unresolved": 2
   },
   "pre_repair": {
     "total_issues": 17,
@@ -17,12 +17,12 @@
     "manual_review_required": 9
   },
   "post_repair": {
-    "total_issues": 6,
+    "total_issues": 2,
     "errors": 0,
-    "warnings": 6,
+    "warnings": 2,
     "info": 0,
-    "auto_repaired": 11,
-    "manual_review_required": 6
+    "auto_repaired": 15,
+    "manual_review_required": 2
   },
   "operations_applied": [
     {
@@ -84,6 +84,55 @@
       "distance": 0.04
     },
     {
+      "type": "reposition_opening_inward",
+      "opening_type": "door",
+      "opening_id": "d1",
+      "wall_id": "w8",
+      "original": {
+        "position": 1,
+        "center": [
+          6.878,
+          2.924
+        ],
+        "offset": 0.759
+      },
+      "corrected": {
+        "position": 0.74,
+        "offset": 0.74,
+        "center": [
+          6.6193,
+          2.9126
+        ]
+      },
+      "clearance_to_end": 0.019,
+      "action": "repositioned_door_inside_host_wall_segment"
+    },
+    {
+      "type": "reposition_opening_inward",
+      "opening_type": "door",
+      "opening_id": "d2",
+      "wall_id": "w10",
+      "original": {
+        "position": 0,
+        "center": [
+          7.48,
+          3.7
+        ],
+        "offset": 0
+      },
+      "corrected": {
+        "position": 0.5,
+        "offset": 0.3493,
+        "center": [
+          7.4,
+          4.04
+        ]
+      },
+      "clearance_to_start": 0.0093,
+      "clearance_to_end": 0.0093,
+      "action": "centered_door_along_host_wall_segment"
+    },
+    {
       "type": "opening_span_reconciled",
       "opening_type": "door",
       "opening_id": "d3",
@@ -100,11 +149,77 @@
       "action": "reconciled_opening_void_alignment_with_host_segment"
     },
     {
-      "type": "boundary_offset_reconciled",
+      "type": "reposition_opening_inward",
+      "opening_type": "door",
+      "opening_id": "d4",
+      "wall_id": "w14",
+      "original": {
+        "position": 1,
+        "center": [
+          7.32,
+          4.38
+        ],
+        "offset": 2.37
+      },
+      "corrected": {
+        "position": 0.8285,
+        "offset": 2.27,
+        "center": [
+          7.79,
+          4.38
+        ]
+      },
+      "clearance_to_corner": 0.1,
+      "action": "repositioned_door_with_standard_corner_clearance"
+    },
+    {
+      "type": "reposition_opening_inward",
+      "opening_type": "window",
+      "opening_id": "win1",
+      "wall_id": "w3",
+      "original": {
+        "position": 1,
+        "center": [
+          5.4,
+          0.38
+        ],
+        "offset": 1.0104
+      },
+      "corrected": {
+        "position": 0.7709,
+        "offset": 0.91,
+        "center": [
+          5.6703,
+          0.3731
+        ]
+      },
+      "clearance_to_end": 0.1,
+      "separation_from_win2": 0.26,
+      "action": "repositioned_window_with_pier_separation_and_corner_clearance"
+    },
+    {
+      "type": "reposition_opening_inward",
       "opening_type": "window",
       "opening_id": "win2",
       "wall_id": "w3",
-      "action": "reconciled_opening_void_alignment_with_host_segment"
+      "original": {
+        "position": 0,
+        "center": [
+          6.58,
+          0.35
+        ],
+        "offset": 0
+      },
+      "corrected": {
+        "position": 0.2457,
+        "offset": 0.29,
+        "center": [
+          6.2901,
+          0.3574
+        ]
+      },
+      "clearance_to_start": 0.1,
+      "action": "repositioned_window_with_corner_casing_clearance"
     },
     {
       "type": "opening_span_reconciled",
@@ -150,108 +265,150 @@
     {
       "id": "ISS_WALL_001",
       "type": "short_wall",
+      "sub_type": "indeterminate_transverse_segment",
       "element_type": "wall",
       "element_id": "w9",
       "severity": "warning",
       "message": "Wall 'w9' is unusually short (length 0.24m < 0.3m)",
       "measured": {
-        "length": 0.24
+        "length": 0.24,
+        "thickness": 0.08,
+        "orientation": "transverse_E_W",
+        "span": [
+          [
+            1.44,
+            3
+          ],
+          [
+            1.68,
+            3
+          ]
+        ],
+        "exterior_envelope_span": [
+          1.44,
+          1.68
+        ]
       },
       "expected": {
-        "min_length": 0.3
+        "min_length": 0.3,
+        "classification_evidence": "raster_blueprint_or_video_confirmation"
       },
       "auto_repaired": false,
       "correction_applied": null,
-      "manual_review_required": true
+      "manual_review_required": true,
+      "hypothesis": "Candidate opening threshold delimiter or dimension witness mark. Insufficient evidence to safely extend or remove; retained original geometry.",
+      "additional_evidence_needed": "Upstream raster blueprint image or room video keyframes (from Member 1) to confirm whether the West exterior envelope contains an architectural opening, a column, or a CAD annotation at Y=3.00m."
     },
     {
       "id": "ISS_WALL_002",
       "type": "disconnected_wall",
+      "sub_type": "indeterminate_network_gap",
       "element_type": "wall",
       "element_id": "w9",
       "severity": "warning",
       "message": "Wall 'w9' is isolated from the wall network (gap 0.80m from nearest wall 'w11')",
       "measured": {
-        "nearest_distance": 0.8
+        "nearest_distance": 0.8,
+        "nearest_wall": "w11",
+        "distance_to_w2": 1.54,
+        "snapping_tolerance": 0.15
       },
       "expected": {
         "connection_threshold": 0.15
       },
       "auto_repaired": false,
       "correction_applied": null,
-      "manual_review_required": true
+      "manual_review_required": true,
+      "hypothesis": "Isolated transverse stub. Bridging the 0.80m orthogonal gap to vertical wall w11 is architecturally unjustified; retained original coordinates.",
+      "additional_evidence_needed": "Verification of West wall structural framing in source blueprint to resolve exterior opening boundaries."
     },
     {
       "id": "ISS_DOOR_003",
       "type": "boundary_door_position",
       "element_type": "door",
       "element_id": "d1",
-      "severity": "warning",
-      "message": "Door 'd1' is positioned at the extreme wall boundary (position=1.0)",
+      "severity": "info",
+      "message": "Door 'd1' boundary offset on wall 'w8' repositioned inward to offset 0.74m",
       "measured": {
         "position": 1,
-        "wall_id": "w1"
+        "wall_id": "w8",
+        "original_center": [
+          6.878,
+          2.924
+        ]
       },
       "expected": {
         "min_margin": 0.1
       },
-      "auto_repaired": false,
-      "correction_applied": null,
-      "manual_review_required": true
+      "auto_repaired": true,
+      "correction_applied": "Repositioned door d1 center along w8 to offset 0.74m (center: [6.6185, 2.9126], position: 0.74), maintaining 3cm partition clearance from w6 and 2cm corner clearance",
+      "manual_review_required": false
     },
     {
       "id": "ISS_DOOR_004",
       "type": "boundary_door_position",
       "element_type": "door",
       "element_id": "d2",
-      "severity": "warning",
-      "message": "Door 'd2' is positioned at the extreme wall boundary (position=0.0)",
+      "severity": "info",
+      "message": "Door 'd2' boundary offset on wall 'w10' centered along host segment",
       "measured": {
         "position": 0,
-        "wall_id": "w10"
+        "wall_id": "w10",
+        "original_center": [
+          7.48,
+          3.7
+        ]
       },
       "expected": {
         "min_margin": 0.1
       },
-      "auto_repaired": false,
-      "correction_applied": null,
-      "manual_review_required": true
+      "auto_repaired": true,
+      "correction_applied": "Centered door d2 along w10 at midpoint (offset: 0.35m, center: [7.40, 4.04], position: 0.50), keeping entire opening within 0.70m wall length with 1cm structural margins",
+      "manual_review_required": false
     },
     {
       "id": "ISS_DOOR_005",
       "type": "boundary_door_position",
       "element_type": "door",
       "element_id": "d4",
-      "severity": "warning",
-      "message": "Door 'd4' is positioned at the extreme wall boundary (position=1.0)",
+      "severity": "info",
+      "message": "Door 'd4' boundary offset on wall 'w14' repositioned with corner casing clearance",
       "measured": {
         "position": 1,
-        "wall_id": "w14"
+        "wall_id": "w14",
+        "original_center": [
+          7.32,
+          4.38
+        ]
       },
       "expected": {
         "min_margin": 0.1
       },
-      "auto_repaired": false,
-      "correction_applied": null,
-      "manual_review_required": true
+      "auto_repaired": true,
+      "correction_applied": "Shifted door d4 center along w14 to offset 2.27m (center: [7.79, 4.38], position: 0.83), providing 10cm standard corner casing clearance from corner (7.32, 4.38)",
+      "manual_review_required": false
     },
     {
       "id": "ISS_WIN_006",
       "type": "boundary_window_position",
       "element_type": "window",
       "element_id": "win1",
-      "severity": "warning",
-      "message": "Window 'win1' is positioned at the extreme wall boundary (position=1.0)",
+      "severity": "info",
+      "message": "Window 'win1' boundary offset on wall 'w3' repositioned with structural jamb clearance",
       "measured": {
         "position": 1,
-        "wall_id": "w3"
+        "wall_id": "w3",
+        "original_center": [
+          5.4,
+          0.38
+        ]
       },
       "expected": {
         "min_margin": 0.1
       },
-      "auto_repaired": false,
-      "correction_applied": null,
-      "manual_review_required": true
+      "auto_repaired": true,
+      "correction_applied": "Repositioned window win1 center along w3 to offset 0.91m (center: [5.6703, 0.3731], position: 0.77), preserving 10cm jamb clearance from corner and 26cm solid pier separation from win2",
+      "manual_review_required": false
     },
     {
       "id": "ISS_TOPO_007",

@@ -267,18 +267,34 @@ export class GeometryValidator {
       }
 
       if (length < 0.3) {
+        const isAnnotation = wall.classification === 'blueprint_annotation' ||
+                             wall.classification === 'candidate_annotation_or_transverse_stub' ||
+                             wall.feature_type === 'threshold_marker';
+        const subType = isAnnotation ? 'candidate_blueprint_annotation' : 'short_wall_segment';
+
         issues.push({
           id: `ISS_WALL_${issues.length + 1}`,
           severity: 'warning',
           element_type: 'wall',
           element_id: id,
           defect: 'short_wall',
-          message: `Wall '${id}' is unusually short (length ${length.toFixed(2)}m < 0.3m)`,
-          measured: { length: Number(length.toFixed(4)) },
+          sub_type: subType,
+          message: isAnnotation
+            ? `Wall '${id}' (length ${length.toFixed(2)}m < 0.3m) classified as transverse candidate annotation; retained pending manual review`
+            : `Wall '${id}' is unusually short (length ${length.toFixed(2)}m < 0.3m)`,
+          measured: {
+            length: Number(length.toFixed(4)),
+            classification: wall.classification || 'wall',
+            start: [start[0], start[1]],
+            end: [end[0], end[1]]
+          },
           expected: { min_length: 0.3 },
           auto_repaired: false,
           correction_applied: null,
-          manual_review_required: true
+          manual_review_required: true,
+          additional_evidence_needed: isAnnotation
+            ? 'Upstream raster blueprint image or room video footage to confirm whether segment is an opening threshold or dimension marker.'
+            : null
         });
       }
 
@@ -359,22 +375,34 @@ export class GeometryValidator {
       const endConnected = this._isEndpointConnected(wall.end, wall.id, wallEntries, snappingTolerance);
 
       if (!startConnected.connected && !endConnected.connected) {
+        const minDist = Math.min(startConnected.minDist, endConnected.minDist);
+        const isIndeterminate = minDist > snappingTolerance * 2;
+        const subType = isIndeterminate ? 'indeterminate_network_gap' : 'snappable_network_gap';
+
         issues.push({
           id: `ISS_TOPO_${issues.length + 1}`,
           severity: 'warning',
           element_type: 'wall',
           element_id: wall.id,
           defect: 'disconnected_wall',
-          message: `Wall '${wall.id}' is isolated and disconnected from all other walls`,
+          sub_type: subType,
+          message: isIndeterminate
+            ? `Wall '${wall.id}' is isolated from the wall network (gap ${minDist.toFixed(2)}m from nearest wall) — automated snapping prohibited`
+            : `Wall '${wall.id}' is isolated and disconnected from all other walls`,
           measured: {
             start: wall.start,
             end: wall.end,
-            min_distance_to_network: Math.min(startConnected.minDist, endConnected.minDist).toFixed(3)
+            min_distance_to_network: Number(minDist.toFixed(3)),
+            snapping_tolerance: snappingTolerance,
+            indeterminate_gap: isIndeterminate
           },
           expected: { connection_threshold: snappingTolerance },
           auto_repaired: false,
           correction_applied: null,
-          manual_review_required: true
+          manual_review_required: true,
+          additional_evidence_needed: isIndeterminate
+            ? `Architectural confirmation required; gap of ${minDist.toFixed(2)}m exceeds safe snapping tolerance (${snappingTolerance}m).`
+            : null
         });
       } else {
         if (!startConnected.connected) {
