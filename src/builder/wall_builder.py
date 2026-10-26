@@ -74,15 +74,16 @@ class WallMeshBuilder:
                         lintel_boxes.append(lintel_box)
 
             elif op.opening_type == OpeningType.WINDOW:
-                # Wall below window sill
-                if op.sill_height > 0.0:
+                # Wall below window sill terminates at underside of stone sill
+                sill_wall_top = max(0.0, op.sill_height - CONFIG.WINDOW_SILL_THICKNESS)
+                if sill_wall_top > 1e-4:
                     sill_wall = create_transformed_box(
                         s0=s0,
                         s1=s1,
                         t0=-half_t,
                         t1=half_t,
                         z0=0.0,
-                        z1=op.sill_height,
+                        z1=sill_wall_top,
                         start=wall.start,
                         direction=wall.direction,
                         normal=wall.normal,

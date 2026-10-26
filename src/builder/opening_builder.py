@@ -63,10 +63,11 @@ class OpeningMeshBuilder:
                 color=CONFIG.COLOR_DOOR_FRAME,
             )
         )
+        # Top casing header spans flush between jambs without overlapping corner volumes
         frame_parts.append(
             create_transformed_box(
-                s0=s0,
-                s1=s1,
+                s0=s0 + frame_t,
+                s1=s1 - frame_t,
                 t0=-half_fd,
                 t1=half_fd,
                 z0=op.height - frame_t,
@@ -142,21 +143,43 @@ class OpeningMeshBuilder:
 
         leaf_mesh = trimesh.util.concatenate([m for m in leaf_parts if not m.is_empty])
 
-        # 3. Door Hardware: Brass Escutcheon Backplates and Lever Handles
+        # 3. Door Hardware: Brass Escutcheon Backplates, Spindles, and Lever Handles
         hardware_parts: List[trimesh.Trimesh] = []
         handle_z = 0.98  # standard height in meters
-        # Latch side is near leaf_s1
-        h_s0 = leaf_s1 - 0.09
-        h_s1 = leaf_s1 - 0.04
+        lever_len = 0.10
+        spindle_half_w = 0.012
+
+        # Respect hinge metadata: hinge can be "start" or "end". Default is "start".
+        hinge_side = str(op.metadata.get("hinge", "start")).lower().strip()
+        if hinge_side == "end":
+            # Hinge at leaf_s1; latch and handle are near leaf_s0
+            h_s0 = leaf_s0 + 0.04
+            h_s1 = leaf_s0 + 0.09
+            handle_s0 = h_s1
+            handle_s1 = h_s1 + lever_len
+            spindle_s0 = h_s1 - spindle_half_w
+            spindle_s1 = h_s1 + spindle_half_w
+        else:
+            # Default: hinge at leaf_s0; latch and handle are near leaf_s1
+            h_s0 = leaf_s1 - 0.09
+            h_s1 = leaf_s1 - 0.04
+            handle_s0 = h_s0 - lever_len
+            handle_s1 = h_s0
+            spindle_s0 = h_s0 - spindle_half_w
+            spindle_s1 = h_s0 + spindle_half_w
+
+        plate_half_h = 0.08
+        plate_thickness = 0.008
+        handle_t_offset = 0.040
+        handle_t_thickness = 0.015
 
         # Backplates on both front (+t) and back (-t) faces
-        plate_half_h = 0.08
         hardware_parts.append(
             create_transformed_box(
                 s0=h_s0,
                 s1=h_s1,
                 t0=half_leaf_t,
-                t1=half_leaf_t + 0.008,
+                t1=half_leaf_t + plate_thickness,
                 z0=handle_z - plate_half_h,
                 z1=handle_z + plate_half_h,
                 start=wall.start,
@@ -169,7 +192,7 @@ class OpeningMeshBuilder:
             create_transformed_box(
                 s0=h_s0,
                 s1=h_s1,
-                t0=-(half_leaf_t + 0.008),
+                t0=-(half_leaf_t + plate_thickness),
                 t1=-half_leaf_t,
                 z0=handle_z - plate_half_h,
                 z1=handle_z + plate_half_h,
@@ -180,14 +203,13 @@ class OpeningMeshBuilder:
             )
         )
 
-        # Lever handles pointing inward along door face
-        lever_len = 0.10
+        # Connecting spindles/shanks: physically bridge backplate to lever handle (no air gap)
         hardware_parts.append(
             create_transformed_box(
-                s0=h_s0 - lever_len,
-                s1=h_s0,
-                t0=half_leaf_t + 0.04,
-                t1=half_leaf_t + 0.055,
+                s0=spindle_s0,
+                s1=spindle_s1,
+                t0=half_leaf_t + plate_thickness,
+                t1=half_leaf_t + handle_t_offset,
                 z0=handle_z - 0.01,
                 z1=handle_z + 0.01,
                 start=wall.start,
@@ -198,10 +220,40 @@ class OpeningMeshBuilder:
         )
         hardware_parts.append(
             create_transformed_box(
-                s0=h_s0 - lever_len,
-                s1=h_s0,
-                t0=-(half_leaf_t + 0.055),
-                t1=-(half_leaf_t + 0.04),
+                s0=spindle_s0,
+                s1=spindle_s1,
+                t0=-(half_leaf_t + handle_t_offset),
+                t1=-(half_leaf_t + plate_thickness),
+                z0=handle_z - 0.01,
+                z1=handle_z + 0.01,
+                start=wall.start,
+                direction=wall.direction,
+                normal=wall.normal,
+                color=CONFIG.COLOR_DOOR_HANDLE,
+            )
+        )
+
+        # Lever handles pointing inward along door face
+        hardware_parts.append(
+            create_transformed_box(
+                s0=handle_s0,
+                s1=handle_s1,
+                t0=half_leaf_t + handle_t_offset,
+                t1=half_leaf_t + handle_t_offset + handle_t_thickness,
+                z0=handle_z - 0.01,
+                z1=handle_z + 0.01,
+                start=wall.start,
+                direction=wall.direction,
+                normal=wall.normal,
+                color=CONFIG.COLOR_DOOR_HANDLE,
+            )
+        )
+        hardware_parts.append(
+            create_transformed_box(
+                s0=handle_s0,
+                s1=handle_s1,
+                t0=-(half_leaf_t + handle_t_offset + handle_t_thickness),
+                t1=-(half_leaf_t + handle_t_offset),
                 z0=handle_z - 0.01,
                 z1=handle_z + 0.01,
                 start=wall.start,
@@ -354,17 +406,23 @@ class OpeningMeshBuilder:
 
         # 4. Protruding Architectural Stone Sill
         sill_overhang = CONFIG.WINDOW_SILL_OVERHANG + 0.02
-        sill_mesh = create_transformed_box(
-            s0=s0 - 0.06,
-            s1=s1 + 0.06,
-            t0=-(0.5 * wall.thickness + sill_overhang),
-            t1=(0.5 * wall.thickness + sill_overhang),
-            z0=z_bottom - CONFIG.WINDOW_SILL_THICKNESS,
-            z1=z_bottom,
-            start=wall.start,
-            direction=wall.direction,
-            normal=wall.normal,
-            color=CONFIG.COLOR_WINDOW_SILL,
+        sill_z0 = max(0.0, z_bottom - CONFIG.WINDOW_SILL_THICKNESS)
+        sill_z1 = z_bottom
+        sill_mesh = (
+            create_transformed_box(
+                s0=s0 - 0.06,
+                s1=s1 + 0.06,
+                t0=-(0.5 * wall.thickness + sill_overhang),
+                t1=(0.5 * wall.thickness + sill_overhang),
+                z0=sill_z0,
+                z1=sill_z1,
+                start=wall.start,
+                direction=wall.direction,
+                normal=wall.normal,
+                color=CONFIG.COLOR_WINDOW_SILL,
+            )
+            if sill_z1 > sill_z0 + 1e-4
+            else trimesh.Trimesh()
         )
 
         return {
