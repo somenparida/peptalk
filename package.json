@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node tests/verify_all.js"
+    "test": "node tests/verify_all.js && node tests/test_geometry_validation_and_repair.js",
+    "test:all": "node tests/verify_all.js && node tests/test_geometry_validation_and_repair.js",
+    "test:m2": "node tests/test_geometry_validation_and_repair.js"
   },
   "dependencies": {
     "three": "^0.174.0"

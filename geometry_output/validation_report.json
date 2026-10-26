@@ -1,0 +1,420 @@
+{
+  "timestamp": "2026-10-26T15:12:08.605Z",
+  "summary": {
+    "total_initial_issues": 17,
+    "errors": 0,
+    "warnings": 9,
+    "info": 8,
+    "auto_repaired": 2,
+    "remaining_unresolved": 9
+  },
+  "pre_repair": {
+    "total_issues": 17,
+    "errors": 0,
+    "warnings": 9,
+    "info": 8,
+    "auto_repaired": 0,
+    "manual_review_required": 9
+  },
+  "post_repair": {
+    "total_issues": 17,
+    "errors": 0,
+    "warnings": 9,
+    "info": 8,
+    "auto_repaired": 0,
+    "manual_review_required": 9
+  },
+  "operations_applied": [
+    {
+      "type": "opening_span_reconciled",
+      "opening_type": "door",
+      "opening_id": "d3",
+      "wall_id": "w11",
+      "measured_width": 0.6,
+      "host_wall_length": 0.5814,
+      "action": "opening_lintel_extended_across_boundary"
+    },
+    {
+      "type": "opening_span_reconciled",
+      "opening_type": "window",
+      "opening_id": "win3",
+      "wall_id": "w2",
+      "measured_width": 1.38,
+      "host_wall_length": 1.0812,
+      "action": "opening_lintel_extended_across_boundary"
+    }
+  ],
+  "issues": [
+    {
+      "id": "ISS_WALL_001",
+      "type": "short_wall",
+      "element_type": "wall",
+      "element_id": "w9",
+      "severity": "warning",
+      "message": "Wall 'w9' is unusually short (length 0.24m < 0.3m)",
+      "measured": null,
+      "expected": null,
+      "auto_repaired": false,
+      "correction_applied": null,
+      "manual_review_required": true
+    },
+    {
+      "id": "ISS_WALL_002",
+      "type": "disconnected_wall",
+      "element_type": "wall",
+      "element_id": "w3",
+      "severity": "warning",
+      "message": "Wall 'w3' is isolated and disconnected from all other walls",
+      "measured": null,
+      "expected": null,
+      "auto_repaired": false,
+      "correction_applied": null,
+      "manual_review_required": true
+    },
+    {
+      "id": "ISS_WALL_003",
+      "type": "disconnected_wall",
+      "element_type": "wall",
+      "element_id": "w6",
+      "severity": "warning",
+      "message": "Wall 'w6' is isolated and disconnected from all other walls",
+      "measured": null,
+      "expected": null,
+      "auto_repaired": false,
+      "correction_applied": null,
+      "manual_review_required": true
+    },
+    {
+      "id": "ISS_WALL_004",
+      "type": "disconnected_wall",
+      "element_type": "wall",
+      "element_id": "w8",
+      "severity": "warning",
+      "message": "Wall 'w8' is isolated and disconnected from all other walls",
+      "measured": null,
+      "expected": null,
+      "auto_repaired": false,
+      "correction_applied": null,
+      "manual_review_required": true
+    },
+    {
+      "id": "ISS_WALL_005",
+      "type": "disconnected_wall",
+      "element_type": "wall",
+      "element_id": "w9",
+      "severity": "warning",
+      "message": "Wall 'w9' is isolated and disconnected from all other walls",
+      "measured": null,
+      "expected": null,
+      "auto_repaired": false,
+      "correction_applied": null,
+      "manual_review_required": true
+    },
+    {
+      "id": "ISS_DOOR_006",
+      "type": "boundary_door_position",
+      "element_type": "door",
+      "element_id": "d1",
+      "severity": "warning",
+      "message": "Door 'd1' is positioned at the extreme wall boundary (position=1.0)",
+      "measured": null,
+      "expected": null,
+      "auto_repaired": false,
+      "correction_applied": null,
+      "manual_review_required": true
+    },
+    {
+      "id": "ISS_DOOR_007",
+      "type": "boundary_door_position",
+      "element_type": "door",
+      "element_id": "d2",
+      "severity": "warning",
+      "message": "Door 'd2' is positioned at the extreme wall boundary (position=0.0)",
+      "measured": null,
+      "expected": null,
+      "auto_repaired": false,
+      "correction_applied": null,
+      "manual_review_required": true
+    },
+    {
+      "id": "ISS_DOOR_008",
+      "type": "door_exceeds_wall_length",
+      "element_type": "door",
+      "element_id": "d3",
+      "severity": "warning",
+      "message": "Door 'd3' width (0.60m) exceeds referenced wall 'w11' length (0.58m)",
+      "measured": null,
+      "expected": null,
+      "auto_repaired": false,
+      "correction_applied": null,
+      "manual_review_required": true
+    },
+    {
+      "id": "ISS_DOOR_009",
+      "type": "boundary_door_position",
+      "element_type": "door",
+      "element_id": "d3",
+      "severity": "warning",
+      "message": "Door 'd3' is positioned at the extreme wall boundary (position=0.0)",
+      "measured": null,
+      "expected": null,
+      "auto_repaired": false,
+      "correction_applied": null,
+      "manual_review_required": true
+    },
+    {
+      "id": "ISS_DOOR_010",
+      "type": "boundary_door_position",
+      "element_type": "door",
+      "element_id": "d4",
+      "severity": "warning",
+      "message": "Door 'd4' is positioned at the extreme wall boundary (position=1.0)",
+      "measured": null,
+      "expected": null,
+      "auto_repaired": false,
+      "correction_applied": null,
+      "manual_review_required": true
+    },
+    {
+      "id": "ISS_WINDOW_011",
+      "type": "boundary_window_position",
+      "element_type": "window",
+      "element_id": "win1",
+      "severity": "warning",
+      "message": "Window 'win1' is positioned at the extreme wall boundary (position=1.0)",
+      "measured": null,
+      "expected": null,
+      "auto_repaired": false,
+      "correction_applied": null,
+      "manual_review_required": true
+    },
+    {
+      "id": "ISS_WINDOW_012",
+      "type": "boundary_window_position",
+      "element_type": "window",
+      "element_id": "win2",
+      "severity": "warning",
+      "message": "Window 'win2' is positioned at the extreme wall boundary (position=0.0)",
+      "measured": null,
+      "expected": null,
+      "auto_repaired": false,
+      "correction_applied": null,
+      "manual_review_required": true
+    },
+    {
+      "id": "ISS_WINDOW_013",
+      "type": "window_exceeds_wall_length",
+      "element_type": "window",
+      "element_id": "win3",
+      "severity": "warning",
+      "message": "Window 'win3' width (1.38m) exceeds referenced wall 'w2' length (1.08m)",
+      "measured": null,
+      "expected": null,
+      "auto_repaired": false,
+      "correction_applied": null,
+      "manual_review_required": true
+    },
+    {
+      "id": "ISS_WINDOW_014",
+      "type": "boundary_window_position",
+      "element_type": "window",
+      "element_id": "win3",
+      "severity": "warning",
+      "message": "Window 'win3' is positioned at the extreme wall boundary (position=1.0)",
+      "measured": null,
+      "expected": null,
+      "auto_repaired": false,
+      "correction_applied": null,
+      "manual_review_required": true
+    },
+    {
+      "id": "ISS_WINDOW_015",
+      "type": "boundary_window_position",
+      "element_type": "window",
+      "element_id": "win4",
+      "severity": "warning",
+      "message": "Window 'win4' is positioned at the extreme wall boundary (position=1.0)",
+      "measured": null,
+      "expected": null,
+      "auto_repaired": false,
+      "correction_applied": null,
+      "manual_review_required": true
+    },
+    {
+      "id": "ISS_TOPO_2",
+      "type": "open_endpoint",
+      "element_type": "wall",
+      "element_id": "w1",
+      "severity": "info",
+      "message": "Wall 'w1' start ends at (4.76, 0.36) without meeting another wall. A wall may be missing or too short.",
+      "measured": {
+        "endpoint": "start",
+        "coordinates": [
+          4.76,
+          0.36
+        ],
+        "nearest_distance": "0.640"
+      },
+      "expected": {
+        "connection_threshold": 0.15
+      },
+      "auto_repaired": false,
+      "correction_applied": null,
+      "manual_review_required": false
+    },
+    {
+      "id": "ISS_TOPO_3",
+      "type": "open_endpoint",
+      "element_type": "wall",
+      "element_id": "w2",
+      "severity": "info",
+      "message": "Wall 'w2' end ends at (1.54, 1.46) without meeting another wall. A wall may be missing or too short.",
+      "measured": {
+        "endpoint": "end",
+        "coordinates": [
+          1.54,
+          1.46
+        ],
+        "nearest_distance": "1.081"
+      },
+      "expected": {
+        "connection_threshold": 0.15
+      },
+      "auto_repaired": false,
+      "correction_applied": null,
+      "manual_review_required": false
+    },
+    {
+      "id": "ISS_TOPO_5",
+      "type": "open_endpoint",
+      "element_type": "wall",
+      "element_id": "w5",
+      "severity": "info",
+      "message": "Wall 'w5' end ends at (10.08, 2.74) without meeting another wall. A wall may be missing or too short.",
+      "measured": {
+        "endpoint": "end",
+        "coordinates": [
+          10.08,
+          2.74
+        ],
+        "nearest_distance": "1.141"
+      },
+      "expected": {
+        "connection_threshold": 0.15
+      },
+      "auto_repaired": false,
+      "correction_applied": null,
+      "manual_review_required": false
+    },
+    {
+      "id": "ISS_TOPO_6",
+      "type": "open_endpoint",
+      "element_type": "wall",
+      "element_id": "w7",
+      "severity": "info",
+      "message": "Wall 'w7' end ends at (7.44, 2.96) without meeting another wall. A wall may be missing or too short.",
+      "measured": {
+        "endpoint": "end",
+        "coordinates": [
+          7.44,
+          2.96
+        ],
+        "nearest_distance": "0.563"
+      },
+      "expected": {
+        "connection_threshold": 0.15
+      },
+      "auto_repaired": false,
+      "correction_applied": null,
+      "manual_review_required": false
+    },
+    {
+      "id": "ISS_TOPO_9",
+      "type": "open_endpoint",
+      "element_type": "wall",
+      "element_id": "w10",
+      "severity": "info",
+      "message": "Wall 'w10' start ends at (7.48, 3.70) without meeting another wall. A wall may be missing or too short.",
+      "measured": {
+        "endpoint": "start",
+        "coordinates": [
+          7.48,
+          3.7
+        ],
+        "nearest_distance": "0.680"
+      },
+      "expected": {
+        "connection_threshold": 0.15
+      },
+      "auto_repaired": false,
+      "correction_applied": null,
+      "manual_review_required": false
+    },
+    {
+      "id": "ISS_TOPO_10",
+      "type": "open_endpoint",
+      "element_type": "wall",
+      "element_id": "w11",
+      "severity": "info",
+      "message": "Wall 'w11' start ends at (1.56, 3.80) without meeting another wall. A wall may be missing or too short.",
+      "measured": {
+        "endpoint": "start",
+        "coordinates": [
+          1.56,
+          3.8
+        ],
+        "nearest_distance": "0.581"
+      },
+      "expected": {
+        "connection_threshold": 0.15
+      },
+      "auto_repaired": false,
+      "correction_applied": null,
+      "manual_review_required": false
+    },
+    {
+      "id": "ISS_TOPO_11",
+      "type": "open_endpoint",
+      "element_type": "wall",
+      "element_id": "w12",
+      "severity": "info",
+      "message": "Wall 'w12' end ends at (6.28, 4.36) without meeting another wall. A wall may be missing or too short.",
+      "measured": {
+        "endpoint": "end",
+        "coordinates": [
+          6.28,
+          4.36
+        ],
+        "nearest_distance": "1.040"
+      },
+      "expected": {
+        "connection_threshold": 0.15
+      },
+      "auto_repaired": false,
+      "correction_applied": null,
+      "manual_review_required": false
+    },
+    {
+      "id": "ISS_TOPO_12",
+      "type": "open_endpoint",
+      "element_type": "wall",
+      "element_id": "w13",
+      "severity": "info",
+      "message": "Wall 'w13' start ends at (10.12, 3.88) without meeting another wall. A wall may be missing or too short.",
+      "measured": {
+        "endpoint": "start",
+        "coordinates": [
+          10.12,
+          3.88
+        ],
+        "nearest_distance": "0.504"
+      },
+      "expected": {
+        "connection_threshold": 0.15
+      },
+      "auto_repaired": false,
+      "correction_applied": null,
+      "manual_review_required": false
+    }
+  ]
+}

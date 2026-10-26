@@ -1,0 +1,2442 @@
+{
+  "version": "1.0",
+  "units": "meters",
+  "coordinate_system": "world",
+  "wall_height": 3,
+  "defaults": {
+    "wall_height": 3,
+    "door_height": 2.1,
+    "window_height": 1.2,
+    "window_sill_height": 0.9
+  },
+  "settings": {
+    "wallHeight": 3,
+    "doorHeight": 2.1,
+    "windowHeight": 1.2,
+    "windowSillHeight": 0.9,
+    "floorThickness": 0.1
+  },
+  "scale": {
+    "meters_per_pixel": 0.02,
+    "source": "explicit",
+    "confidence": 1,
+    "metric_available": true
+  },
+  "validation": {
+    "valid": true,
+    "issues": [
+      {
+        "id": "ISS_WALL_001",
+        "type": "short_wall",
+        "element_type": "wall",
+        "element_id": "w9",
+        "severity": "warning",
+        "message": "Wall 'w9' is unusually short (length 0.24m < 0.3m)",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_WALL_002",
+        "type": "disconnected_wall",
+        "element_type": "wall",
+        "element_id": "w3",
+        "severity": "warning",
+        "message": "Wall 'w3' is isolated and disconnected from all other walls",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_WALL_003",
+        "type": "disconnected_wall",
+        "element_type": "wall",
+        "element_id": "w6",
+        "severity": "warning",
+        "message": "Wall 'w6' is isolated and disconnected from all other walls",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_WALL_004",
+        "type": "disconnected_wall",
+        "element_type": "wall",
+        "element_id": "w8",
+        "severity": "warning",
+        "message": "Wall 'w8' is isolated and disconnected from all other walls",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_WALL_005",
+        "type": "disconnected_wall",
+        "element_type": "wall",
+        "element_id": "w9",
+        "severity": "warning",
+        "message": "Wall 'w9' is isolated and disconnected from all other walls",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_DOOR_006",
+        "type": "boundary_door_position",
+        "element_type": "door",
+        "element_id": "d1",
+        "severity": "warning",
+        "message": "Door 'd1' is positioned at the extreme wall boundary (position=1.0)",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_DOOR_007",
+        "type": "boundary_door_position",
+        "element_type": "door",
+        "element_id": "d2",
+        "severity": "warning",
+        "message": "Door 'd2' is positioned at the extreme wall boundary (position=0.0)",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_DOOR_008",
+        "type": "door_exceeds_wall_length",
+        "element_type": "door",
+        "element_id": "d3",
+        "severity": "warning",
+        "message": "Door 'd3' width (0.60m) exceeds referenced wall 'w11' length (0.58m)",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_DOOR_009",
+        "type": "boundary_door_position",
+        "element_type": "door",
+        "element_id": "d3",
+        "severity": "warning",
+        "message": "Door 'd3' is positioned at the extreme wall boundary (position=0.0)",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_DOOR_010",
+        "type": "boundary_door_position",
+        "element_type": "door",
+        "element_id": "d4",
+        "severity": "warning",
+        "message": "Door 'd4' is positioned at the extreme wall boundary (position=1.0)",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_WINDOW_011",
+        "type": "boundary_window_position",
+        "element_type": "window",
+        "element_id": "win1",
+        "severity": "warning",
+        "message": "Window 'win1' is positioned at the extreme wall boundary (position=1.0)",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_WINDOW_012",
+        "type": "boundary_window_position",
+        "element_type": "window",
+        "element_id": "win2",
+        "severity": "warning",
+        "message": "Window 'win2' is positioned at the extreme wall boundary (position=0.0)",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_WINDOW_013",
+        "type": "window_exceeds_wall_length",
+        "element_type": "window",
+        "element_id": "win3",
+        "severity": "warning",
+        "message": "Window 'win3' width (1.38m) exceeds referenced wall 'w2' length (1.08m)",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_WINDOW_014",
+        "type": "boundary_window_position",
+        "element_type": "window",
+        "element_id": "win3",
+        "severity": "warning",
+        "message": "Window 'win3' is positioned at the extreme wall boundary (position=1.0)",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_WINDOW_015",
+        "type": "boundary_window_position",
+        "element_type": "window",
+        "element_id": "win4",
+        "severity": "warning",
+        "message": "Window 'win4' is positioned at the extreme wall boundary (position=1.0)",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_TOPO_2",
+        "type": "open_endpoint",
+        "element_type": "wall",
+        "element_id": "w1",
+        "severity": "info",
+        "message": "Wall 'w1' start ends at (4.76, 0.36) without meeting another wall. A wall may be missing or too short.",
+        "measured": {
+          "endpoint": "start",
+          "coordinates": [
+            4.76,
+            0.36
+          ],
+          "nearest_distance": "0.640"
+        },
+        "expected": {
+          "connection_threshold": 0.15
+        },
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": false
+      },
+      {
+        "id": "ISS_TOPO_3",
+        "type": "open_endpoint",
+        "element_type": "wall",
+        "element_id": "w2",
+        "severity": "info",
+        "message": "Wall 'w2' end ends at (1.54, 1.46) without meeting another wall. A wall may be missing or too short.",
+        "measured": {
+          "endpoint": "end",
+          "coordinates": [
+            1.54,
+            1.46
+          ],
+          "nearest_distance": "1.081"
+        },
+        "expected": {
+          "connection_threshold": 0.15
+        },
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": false
+      },
+      {
+        "id": "ISS_TOPO_5",
+        "type": "open_endpoint",
+        "element_type": "wall",
+        "element_id": "w5",
+        "severity": "info",
+        "message": "Wall 'w5' end ends at (10.08, 2.74) without meeting another wall. A wall may be missing or too short.",
+        "measured": {
+          "endpoint": "end",
+          "coordinates": [
+            10.08,
+            2.74
+          ],
+          "nearest_distance": "1.141"
+        },
+        "expected": {
+          "connection_threshold": 0.15
+        },
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": false
+      },
+      {
+        "id": "ISS_TOPO_6",
+        "type": "open_endpoint",
+        "element_type": "wall",
+        "element_id": "w7",
+        "severity": "info",
+        "message": "Wall 'w7' end ends at (7.44, 2.96) without meeting another wall. A wall may be missing or too short.",
+        "measured": {
+          "endpoint": "end",
+          "coordinates": [
+            7.44,
+            2.96
+          ],
+          "nearest_distance": "0.563"
+        },
+        "expected": {
+          "connection_threshold": 0.15
+        },
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": false
+      },
+      {
+        "id": "ISS_TOPO_9",
+        "type": "open_endpoint",
+        "element_type": "wall",
+        "element_id": "w10",
+        "severity": "info",
+        "message": "Wall 'w10' start ends at (7.48, 3.70) without meeting another wall. A wall may be missing or too short.",
+        "measured": {
+          "endpoint": "start",
+          "coordinates": [
+            7.48,
+            3.7
+          ],
+          "nearest_distance": "0.680"
+        },
+        "expected": {
+          "connection_threshold": 0.15
+        },
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": false
+      },
+      {
+        "id": "ISS_TOPO_10",
+        "type": "open_endpoint",
+        "element_type": "wall",
+        "element_id": "w11",
+        "severity": "info",
+        "message": "Wall 'w11' start ends at (1.56, 3.80) without meeting another wall. A wall may be missing or too short.",
+        "measured": {
+          "endpoint": "start",
+          "coordinates": [
+            1.56,
+            3.8
+          ],
+          "nearest_distance": "0.581"
+        },
+        "expected": {
+          "connection_threshold": 0.15
+        },
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": false
+      },
+      {
+        "id": "ISS_TOPO_11",
+        "type": "open_endpoint",
+        "element_type": "wall",
+        "element_id": "w12",
+        "severity": "info",
+        "message": "Wall 'w12' end ends at (6.28, 4.36) without meeting another wall. A wall may be missing or too short.",
+        "measured": {
+          "endpoint": "end",
+          "coordinates": [
+            6.28,
+            4.36
+          ],
+          "nearest_distance": "1.040"
+        },
+        "expected": {
+          "connection_threshold": 0.15
+        },
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": false
+      },
+      {
+        "id": "ISS_TOPO_12",
+        "type": "open_endpoint",
+        "element_type": "wall",
+        "element_id": "w13",
+        "severity": "info",
+        "message": "Wall 'w13' start ends at (10.12, 3.88) without meeting another wall. A wall may be missing or too short.",
+        "measured": {
+          "endpoint": "start",
+          "coordinates": [
+            10.12,
+            3.88
+          ],
+          "nearest_distance": "0.504"
+        },
+        "expected": {
+          "connection_threshold": 0.15
+        },
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": false
+      }
+    ],
+    "report": {
+      "timestamp": "2026-10-26T15:12:08.605Z",
+      "summary": {
+        "total_initial_issues": 17,
+        "errors": 0,
+        "warnings": 9,
+        "info": 8,
+        "auto_repaired": 2,
+        "remaining_unresolved": 9
+      },
+      "pre_repair": {
+        "total_issues": 17,
+        "errors": 0,
+        "warnings": 9,
+        "info": 8,
+        "auto_repaired": 0,
+        "manual_review_required": 9
+      },
+      "post_repair": {
+        "total_issues": 17,
+        "errors": 0,
+        "warnings": 9,
+        "info": 8,
+        "auto_repaired": 0,
+        "manual_review_required": 9
+      },
+      "operations_applied": [
+        {
+          "type": "opening_span_reconciled",
+          "opening_type": "door",
+          "opening_id": "d3",
+          "wall_id": "w11",
+          "measured_width": 0.6,
+          "host_wall_length": 0.5814,
+          "action": "opening_lintel_extended_across_boundary"
+        },
+        {
+          "type": "opening_span_reconciled",
+          "opening_type": "window",
+          "opening_id": "win3",
+          "wall_id": "w2",
+          "measured_width": 1.38,
+          "host_wall_length": 1.0812,
+          "action": "opening_lintel_extended_across_boundary"
+        }
+      ],
+      "issues": [
+        {
+          "id": "ISS_WALL_001",
+          "type": "short_wall",
+          "element_type": "wall",
+          "element_id": "w9",
+          "severity": "warning",
+          "message": "Wall 'w9' is unusually short (length 0.24m < 0.3m)",
+          "measured": null,
+          "expected": null,
+          "auto_repaired": false,
+          "correction_applied": null,
+          "manual_review_required": true
+        },
+        {
+          "id": "ISS_WALL_002",
+          "type": "disconnected_wall",
+          "element_type": "wall",
+          "element_id": "w3",
+          "severity": "warning",
+          "message": "Wall 'w3' is isolated and disconnected from all other walls",
+          "measured": null,
+          "expected": null,
+          "auto_repaired": false,
+          "correction_applied": null,
+          "manual_review_required": true
+        },
+        {
+          "id": "ISS_WALL_003",
+          "type": "disconnected_wall",
+          "element_type": "wall",
+          "element_id": "w6",
+          "severity": "warning",
+          "message": "Wall 'w6' is isolated and disconnected from all other walls",
+          "measured": null,
+          "expected": null,
+          "auto_repaired": false,
+          "correction_applied": null,
+          "manual_review_required": true
+        },
+        {
+          "id": "ISS_WALL_004",
+          "type": "disconnected_wall",
+          "element_type": "wall",
+          "element_id": "w8",
+          "severity": "warning",
+          "message": "Wall 'w8' is isolated and disconnected from all other walls",
+          "measured": null,
+          "expected": null,
+          "auto_repaired": false,
+          "correction_applied": null,
+          "manual_review_required": true
+        },
+        {
+          "id": "ISS_WALL_005",
+          "type": "disconnected_wall",
+          "element_type": "wall",
+          "element_id": "w9",
+          "severity": "warning",
+          "message": "Wall 'w9' is isolated and disconnected from all other walls",
+          "measured": null,
+          "expected": null,
+          "auto_repaired": false,
+          "correction_applied": null,
+          "manual_review_required": true
+        },
+        {
+          "id": "ISS_DOOR_006",
+          "type": "boundary_door_position",
+          "element_type": "door",
+          "element_id": "d1",
+          "severity": "warning",
+          "message": "Door 'd1' is positioned at the extreme wall boundary (position=1.0)",
+          "measured": null,
+          "expected": null,
+          "auto_repaired": false,
+          "correction_applied": null,
+          "manual_review_required": true
+        },
+        {
+          "id": "ISS_DOOR_007",
+          "type": "boundary_door_position",
+          "element_type": "door",
+          "element_id": "d2",
+          "severity": "warning",
+          "message": "Door 'd2' is positioned at the extreme wall boundary (position=0.0)",
+          "measured": null,
+          "expected": null,
+          "auto_repaired": false,
+          "correction_applied": null,
+          "manual_review_required": true
+        },
+        {
+          "id": "ISS_DOOR_008",
+          "type": "door_exceeds_wall_length",
+          "element_type": "door",
+          "element_id": "d3",
+          "severity": "warning",
+          "message": "Door 'd3' width (0.60m) exceeds referenced wall 'w11' length (0.58m)",
+          "measured": null,
+          "expected": null,
+          "auto_repaired": false,
+          "correction_applied": null,
+          "manual_review_required": true
+        },
+        {
+          "id": "ISS_DOOR_009",
+          "type": "boundary_door_position",
+          "element_type": "door",
+          "element_id": "d3",
+          "severity": "warning",
+          "message": "Door 'd3' is positioned at the extreme wall boundary (position=0.0)",
+          "measured": null,
+          "expected": null,
+          "auto_repaired": false,
+          "correction_applied": null,
+          "manual_review_required": true
+        },
+        {
+          "id": "ISS_DOOR_010",
+          "type": "boundary_door_position",
+          "element_type": "door",
+          "element_id": "d4",
+          "severity": "warning",
+          "message": "Door 'd4' is positioned at the extreme wall boundary (position=1.0)",
+          "measured": null,
+          "expected": null,
+          "auto_repaired": false,
+          "correction_applied": null,
+          "manual_review_required": true
+        },
+        {
+          "id": "ISS_WINDOW_011",
+          "type": "boundary_window_position",
+          "element_type": "window",
+          "element_id": "win1",
+          "severity": "warning",
+          "message": "Window 'win1' is positioned at the extreme wall boundary (position=1.0)",
+          "measured": null,
+          "expected": null,
+          "auto_repaired": false,
+          "correction_applied": null,
+          "manual_review_required": true
+        },
+        {
+          "id": "ISS_WINDOW_012",
+          "type": "boundary_window_position",
+          "element_type": "window",
+          "element_id": "win2",
+          "severity": "warning",
+          "message": "Window 'win2' is positioned at the extreme wall boundary (position=0.0)",
+          "measured": null,
+          "expected": null,
+          "auto_repaired": false,
+          "correction_applied": null,
+          "manual_review_required": true
+        },
+        {
+          "id": "ISS_WINDOW_013",
+          "type": "window_exceeds_wall_length",
+          "element_type": "window",
+          "element_id": "win3",
+          "severity": "warning",
+          "message": "Window 'win3' width (1.38m) exceeds referenced wall 'w2' length (1.08m)",
+          "measured": null,
+          "expected": null,
+          "auto_repaired": false,
+          "correction_applied": null,
+          "manual_review_required": true
+        },
+        {
+          "id": "ISS_WINDOW_014",
+          "type": "boundary_window_position",
+          "element_type": "window",
+          "element_id": "win3",
+          "severity": "warning",
+          "message": "Window 'win3' is positioned at the extreme wall boundary (position=1.0)",
+          "measured": null,
+          "expected": null,
+          "auto_repaired": false,
+          "correction_applied": null,
+          "manual_review_required": true
+        },
+        {
+          "id": "ISS_WINDOW_015",
+          "type": "boundary_window_position",
+          "element_type": "window",
+          "element_id": "win4",
+          "severity": "warning",
+          "message": "Window 'win4' is positioned at the extreme wall boundary (position=1.0)",
+          "measured": null,
+          "expected": null,
+          "auto_repaired": false,
+          "correction_applied": null,
+          "manual_review_required": true
+        },
+        {
+          "id": "ISS_TOPO_2",
+          "type": "open_endpoint",
+          "element_type": "wall",
+          "element_id": "w1",
+          "severity": "info",
+          "message": "Wall 'w1' start ends at (4.76, 0.36) without meeting another wall. A wall may be missing or too short.",
+          "measured": {
+            "endpoint": "start",
+            "coordinates": [
+              4.76,
+              0.36
+            ],
+            "nearest_distance": "0.640"
+          },
+          "expected": {
+            "connection_threshold": 0.15
+          },
+          "auto_repaired": false,
+          "correction_applied": null,
+          "manual_review_required": false
+        },
+        {
+          "id": "ISS_TOPO_3",
+          "type": "open_endpoint",
+          "element_type": "wall",
+          "element_id": "w2",
+          "severity": "info",
+          "message": "Wall 'w2' end ends at (1.54, 1.46) without meeting another wall. A wall may be missing or too short.",
+          "measured": {
+            "endpoint": "end",
+            "coordinates": [
+              1.54,
+              1.46
+            ],
+            "nearest_distance": "1.081"
+          },
+          "expected": {
+            "connection_threshold": 0.15
+          },
+          "auto_repaired": false,
+          "correction_applied": null,
+          "manual_review_required": false
+        },
+        {
+          "id": "ISS_TOPO_5",
+          "type": "open_endpoint",
+          "element_type": "wall",
+          "element_id": "w5",
+          "severity": "info",
+          "message": "Wall 'w5' end ends at (10.08, 2.74) without meeting another wall. A wall may be missing or too short.",
+          "measured": {
+            "endpoint": "end",
+            "coordinates": [
+              10.08,
+              2.74
+            ],
+            "nearest_distance": "1.141"
+          },
+          "expected": {
+            "connection_threshold": 0.15
+          },
+          "auto_repaired": false,
+          "correction_applied": null,
+          "manual_review_required": false
+        },
+        {
+          "id": "ISS_TOPO_6",
+          "type": "open_endpoint",
+          "element_type": "wall",
+          "element_id": "w7",
+          "severity": "info",
+          "message": "Wall 'w7' end ends at (7.44, 2.96) without meeting another wall. A wall may be missing or too short.",
+          "measured": {
+            "endpoint": "end",
+            "coordinates": [
+              7.44,
+              2.96
+            ],
+            "nearest_distance": "0.563"
+          },
+          "expected": {
+            "connection_threshold": 0.15
+          },
+          "auto_repaired": false,
+          "correction_applied": null,
+          "manual_review_required": false
+        },
+        {
+          "id": "ISS_TOPO_9",
+          "type": "open_endpoint",
+          "element_type": "wall",
+          "element_id": "w10",
+          "severity": "info",
+          "message": "Wall 'w10' start ends at (7.48, 3.70) without meeting another wall. A wall may be missing or too short.",
+          "measured": {
+            "endpoint": "start",
+            "coordinates": [
+              7.48,
+              3.7
+            ],
+            "nearest_distance": "0.680"
+          },
+          "expected": {
+            "connection_threshold": 0.15
+          },
+          "auto_repaired": false,
+          "correction_applied": null,
+          "manual_review_required": false
+        },
+        {
+          "id": "ISS_TOPO_10",
+          "type": "open_endpoint",
+          "element_type": "wall",
+          "element_id": "w11",
+          "severity": "info",
+          "message": "Wall 'w11' start ends at (1.56, 3.80) without meeting another wall. A wall may be missing or too short.",
+          "measured": {
+            "endpoint": "start",
+            "coordinates": [
+              1.56,
+              3.8
+            ],
+            "nearest_distance": "0.581"
+          },
+          "expected": {
+            "connection_threshold": 0.15
+          },
+          "auto_repaired": false,
+          "correction_applied": null,
+          "manual_review_required": false
+        },
+        {
+          "id": "ISS_TOPO_11",
+          "type": "open_endpoint",
+          "element_type": "wall",
+          "element_id": "w12",
+          "severity": "info",
+          "message": "Wall 'w12' end ends at (6.28, 4.36) without meeting another wall. A wall may be missing or too short.",
+          "measured": {
+            "endpoint": "end",
+            "coordinates": [
+              6.28,
+              4.36
+            ],
+            "nearest_distance": "1.040"
+          },
+          "expected": {
+            "connection_threshold": 0.15
+          },
+          "auto_repaired": false,
+          "correction_applied": null,
+          "manual_review_required": false
+        },
+        {
+          "id": "ISS_TOPO_12",
+          "type": "open_endpoint",
+          "element_type": "wall",
+          "element_id": "w13",
+          "severity": "info",
+          "message": "Wall 'w13' start ends at (10.12, 3.88) without meeting another wall. A wall may be missing or too short.",
+          "measured": {
+            "endpoint": "start",
+            "coordinates": [
+              10.12,
+              3.88
+            ],
+            "nearest_distance": "0.504"
+          },
+          "expected": {
+            "connection_threshold": 0.15
+          },
+          "auto_repaired": false,
+          "correction_applied": null,
+          "manual_review_required": false
+        }
+      ]
+    }
+  },
+  "validation_report": {
+    "timestamp": "2026-10-26T15:12:08.605Z",
+    "summary": {
+      "total_initial_issues": 17,
+      "errors": 0,
+      "warnings": 9,
+      "info": 8,
+      "auto_repaired": 2,
+      "remaining_unresolved": 9
+    },
+    "pre_repair": {
+      "total_issues": 17,
+      "errors": 0,
+      "warnings": 9,
+      "info": 8,
+      "auto_repaired": 0,
+      "manual_review_required": 9
+    },
+    "post_repair": {
+      "total_issues": 17,
+      "errors": 0,
+      "warnings": 9,
+      "info": 8,
+      "auto_repaired": 0,
+      "manual_review_required": 9
+    },
+    "operations_applied": [
+      {
+        "type": "opening_span_reconciled",
+        "opening_type": "door",
+        "opening_id": "d3",
+        "wall_id": "w11",
+        "measured_width": 0.6,
+        "host_wall_length": 0.5814,
+        "action": "opening_lintel_extended_across_boundary"
+      },
+      {
+        "type": "opening_span_reconciled",
+        "opening_type": "window",
+        "opening_id": "win3",
+        "wall_id": "w2",
+        "measured_width": 1.38,
+        "host_wall_length": 1.0812,
+        "action": "opening_lintel_extended_across_boundary"
+      }
+    ],
+    "issues": [
+      {
+        "id": "ISS_WALL_001",
+        "type": "short_wall",
+        "element_type": "wall",
+        "element_id": "w9",
+        "severity": "warning",
+        "message": "Wall 'w9' is unusually short (length 0.24m < 0.3m)",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_WALL_002",
+        "type": "disconnected_wall",
+        "element_type": "wall",
+        "element_id": "w3",
+        "severity": "warning",
+        "message": "Wall 'w3' is isolated and disconnected from all other walls",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_WALL_003",
+        "type": "disconnected_wall",
+        "element_type": "wall",
+        "element_id": "w6",
+        "severity": "warning",
+        "message": "Wall 'w6' is isolated and disconnected from all other walls",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_WALL_004",
+        "type": "disconnected_wall",
+        "element_type": "wall",
+        "element_id": "w8",
+        "severity": "warning",
+        "message": "Wall 'w8' is isolated and disconnected from all other walls",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_WALL_005",
+        "type": "disconnected_wall",
+        "element_type": "wall",
+        "element_id": "w9",
+        "severity": "warning",
+        "message": "Wall 'w9' is isolated and disconnected from all other walls",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_DOOR_006",
+        "type": "boundary_door_position",
+        "element_type": "door",
+        "element_id": "d1",
+        "severity": "warning",
+        "message": "Door 'd1' is positioned at the extreme wall boundary (position=1.0)",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_DOOR_007",
+        "type": "boundary_door_position",
+        "element_type": "door",
+        "element_id": "d2",
+        "severity": "warning",
+        "message": "Door 'd2' is positioned at the extreme wall boundary (position=0.0)",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_DOOR_008",
+        "type": "door_exceeds_wall_length",
+        "element_type": "door",
+        "element_id": "d3",
+        "severity": "warning",
+        "message": "Door 'd3' width (0.60m) exceeds referenced wall 'w11' length (0.58m)",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_DOOR_009",
+        "type": "boundary_door_position",
+        "element_type": "door",
+        "element_id": "d3",
+        "severity": "warning",
+        "message": "Door 'd3' is positioned at the extreme wall boundary (position=0.0)",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_DOOR_010",
+        "type": "boundary_door_position",
+        "element_type": "door",
+        "element_id": "d4",
+        "severity": "warning",
+        "message": "Door 'd4' is positioned at the extreme wall boundary (position=1.0)",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_WINDOW_011",
+        "type": "boundary_window_position",
+        "element_type": "window",
+        "element_id": "win1",
+        "severity": "warning",
+        "message": "Window 'win1' is positioned at the extreme wall boundary (position=1.0)",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_WINDOW_012",
+        "type": "boundary_window_position",
+        "element_type": "window",
+        "element_id": "win2",
+        "severity": "warning",
+        "message": "Window 'win2' is positioned at the extreme wall boundary (position=0.0)",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_WINDOW_013",
+        "type": "window_exceeds_wall_length",
+        "element_type": "window",
+        "element_id": "win3",
+        "severity": "warning",
+        "message": "Window 'win3' width (1.38m) exceeds referenced wall 'w2' length (1.08m)",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_WINDOW_014",
+        "type": "boundary_window_position",
+        "element_type": "window",
+        "element_id": "win3",
+        "severity": "warning",
+        "message": "Window 'win3' is positioned at the extreme wall boundary (position=1.0)",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_WINDOW_015",
+        "type": "boundary_window_position",
+        "element_type": "window",
+        "element_id": "win4",
+        "severity": "warning",
+        "message": "Window 'win4' is positioned at the extreme wall boundary (position=1.0)",
+        "measured": null,
+        "expected": null,
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": true
+      },
+      {
+        "id": "ISS_TOPO_2",
+        "type": "open_endpoint",
+        "element_type": "wall",
+        "element_id": "w1",
+        "severity": "info",
+        "message": "Wall 'w1' start ends at (4.76, 0.36) without meeting another wall. A wall may be missing or too short.",
+        "measured": {
+          "endpoint": "start",
+          "coordinates": [
+            4.76,
+            0.36
+          ],
+          "nearest_distance": "0.640"
+        },
+        "expected": {
+          "connection_threshold": 0.15
+        },
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": false
+      },
+      {
+        "id": "ISS_TOPO_3",
+        "type": "open_endpoint",
+        "element_type": "wall",
+        "element_id": "w2",
+        "severity": "info",
+        "message": "Wall 'w2' end ends at (1.54, 1.46) without meeting another wall. A wall may be missing or too short.",
+        "measured": {
+          "endpoint": "end",
+          "coordinates": [
+            1.54,
+            1.46
+          ],
+          "nearest_distance": "1.081"
+        },
+        "expected": {
+          "connection_threshold": 0.15
+        },
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": false
+      },
+      {
+        "id": "ISS_TOPO_5",
+        "type": "open_endpoint",
+        "element_type": "wall",
+        "element_id": "w5",
+        "severity": "info",
+        "message": "Wall 'w5' end ends at (10.08, 2.74) without meeting another wall. A wall may be missing or too short.",
+        "measured": {
+          "endpoint": "end",
+          "coordinates": [
+            10.08,
+            2.74
+          ],
+          "nearest_distance": "1.141"
+        },
+        "expected": {
+          "connection_threshold": 0.15
+        },
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": false
+      },
+      {
+        "id": "ISS_TOPO_6",
+        "type": "open_endpoint",
+        "element_type": "wall",
+        "element_id": "w7",
+        "severity": "info",
+        "message": "Wall 'w7' end ends at (7.44, 2.96) without meeting another wall. A wall may be missing or too short.",
+        "measured": {
+          "endpoint": "end",
+          "coordinates": [
+            7.44,
+            2.96
+          ],
+          "nearest_distance": "0.563"
+        },
+        "expected": {
+          "connection_threshold": 0.15
+        },
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": false
+      },
+      {
+        "id": "ISS_TOPO_9",
+        "type": "open_endpoint",
+        "element_type": "wall",
+        "element_id": "w10",
+        "severity": "info",
+        "message": "Wall 'w10' start ends at (7.48, 3.70) without meeting another wall. A wall may be missing or too short.",
+        "measured": {
+          "endpoint": "start",
+          "coordinates": [
+            7.48,
+            3.7
+          ],
+          "nearest_distance": "0.680"
+        },
+        "expected": {
+          "connection_threshold": 0.15
+        },
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": false
+      },
+      {
+        "id": "ISS_TOPO_10",
+        "type": "open_endpoint",
+        "element_type": "wall",
+        "element_id": "w11",
+        "severity": "info",
+        "message": "Wall 'w11' start ends at (1.56, 3.80) without meeting another wall. A wall may be missing or too short.",
+        "measured": {
+          "endpoint": "start",
+          "coordinates": [
+            1.56,
+            3.8
+          ],
+          "nearest_distance": "0.581"
+        },
+        "expected": {
+          "connection_threshold": 0.15
+        },
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": false
+      },
+      {
+        "id": "ISS_TOPO_11",
+        "type": "open_endpoint",
+        "element_type": "wall",
+        "element_id": "w12",
+        "severity": "info",
+        "message": "Wall 'w12' end ends at (6.28, 4.36) without meeting another wall. A wall may be missing or too short.",
+        "measured": {
+          "endpoint": "end",
+          "coordinates": [
+            6.28,
+            4.36
+          ],
+          "nearest_distance": "1.040"
+        },
+        "expected": {
+          "connection_threshold": 0.15
+        },
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": false
+      },
+      {
+        "id": "ISS_TOPO_12",
+        "type": "open_endpoint",
+        "element_type": "wall",
+        "element_id": "w13",
+        "severity": "info",
+        "message": "Wall 'w13' start ends at (10.12, 3.88) without meeting another wall. A wall may be missing or too short.",
+        "measured": {
+          "endpoint": "start",
+          "coordinates": [
+            10.12,
+            3.88
+          ],
+          "nearest_distance": "0.504"
+        },
+        "expected": {
+          "connection_threshold": 0.15
+        },
+        "auto_repaired": false,
+        "correction_applied": null,
+        "manual_review_required": false
+      }
+    ]
+  },
+  "topology_operations": [
+    {
+      "type": "snap_endpoint",
+      "wall_id": "w10",
+      "endpoint": "end",
+      "original": [
+        373,
+        219
+      ],
+      "snapped": [
+        366,
+        219
+      ],
+      "distance": 7
+    },
+    {
+      "type": "snap_endpoint",
+      "wall_id": "w14",
+      "endpoint": "end",
+      "original": [
+        359,
+        219
+      ],
+      "snapped": [
+        366,
+        219
+      ],
+      "distance": 7
+    },
+    {
+      "type": "snap_t_junction",
+      "wall_id": "w6",
+      "target_wall_id": "w3",
+      "endpoint": "start",
+      "original": [
+        311.9,
+        17.9
+      ],
+      "snapped": [
+        311.9,
+        17.93
+      ],
+      "distance": 0.03
+    },
+    {
+      "type": "snap_t_junction",
+      "wall_id": "w6",
+      "target_wall_id": "w8",
+      "endpoint": "end",
+      "original": [
+        317.5,
+        145
+      ],
+      "snapped": [
+        317.5,
+        145.04
+      ],
+      "distance": 0.04
+    },
+    {
+      "type": "opening_span_reconciled",
+      "opening_type": "door",
+      "opening_id": "d3",
+      "wall_id": "w11",
+      "measured_width": 0.6,
+      "host_wall_length": 0.5814,
+      "action": "opening_lintel_extended_across_boundary"
+    },
+    {
+      "type": "opening_span_reconciled",
+      "opening_type": "window",
+      "opening_id": "win3",
+      "wall_id": "w2",
+      "measured_width": 1.38,
+      "host_wall_length": 1.0812,
+      "action": "opening_lintel_extended_across_boundary"
+    }
+  ],
+  "walls": [
+    {
+      "id": "w1",
+      "start": [
+        4.76,
+        0.36
+      ],
+      "end": [
+        1.59,
+        0.38
+      ],
+      "thickness": 0.32,
+      "length": 3.1700630908548177,
+      "supplied_length": 3.17,
+      "geometry": {
+        "start": [
+          4.76,
+          0.36
+        ],
+        "end": [
+          1.59,
+          0.38
+        ],
+        "thickness": 0.32,
+        "length": 3.17
+      },
+      "source": {
+        "start": [
+          238,
+          18
+        ],
+        "end": [
+          79.5,
+          19
+        ],
+        "thickness": 16
+      }
+    },
+    {
+      "id": "w2",
+      "start": [
+        1.59,
+        0.38
+      ],
+      "end": [
+        1.54,
+        1.46
+      ],
+      "thickness": 0.242,
+      "length": 1.0811567878897121,
+      "supplied_length": 1.0812,
+      "geometry": {
+        "start": [
+          1.59,
+          0.38
+        ],
+        "end": [
+          1.54,
+          1.46
+        ],
+        "thickness": 0.242,
+        "length": 1.0812
+      },
+      "source": {
+        "start": [
+          79.5,
+          19
+        ],
+        "end": [
+          77,
+          73
+        ],
+        "thickness": 12.1
+      }
+    },
+    {
+      "id": "w3",
+      "start": [
+        6.58,
+        0.35
+      ],
+      "end": [
+        5.4,
+        0.38
+      ],
+      "thickness": 0.318,
+      "length": 1.180381294328235,
+      "supplied_length": 1.1804,
+      "geometry": {
+        "start": [
+          6.58,
+          0.35
+        ],
+        "end": [
+          5.4,
+          0.38
+        ],
+        "thickness": 0.318,
+        "length": 1.1804
+      },
+      "source": {
+        "start": [
+          329,
+          17.5
+        ],
+        "end": [
+          270,
+          19
+        ],
+        "thickness": 15.9
+      }
+    },
+    {
+      "id": "w4",
+      "start": [
+        7.48,
+        0.38
+      ],
+      "end": [
+        10.06,
+        0.36
+      ],
+      "thickness": 0.32,
+      "length": 2.5800775182152957,
+      "supplied_length": 2.58,
+      "geometry": {
+        "start": [
+          7.48,
+          0.38
+        ],
+        "end": [
+          10.06,
+          0.36
+        ],
+        "thickness": 0.32,
+        "length": 2.58
+      },
+      "source": {
+        "start": [
+          374,
+          19
+        ],
+        "end": [
+          503,
+          18
+        ],
+        "thickness": 16
+      }
+    },
+    {
+      "id": "w5",
+      "start": [
+        10.06,
+        0.36
+      ],
+      "end": [
+        10.08,
+        2.74
+      ],
+      "thickness": 0.168,
+      "length": 2.3800840321299583,
+      "supplied_length": 2.38,
+      "geometry": {
+        "start": [
+          10.06,
+          0.36
+        ],
+        "end": [
+          10.08,
+          2.74
+        ],
+        "thickness": 0.168,
+        "length": 2.38
+      },
+      "source": {
+        "start": [
+          503,
+          18
+        ],
+        "end": [
+          504,
+          137
+        ],
+        "thickness": 8.4
+      }
+    },
+    {
+      "id": "w6",
+      "start": [
+        6.238,
+        0.3586
+      ],
+      "end": [
+        6.35,
+        2.9008
+      ],
+      "thickness": 0.16,
+      "length": 2.5446659584314792,
+      "supplied_length": 2.5446,
+      "geometry": {
+        "start": [
+          6.238,
+          0.3586
+        ],
+        "end": [
+          6.35,
+          2.9008
+        ],
+        "thickness": 0.16,
+        "length": 2.5446
+      },
+      "source": {
+        "start": [
+          311.9,
+          17.9
+        ],
+        "end": [
+          317.5,
+          145
+        ],
+        "thickness": 8
+      }
+    },
+    {
+      "id": "w7",
+      "start": [
+        7.48,
+        0.38
+      ],
+      "end": [
+        7.44,
+        2.96
+      ],
+      "thickness": 0.08,
+      "length": 2.5803100588882724,
+      "supplied_length": 2.5804,
+      "geometry": {
+        "start": [
+          7.48,
+          0.38
+        ],
+        "end": [
+          7.44,
+          2.96
+        ],
+        "thickness": 0.08,
+        "length": 2.5804
+      },
+      "source": {
+        "start": [
+          374,
+          19
+        ],
+        "end": [
+          372,
+          148
+        ],
+        "thickness": 4
+      }
+    },
+    {
+      "id": "w8",
+      "start": [
+        5.88,
+        2.88
+      ],
+      "end": [
+        6.878,
+        2.924
+      ],
+      "thickness": 0.084,
+      "length": 0.9989694690029323,
+      "supplied_length": 0.999,
+      "geometry": {
+        "start": [
+          5.88,
+          2.88
+        ],
+        "end": [
+          6.878,
+          2.924
+        ],
+        "thickness": 0.084,
+        "length": 0.999
+      },
+      "source": {
+        "start": [
+          294,
+          144
+        ],
+        "end": [
+          343.9,
+          146.2
+        ],
+        "thickness": 4.2
+      }
+    },
+    {
+      "id": "w9",
+      "start": [
+        1.44,
+        3
+      ],
+      "end": [
+        1.68,
+        3
+      ],
+      "thickness": 0.08,
+      "length": 0.24,
+      "supplied_length": 0.24,
+      "geometry": {
+        "start": [
+          1.44,
+          3
+        ],
+        "end": [
+          1.68,
+          3
+        ],
+        "thickness": 0.08,
+        "length": 0.24
+      },
+      "source": {
+        "start": [
+          72,
+          150
+        ],
+        "end": [
+          84,
+          150
+        ],
+        "thickness": 4
+      }
+    },
+    {
+      "id": "w10",
+      "start": [
+        7.48,
+        3.7
+      ],
+      "end": [
+        7.32,
+        4.38
+      ],
+      "thickness": 0.082,
+      "length": 0.698569967862919,
+      "supplied_length": 0.6986,
+      "geometry": {
+        "start": [
+          7.48,
+          3.7
+        ],
+        "end": [
+          7.32,
+          4.38
+        ],
+        "thickness": 0.082,
+        "length": 0.6986
+      },
+      "source": {
+        "start": [
+          374,
+          185
+        ],
+        "end": [
+          373,
+          219
+        ],
+        "thickness": 4.1
+      }
+    },
+    {
+      "id": "w11",
+      "start": [
+        1.56,
+        3.8
+      ],
+      "end": [
+        1.6,
+        4.38
+      ],
+      "thickness": 0.258,
+      "length": 0.5813776741499453,
+      "supplied_length": 0.5814,
+      "geometry": {
+        "start": [
+          1.56,
+          3.8
+        ],
+        "end": [
+          1.6,
+          4.38
+        ],
+        "thickness": 0.258,
+        "length": 0.5814
+      },
+      "source": {
+        "start": [
+          78,
+          190
+        ],
+        "end": [
+          80,
+          219
+        ],
+        "thickness": 12.9
+      }
+    },
+    {
+      "id": "w12",
+      "start": [
+        1.6,
+        4.38
+      ],
+      "end": [
+        6.28,
+        4.36
+      ],
+      "thickness": 0.16,
+      "length": 4.68004273484762,
+      "supplied_length": 4.68,
+      "geometry": {
+        "start": [
+          1.6,
+          4.38
+        ],
+        "end": [
+          6.28,
+          4.36
+        ],
+        "thickness": 0.16,
+        "length": 4.68
+      },
+      "source": {
+        "start": [
+          80,
+          219
+        ],
+        "end": [
+          314,
+          218
+        ],
+        "thickness": 8
+      }
+    },
+    {
+      "id": "w13",
+      "start": [
+        10.12,
+        3.88
+      ],
+      "end": [
+        10.06,
+        4.38
+      ],
+      "thickness": 0.204,
+      "length": 0.5035871324805666,
+      "supplied_length": 0.5036,
+      "geometry": {
+        "start": [
+          10.12,
+          3.88
+        ],
+        "end": [
+          10.06,
+          4.38
+        ],
+        "thickness": 0.204,
+        "length": 0.5036
+      },
+      "source": {
+        "start": [
+          506,
+          194
+        ],
+        "end": [
+          503,
+          219
+        ],
+        "thickness": 10.2
+      }
+    },
+    {
+      "id": "w14",
+      "start": [
+        10.06,
+        4.38
+      ],
+      "end": [
+        7.32,
+        4.38
+      ],
+      "thickness": 0.2,
+      "length": 2.74,
+      "supplied_length": 2.74,
+      "geometry": {
+        "start": [
+          10.06,
+          4.38
+        ],
+        "end": [
+          7.32,
+          4.38
+        ],
+        "thickness": 0.2,
+        "length": 2.74
+      },
+      "source": {
+        "start": [
+          503,
+          219
+        ],
+        "end": [
+          359,
+          219
+        ],
+        "thickness": 10
+      }
+    }
+  ],
+  "doors": [
+    {
+      "id": "d1",
+      "wall_id": "w8",
+      "center": [
+        6.878,
+        2.924
+      ],
+      "offset": 0.759,
+      "position": 0.7597829799118436,
+      "width": 0.48,
+      "height": 2.1,
+      "geometry": {
+        "center": [
+          6.878,
+          2.924
+        ],
+        "start": [
+          6.6382,
+          2.9134
+        ],
+        "end": [
+          7.1178,
+          2.9346
+        ],
+        "width": 0.48,
+        "offset_from_start": 0.759
+      },
+      "source": {
+        "position": 1,
+        "width": 24
+      }
+    },
+    {
+      "id": "d2",
+      "wall_id": "w10",
+      "center": [
+        7.48,
+        3.7
+      ],
+      "offset": 0,
+      "position": 0,
+      "width": 0.68,
+      "height": 2.1,
+      "geometry": {
+        "center": [
+          7.48,
+          3.7
+        ],
+        "start": [
+          7.5578,
+          3.369
+        ],
+        "end": [
+          7.4022,
+          4.031
+        ],
+        "width": 0.68,
+        "offset_from_start": 0
+      },
+      "source": {
+        "position": 0,
+        "width": 34
+      }
+    },
+    {
+      "id": "d3",
+      "wall_id": "w11",
+      "center": [
+        1.56,
+        3.8
+      ],
+      "offset": 0,
+      "position": 0,
+      "width": 0.6,
+      "height": 2.1,
+      "geometry": {
+        "center": [
+          1.56,
+          3.8
+        ],
+        "start": [
+          1.5394,
+          3.5008
+        ],
+        "end": [
+          1.5806,
+          4.0992
+        ],
+        "width": 0.6,
+        "offset_from_start": 0
+      },
+      "source": {
+        "position": 0,
+        "width": 30
+      }
+    },
+    {
+      "id": "d4",
+      "wall_id": "w14",
+      "center": [
+        7.32,
+        4.38
+      ],
+      "offset": 2.37,
+      "position": 0.864963503649635,
+      "width": 0.74,
+      "height": 2.1,
+      "geometry": {
+        "center": [
+          7.32,
+          4.38
+        ],
+        "start": [
+          7.69,
+          4.38
+        ],
+        "end": [
+          6.95,
+          4.38
+        ],
+        "width": 0.74,
+        "offset_from_start": 2.37
+      },
+      "source": {
+        "position": 1,
+        "width": 37
+      }
+    }
+  ],
+  "windows": [
+    {
+      "id": "win1",
+      "wall_id": "w3",
+      "center": [
+        5.4,
+        0.38
+      ],
+      "offset": 1.0104,
+      "position": 0.8559945882360218,
+      "width": 0.34,
+      "height": 1.2,
+      "sill_height": 0.9,
+      "geometry": {
+        "center": [
+          5.4,
+          0.38
+        ],
+        "start": [
+          5.57,
+          0.3756
+        ],
+        "end": [
+          5.23,
+          0.3844
+        ],
+        "width": 0.34,
+        "offset_from_start": 1.0104
+      },
+      "source": {
+        "position": 1,
+        "width": 17
+      }
+    },
+    {
+      "id": "win2",
+      "wall_id": "w3",
+      "center": [
+        6.58,
+        0.35
+      ],
+      "offset": 0,
+      "position": 0,
+      "width": 0.38,
+      "height": 1.2,
+      "sill_height": 0.9,
+      "geometry": {
+        "center": [
+          6.58,
+          0.35
+        ],
+        "start": [
+          6.77,
+          0.3452
+        ],
+        "end": [
+          6.39,
+          0.3548
+        ],
+        "width": 0.38,
+        "offset_from_start": 0
+      },
+      "source": {
+        "position": 0,
+        "width": 19
+      }
+    },
+    {
+      "id": "win3",
+      "wall_id": "w2",
+      "center": [
+        1.54,
+        1.46
+      ],
+      "offset": 0.3912,
+      "position": 0.36183466115361057,
+      "width": 1.38,
+      "height": 1.2,
+      "sill_height": 0.9,
+      "geometry": {
+        "center": [
+          1.54,
+          1.46
+        ],
+        "start": [
+          1.572,
+          0.7708
+        ],
+        "end": [
+          1.508,
+          2.1492
+        ],
+        "width": 1.38,
+        "offset_from_start": 0.3912
+      },
+      "source": {
+        "position": 1,
+        "width": 69
+      }
+    },
+    {
+      "id": "win4",
+      "wall_id": "w5",
+      "center": [
+        10.08,
+        2.74
+      ],
+      "offset": 1.93,
+      "position": 0.8108957389512108,
+      "width": 0.9,
+      "height": 1.2,
+      "sill_height": 0.9,
+      "geometry": {
+        "center": [
+          10.08,
+          2.74
+        ],
+        "start": [
+          10.0762,
+          2.29
+        ],
+        "end": [
+          10.0838,
+          3.19
+        ],
+        "width": 0.9,
+        "offset_from_start": 1.93
+      },
+      "source": {
+        "position": 1,
+        "width": 45
+      }
+    }
+  ],
+  "rooms": [
+    {
+      "id": "room1",
+      "name": "room1",
+      "label": "room1",
+      "polygon": [
+        [
+          1.7,
+          0.54
+        ],
+        [
+          1.7,
+          4.28
+        ],
+        [
+          7.42,
+          4.28
+        ],
+        [
+          7.42,
+          2.96
+        ],
+        [
+          5.82,
+          2.92
+        ],
+        [
+          5.84,
+          2.84
+        ],
+        [
+          6.32,
+          2.84
+        ],
+        [
+          6.32,
+          1.04
+        ],
+        [
+          6.08,
+          1.02
+        ],
+        [
+          6.08,
+          0.54
+        ]
+      ],
+      "centroid": [
+        4.217,
+        2.5142
+      ],
+      "area": 18.586,
+      "perimeter": 19.8438,
+      "bounds": [
+        1.7,
+        0.54,
+        7.42,
+        4.28
+      ],
+      "geometry": {
+        "polygon": [
+          [
+            1.7,
+            0.54
+          ],
+          [
+            1.7,
+            4.28
+          ],
+          [
+            7.42,
+            4.28
+          ],
+          [
+            7.42,
+            2.96
+          ],
+          [
+            5.82,
+            2.92
+          ],
+          [
+            5.84,
+            2.84
+          ],
+          [
+            6.32,
+            2.84
+          ],
+          [
+            6.32,
+            1.04
+          ],
+          [
+            6.08,
+            1.02
+          ],
+          [
+            6.08,
+            0.54
+          ]
+        ],
+        "area": 18.586,
+        "perimeter": 19.8438,
+        "bounds": [
+          1.7,
+          0.54,
+          7.42,
+          4.28
+        ],
+        "centroid": [
+          4.217,
+          2.5142
+        ],
+        "num_vertices": 10
+      },
+      "source": {
+        "polygon": [
+          [
+            85,
+            27
+          ],
+          [
+            85,
+            214
+          ],
+          [
+            371,
+            214
+          ],
+          [
+            371,
+            148
+          ],
+          [
+            291,
+            146
+          ],
+          [
+            292,
+            142
+          ],
+          [
+            316,
+            142
+          ],
+          [
+            316,
+            52
+          ],
+          [
+            304,
+            51
+          ],
+          [
+            304,
+            27
+          ]
+        ]
+      }
+    },
+    {
+      "id": "room2",
+      "name": "room2",
+      "label": "room2",
+      "polygon": [
+        [
+          7.42,
+          0.54
+        ],
+        [
+          6.42,
+          0.54
+        ],
+        [
+          6.44,
+          2.84
+        ],
+        [
+          7.42,
+          2.84
+        ]
+      ],
+      "centroid": [
+        6.925,
+        1.6861
+      ],
+      "area": 2.277,
+      "perimeter": 6.58,
+      "bounds": [
+        6.42,
+        0.54,
+        7.42,
+        2.84
+      ],
+      "geometry": {
+        "polygon": [
+          [
+            7.42,
+            0.54
+          ],
+          [
+            6.42,
+            0.54
+          ],
+          [
+            6.44,
+            2.84
+          ],
+          [
+            7.42,
+            2.84
+          ]
+        ],
+        "area": 2.277,
+        "perimeter": 6.58,
+        "bounds": [
+          6.42,
+          0.54,
+          7.42,
+          2.84
+        ],
+        "centroid": [
+          6.925,
+          1.6861
+        ],
+        "num_vertices": 4
+      },
+      "source": {
+        "polygon": [
+          [
+            371,
+            27
+          ],
+          [
+            321,
+            27
+          ],
+          [
+            322,
+            142
+          ],
+          [
+            371,
+            142
+          ]
+        ]
+      }
+    },
+    {
+      "id": "room3",
+      "name": "room3",
+      "label": "room3",
+      "polygon": [
+        [
+          7.52,
+          0.54
+        ],
+        [
+          7.52,
+          4.28
+        ],
+        [
+          9.98,
+          4.28
+        ],
+        [
+          9.98,
+          0.54
+        ]
+      ],
+      "centroid": [
+        8.75,
+        2.41
+      ],
+      "area": 9.2004,
+      "perimeter": 12.4,
+      "bounds": [
+        7.52,
+        0.54,
+        9.98,
+        4.28
+      ],
+      "geometry": {
+        "polygon": [
+          [
+            7.52,
+            0.54
+          ],
+          [
+            7.52,
+            4.28
+          ],
+          [
+            9.98,
+            4.28
+          ],
+          [
+            9.98,
+            0.54
+          ]
+        ],
+        "area": 9.2004,
+        "perimeter": 12.4,
+        "bounds": [
+          7.52,
+          0.54,
+          9.98,
+          4.28
+        ],
+        "centroid": [
+          8.75,
+          2.41
+        ],
+        "num_vertices": 4
+      },
+      "source": {
+        "polygon": [
+          [
+            376,
+            27
+          ],
+          [
+            376,
+            214
+          ],
+          [
+            499,
+            214
+          ],
+          [
+            499,
+            27
+          ]
+        ]
+      }
+    }
+  ],
+  "metadata": null
+}

@@ -371,3 +371,14 @@ html, body {
   line-height: 1.4;
   word-break: break-all;
 }
+
+.issue-item {
+  transition: all 0.15s ease;
+}
+
+.issue-item:hover {
+  background: rgba(59, 130, 246, 0.15) !important;
+  border-color: rgba(59, 130, 246, 0.5) !important;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.2);
+}
+

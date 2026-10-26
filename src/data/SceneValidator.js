@@ -1,77 +1,100 @@
+import { GeometryValidator } from '../geometry/GeometryValidator.js';
+import { TopologyRepairer } from '../geometry/TopologyRepairer.js';
+
 export class SceneValidator {
   /**
-   * Validates and sanitizes scene.json data gracefully.
+   * Validates, diagnoses, and sanitizes scene.json data gracefully.
    * Accepts:
    * 1. Real Member 2 validated scene output with processed metric geometry (validated_scene.json)
    * 2. Synthetic blueprint Member 2 output (sample_scene.json)
    * 3. Legacy synthetic test scene (scene.json)
+   * 
    * @param {Object} rawData - Incoming scene JSON
-   * @returns {Object} { isValid, scene, errors, warnings }
+   * @param {Object} options - Validation and repair configuration options
+   * @returns {Object} { isValid, scene, errors, warnings, info, validationReport }
    */
-  static validate(rawData) {
+  static validate(rawData, options = {}) {
     const errors = [];
     const warnings = [];
+    const info = [];
 
     if (!rawData || typeof rawData !== 'object') {
       return {
         isValid: false,
         scene: null,
         errors: ['Scene data is null, undefined, or not a valid JSON object.'],
-        warnings: []
+        warnings: [],
+        info: [],
+        validationReport: null
       };
     }
 
-    // Preserve Member 2 validation issues if present
+    // 1. Run deep diagnostic validation on input data
+    const preValidation = GeometryValidator.validate(rawData, options);
+
+    // 2. Perform safe topological repairs if requested (e.g. options.repair === true)
+    let processedData = rawData;
+    let repairOperations = [];
+    if (options.repair === true) {
+      const repairResult = TopologyRepairer.repair(rawData, options);
+      processedData = repairResult.repairedScene;
+      repairOperations = repairResult.operations;
+    }
+
+    // 3. Post-validation state
+    const postValidation = options.repair ? GeometryValidator.validate(processedData, options) : preValidation;
+
+    // Populate warnings array with legacy compatibility messages
     if (rawData.validation && Array.isArray(rawData.validation.issues)) {
       rawData.validation.issues.forEach(issue => {
         warnings.push(`[Member 2 ${issue.severity || 'warning'}: ${issue.type}] ${issue.message}`);
       });
     }
 
-    const units = typeof rawData.units === 'string' ? rawData.units : 'meters';
-    if (rawData.units && typeof rawData.units !== 'string') {
-      warnings.push(`Invalid units format '${rawData.units}'. Defaulted to 'meters'.`);
+    const units = typeof processedData.units === 'string' ? processedData.units : 'meters';
+    if (processedData.units && typeof processedData.units !== 'string') {
+      warnings.push(`Invalid units format '${processedData.units}'. Defaulted to 'meters'.`);
     }
 
     // Coordinate system ("world" or object with up_axis: "Z")
     let coordinate_system = 'world';
-    if (typeof rawData.coordinate_system === 'string') {
-      coordinate_system = rawData.coordinate_system;
-    } else if (rawData.coordinate_system && typeof rawData.coordinate_system === 'object') {
+    if (typeof processedData.coordinate_system === 'string') {
+      coordinate_system = processedData.coordinate_system;
+    } else if (processedData.coordinate_system && typeof processedData.coordinate_system === 'object') {
       coordinate_system = {
-        up_axis: rawData.coordinate_system.up_axis || 'Z',
-        horizontal_axes: Array.isArray(rawData.coordinate_system.horizontal_axes)
-          ? [...rawData.coordinate_system.horizontal_axes]
+        up_axis: processedData.coordinate_system.up_axis || 'Z',
+        horizontal_axes: Array.isArray(processedData.coordinate_system.horizontal_axes)
+          ? [...processedData.coordinate_system.horizontal_axes]
           : ['X', 'Y']
       };
     }
 
     // Defaults and Heights: Priority order: defaults.wall_height -> wall_height -> settings.wallHeight -> 3.0
     let wallHeight = 3.0;
-    if (rawData.defaults && typeof rawData.defaults.wall_height === 'number' && rawData.defaults.wall_height > 0) {
-      wallHeight = rawData.defaults.wall_height;
-    } else if (typeof rawData.wall_height === 'number' && rawData.wall_height > 0) {
-      wallHeight = rawData.wall_height;
-    } else if (rawData.settings && typeof rawData.settings.wallHeight === 'number' && rawData.settings.wallHeight > 0) {
-      wallHeight = rawData.settings.wallHeight;
-    } else if (rawData.wall_height !== undefined || (rawData.defaults && rawData.defaults.wall_height !== undefined)) {
+    if (processedData.defaults && typeof processedData.defaults.wall_height === 'number' && processedData.defaults.wall_height > 0) {
+      wallHeight = processedData.defaults.wall_height;
+    } else if (typeof processedData.wall_height === 'number' && processedData.wall_height > 0) {
+      wallHeight = processedData.wall_height;
+    } else if (processedData.settings && typeof processedData.settings.wallHeight === 'number' && processedData.settings.wallHeight > 0) {
+      wallHeight = processedData.settings.wallHeight;
+    } else if (processedData.wall_height !== undefined || (processedData.defaults && processedData.defaults.wall_height !== undefined)) {
       warnings.push(`Invalid wall height. Fallback to 3.0m.`);
     }
 
-    const doorHeightDefault = (rawData.defaults && typeof rawData.defaults.door_height === 'number')
-      ? rawData.defaults.door_height
+    const doorHeightDefault = (processedData.defaults && typeof processedData.defaults.door_height === 'number')
+      ? processedData.defaults.door_height
       : 2.1;
-    const windowHeightDefault = (rawData.defaults && typeof rawData.defaults.window_height === 'number')
-      ? rawData.defaults.window_height
+    const windowHeightDefault = (processedData.defaults && typeof processedData.defaults.window_height === 'number')
+      ? processedData.defaults.window_height
       : 1.2;
-    const windowSillHeightDefault = (rawData.defaults && typeof rawData.defaults.window_sill_height === 'number')
-      ? rawData.defaults.window_sill_height
+    const windowSillHeightDefault = (processedData.defaults && typeof processedData.defaults.window_sill_height === 'number')
+      ? processedData.defaults.window_sill_height
       : 0.9;
 
     // Floor Thickness
     let floorThickness = 0.1;
-    if (rawData.settings && typeof rawData.settings.floorThickness === 'number' && rawData.settings.floorThickness > 0) {
-      floorThickness = rawData.settings.floorThickness;
+    if (processedData.settings && typeof processedData.settings.floorThickness === 'number' && processedData.settings.floorThickness > 0) {
+      floorThickness = processedData.settings.floorThickness;
     }
 
     const settings = {
@@ -94,10 +117,10 @@ export class SceneValidator {
     const wallIds = new Set();
     const wallMapData = new Map();
 
-    if (!Array.isArray(rawData.walls) || rawData.walls.length === 0) {
+    if (!Array.isArray(processedData.walls) || processedData.walls.length === 0) {
       warnings.push('Scene contains no walls.');
     } else {
-      rawData.walls.forEach((wall, idx) => {
+      processedData.walls.forEach((wall, idx) => {
         const id = wall.id || `w_auto_${idx}`;
         if (!wall.id) {
           warnings.push(`Wall at index ${idx} is missing an ID. Assigned temporary '${id}'.`);
@@ -157,7 +180,12 @@ export class SceneValidator {
           thickness,
           length: calculatedLength,
           supplied_length: suppliedLength,
-          geometry: wall.geometry || null,
+          geometry: wall.geometry || {
+            start: [start[0], start[1]],
+            end: [end[0], end[1]],
+            thickness,
+            length: calculatedLength
+          },
           source: wall.source || null
         };
 
@@ -169,8 +197,8 @@ export class SceneValidator {
 
     // Doors
     const validDoors = [];
-    if (Array.isArray(rawData.doors)) {
-      rawData.doors.forEach((door, idx) => {
+    if (Array.isArray(processedData.doors)) {
+      processedData.doors.forEach((door, idx) => {
         const id = door.id || `d_auto_${idx}`;
         if (!door.wall_id) {
           warnings.push(`Door '${id}' is missing wall_id and will be skipped.`);
@@ -238,15 +266,16 @@ export class SceneValidator {
           position,
           width,
           height,
-          geometry: geom || null
+          geometry: geom || null,
+          source: door.source || null
         });
       });
     }
 
     // Windows
     const validWindows = [];
-    if (Array.isArray(rawData.windows)) {
-      rawData.windows.forEach((win, idx) => {
+    if (Array.isArray(processedData.windows)) {
+      processedData.windows.forEach((win, idx) => {
         const id = win.id || `win_auto_${idx}`;
         if (!win.wall_id) {
           warnings.push(`Window '${id}' is missing wall_id and will be skipped.`);
@@ -318,15 +347,16 @@ export class SceneValidator {
           width,
           height,
           sill_height: sillHeight,
-          geometry: geom || null
+          geometry: geom || null,
+          source: win.source || null
         });
       });
     }
 
     // Rooms
     const validRooms = [];
-    if (Array.isArray(rawData.rooms)) {
-      rawData.rooms.forEach((room, idx) => {
+    if (Array.isArray(processedData.rooms)) {
+      processedData.rooms.forEach((room, idx) => {
         const id = room.id || `room_auto_${idx}`;
         const name = room.name || room.label || `Room ${idx + 1}`;
         const geom = room.geometry;
@@ -357,10 +387,10 @@ export class SceneValidator {
 
         const centroid = (geom && Array.isArray(geom.centroid) && geom.centroid.length >= 2)
           ? [geom.centroid[0], geom.centroid[1]]
-          : null;
+          : (room.centroid && Array.isArray(room.centroid) ? [room.centroid[0], room.centroid[1]] : null);
         const area = (geom && typeof geom.area === 'number')
           ? geom.area
-          : null;
+          : ((typeof room.area === 'number') ? room.area : null);
         const perimeter = (geom && typeof geom.perimeter === 'number')
           ? geom.perimeter
           : null;
@@ -377,33 +407,92 @@ export class SceneValidator {
           area,
           perimeter,
           bounds,
-          geometry: geom || null
+          geometry: geom || null,
+          source: room.source || null
         });
       });
     }
 
+    // Construct enriched issues list
+    const combinedIssues = (rawData.validation?.issues || []).map((issue, idx) => ({
+      id: issue.id || `ISS_${(issue.element_type || 'ELEM').toUpperCase()}_${String(idx + 1).padStart(3, '0')}`,
+      type: issue.type || 'defect',
+      element_type: issue.element_type || 'element',
+      element_id: issue.element_id || 'unknown',
+      severity: issue.severity || 'warning',
+      message: issue.message || '',
+      measured: issue.measured || null,
+      expected: issue.expected || null,
+      auto_repaired: issue.auto_repaired || false,
+      correction_applied: issue.correction_applied || null,
+      manual_review_required: issue.manual_review_required !== undefined ? issue.manual_review_required : true
+    }));
+    
+    // Add any newly diagnosed issues from preValidation that aren't already present
+    preValidation.issues.forEach(diagIssue => {
+      const alreadyHas = combinedIssues.some(ci => ci.type === diagIssue.defect && (ci.element_id === diagIssue.element_id || ci.id === diagIssue.id));
+      if (!alreadyHas) {
+        combinedIssues.push({
+          id: diagIssue.id,
+          type: diagIssue.defect,
+          element_type: diagIssue.element_type,
+          element_id: diagIssue.element_id,
+          severity: diagIssue.severity,
+          message: diagIssue.message,
+          measured: diagIssue.measured,
+          expected: diagIssue.expected,
+          auto_repaired: diagIssue.auto_repaired,
+          correction_applied: diagIssue.correction_applied,
+          manual_review_required: diagIssue.manual_review_required
+        });
+      }
+    });
+
+    const validationReport = {
+      timestamp: new Date().toISOString(),
+      summary: {
+        total_initial_issues: preValidation.summary.total_issues,
+        errors: preValidation.summary.errors,
+        warnings: preValidation.summary.warnings,
+        info: preValidation.summary.info,
+        auto_repaired: repairOperations.length,
+        remaining_unresolved: postValidation.summary.warnings + postValidation.summary.errors
+      },
+      pre_repair: preValidation.summary,
+      post_repair: postValidation.summary,
+      operations_applied: repairOperations,
+      issues: combinedIssues
+    };
+
     const sanitizedScene = {
-      version: rawData.version || '1.0',
+      version: processedData.version || '1.0',
       units,
       coordinate_system,
       wall_height: wallHeight,
       defaults,
       settings,
-      scale: rawData.scale || null,
-      validation: rawData.validation || { valid: true, issues: [] },
-      topology_operations: rawData.topology_operations || [],
+      scale: processedData.scale || null,
+      validation: {
+        valid: errors.length === 0,
+        issues: combinedIssues,
+        report: validationReport
+      },
+      validation_report: validationReport,
+      topology_operations: processedData.topology_operations || repairOperations,
       walls: validWalls,
       doors: validDoors,
       windows: validWindows,
       rooms: validRooms,
-      metadata: rawData.metadata || null
+      metadata: processedData.metadata || null
     };
 
     return {
       isValid: validWalls.length > 0 || validRooms.length > 0,
       scene: sanitizedScene,
       errors,
-      warnings
+      warnings,
+      info,
+      validationReport
     };
   }
 }

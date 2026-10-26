@@ -26,6 +26,9 @@ export class SceneManager {
     this.roomsGroup = null;
     this.dimensionsGroup = null;
     this.labelsGroup = null;
+    this.originalWireframeGroup = null;
+    this.highlightedObject = null;
+    this.originalMaterial = null;
     
     // State & Animation
     this.animationFrameId = null;
@@ -132,6 +135,11 @@ export class SceneManager {
     this.labelsGroup = new THREE.Group();
     this.labelsGroup.name = 'Labels';
     this.rootGroup.add(this.labelsGroup);
+
+    this.originalWireframeGroup = new THREE.Group();
+    this.originalWireframeGroup.name = 'OriginalWireframe';
+    this.originalWireframeGroup.visible = false;
+    this.rootGroup.add(this.originalWireframeGroup);
 
     // 8. Event Listeners (Resize)
     this.onWindowResize = this.onWindowResize.bind(this);
@@ -246,11 +254,78 @@ export class SceneManager {
       windows: this.windowsGroup,
       rooms: this.roomsGroup,
       dimensions: this.dimensionsGroup,
-      labels: this.labelsGroup
+      labels: this.labelsGroup,
+      original: this.originalWireframeGroup
     };
 
     if (groups[layerName]) {
       groups[layerName].visible = visible;
+    }
+  }
+
+  /**
+   * Highlights a specific architectural object in the 3D scene
+   * @param {string} id - Element ID (e.g. 'w11', 'd3', 'win4', 'room1')
+   */
+  highlightElement(id) {
+    this.clearHighlights();
+    if (!id) return;
+
+    let targetMesh = null;
+    this.rootGroup.traverse(child => {
+      if (child.userData && (child.userData.id === id || child.userData.wallId === id || child.name === `wall_${id}` || child.name === `door_${id}` || child.name === `window_${id}`)) {
+        targetMesh = child;
+      }
+    });
+
+    if (targetMesh) {
+      this.highlightedObject = targetMesh;
+      if (targetMesh.isMesh && targetMesh.material) {
+        this.originalMaterial = targetMesh.material;
+        targetMesh.material = new THREE.MeshStandardMaterial({
+          color: 0xf59e0b, // Amber highlight
+          emissive: 0x78350f,
+          roughness: 0.3,
+          metalness: 0.2
+        });
+      } else {
+        // Traverse children if group
+        targetMesh.traverse(sub => {
+          if (sub.isMesh && sub.material && !sub.userData.origMat) {
+            sub.userData.origMat = sub.material;
+            sub.material = new THREE.MeshStandardMaterial({
+              color: 0x06b6d4, // Cyan highlight
+              emissive: 0x083344,
+              roughness: 0.3,
+              metalness: 0.2
+            });
+          }
+        });
+      }
+
+      // Smoothly pan camera target toward the selected object
+      const box = new THREE.Box3().setFromObject(targetMesh);
+      const targetCenter = new THREE.Vector3();
+      box.getCenter(targetCenter);
+      this.controls.target.lerp(targetCenter, 0.7);
+      this.controls.update();
+    }
+  }
+
+  clearHighlights() {
+    if (this.highlightedObject) {
+      if (this.highlightedObject.isMesh && this.originalMaterial) {
+        this.highlightedObject.material = this.originalMaterial;
+      } else {
+        this.highlightedObject.traverse(sub => {
+          if (sub.userData && sub.userData.origMat) {
+            sub.material = sub.userData.origMat;
+            delete sub.userData.origMat;
+          }
+        });
+      }
+      this.highlightedObject = null;
+      this.originalMaterial = null;
     }
   }
 
@@ -265,7 +340,8 @@ export class SceneManager {
       this.windowsGroup,
       this.roomsGroup,
       this.dimensionsGroup,
-      this.labelsGroup
+      this.labelsGroup,
+      this.originalWireframeGroup
     ];
 
     groups.forEach(group => {

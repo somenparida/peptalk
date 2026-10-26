@@ -25,7 +25,7 @@ export class ViewerControls {
     }
 
     // 3. Layer Visibility Toggles
-    const layerIds = ['walls', 'floor', 'doors', 'windows', 'labels', 'dimensions'];
+    const layerIds = ['walls', 'floor', 'doors', 'windows', 'labels', 'dimensions', 'original'];
     layerIds.forEach(id => {
       const checkbox = document.getElementById(`toggle-${id}`);
       const chip = document.getElementById(`chip-${id}`);
