@@ -151,19 +151,31 @@ export class SceneManager {
   }
 
   onWindowResize() {
-    if (!this.container || !this.renderer || !this.camera) return;
-    const width = this.container.clientWidth || window.innerWidth;
-    const height = this.container.clientHeight || window.innerHeight;
+    this.ensureSize();
+    if (this.renderer && this.scene && this.camera) {
+      this.renderer.render(this.scene, this.camera);
+    }
+  }
 
-    this.camera.aspect = width / height;
-    this.camera.updateProjectionMatrix();
-    this.renderer.setSize(width, height);
+  /**
+   * Ensures renderer size and camera aspect ratio accurately match container
+   */
+  ensureSize() {
+    if (!this.container || !this.renderer || !this.camera) return;
+    const width = this.container.clientWidth || window.innerWidth || 800;
+    const height = this.container.clientHeight || window.innerHeight || 600;
+
+    if (width > 0 && height > 0) {
+      this.camera.aspect = width / height;
+      this.camera.updateProjectionMatrix();
+      this.renderer.setSize(width, height);
+    }
   }
 
   animate() {
     this.animationFrameId = requestAnimationFrame(this.animate);
 
-    // Update orbit controls damping
+    // Update orbit controls damping safely
     if (this.controls) {
       this.controls.update();
     }
@@ -195,16 +207,34 @@ export class SceneManager {
   }
 
   /**
-   * Fits camera view intelligently based on scene bounding box
+   * Fits camera view intelligently based on physical architectural bounding box
    */
   fitCameraToScene() {
-    // Compute bounding box of root architectural group
-    const box = new THREE.Box3().setFromObject(this.rootGroup);
-    
-    // If empty, use a default 6x4 bounding box (matching test room)
-    if (box.isEmpty()) {
-      box.min.set(0, 0, 0);
-      box.max.set(6, 3, 4);
+    this.ensureSize();
+
+    // Compute bounding box strictly across physical architecture groups
+    const box = new THREE.Box3();
+    const physGroups = [
+      this.wallsGroup,
+      this.floorGroup,
+      this.doorsGroup,
+      this.windowsGroup,
+      this.roomsGroup
+    ];
+    let hasGeometry = false;
+
+    for (const group of physGroups) {
+      if (group && group.children.length > 0) {
+        const groupBox = new THREE.Box3().setFromObject(group);
+        if (!groupBox.isEmpty() && isFinite(groupBox.min.x) && isFinite(groupBox.max.x)) {
+          box.union(groupBox);
+          hasGeometry = true;
+        }
+      }
+    }
+
+    if (!hasGeometry || box.isEmpty() || !isFinite(box.min.x)) {
+      box.set(new THREE.Vector3(0, 0, 0), new THREE.Vector3(8, 3, 6));
     }
 
     const center = new THREE.Vector3();
@@ -212,26 +242,36 @@ export class SceneManager {
 
     const size = new THREE.Vector3();
     box.getSize(size);
-    const maxDim = Math.max(size.x, size.y, size.z, 5);
+    const maxDim = Math.max(size.x, size.y, size.z, 4);
 
-    // Set controls target to geometry center
+    // Target center of geometry
     this.controls.target.copy(center);
 
+    // Ensure proper near and far clipping planes
+    this.camera.near = 0.05;
+    this.camera.far = Math.max(1000, maxDim * 25);
+
     if (this.is2DView) {
-      // Top down view
-      this.camera.position.set(center.x, maxDim * 2.2, center.z + 0.001);
+      // Top down view (orthographic perspective)
+      this.camera.position.set(center.x, center.y + maxDim * 1.8, center.z + 0.001);
     } else {
       // Isometric 3D angle
-      const distance = maxDim * 1.8;
+      const distance = maxDim * 1.45;
       this.camera.position.set(
         center.x + distance * 0.7,
-        center.y + distance * 0.8,
-        center.z + distance * 0.9
+        center.y + distance * 0.75,
+        center.z + distance * 0.85
       );
     }
 
+    this.camera.updateProjectionMatrix();
     this.camera.lookAt(center);
     this.controls.update();
+
+    // Immediate draw
+    if (this.renderer && this.scene && this.camera) {
+      this.renderer.render(this.scene, this.camera);
+    }
   }
 
   /**
@@ -273,7 +313,7 @@ export class SceneManager {
 
     let targetMesh = null;
     this.rootGroup.traverse(child => {
-      if (child.userData && (child.userData.id === id || child.userData.wallId === id || child.name === `wall_${id}` || child.name === `door_${id}` || child.name === `window_${id}`)) {
+      if (child.userData && (child.userData.id === id || child.userData.wallId === id || child.userData.roomId === id || child.name === `wall_${id}` || child.name === `door_${id}` || child.name === `window_${id}` || child.name === `floor_${id}`)) {
         targetMesh = child;
       }
     });
@@ -303,12 +343,16 @@ export class SceneManager {
         });
       }
 
-      // Smoothly pan camera target toward the selected object
+      // Smoothly pan camera target toward the selected object without NaN
       const box = new THREE.Box3().setFromObject(targetMesh);
-      const targetCenter = new THREE.Vector3();
-      box.getCenter(targetCenter);
-      this.controls.target.lerp(targetCenter, 0.7);
-      this.controls.update();
+      if (!box.isEmpty() && isFinite(box.min.x) && isFinite(box.max.x)) {
+        const targetCenter = new THREE.Vector3();
+        box.getCenter(targetCenter);
+        if (isFinite(targetCenter.x) && isFinite(targetCenter.y) && isFinite(targetCenter.z)) {
+          this.controls.target.lerp(targetCenter, 0.7);
+          this.controls.update();
+        }
+      }
     }
   }
 
@@ -333,6 +377,8 @@ export class SceneManager {
    * Clears all reconstructed geometry
    */
   clearReconstruction() {
+    this.clearHighlights();
+
     const groups = [
       this.wallsGroup,
       this.floorGroup,

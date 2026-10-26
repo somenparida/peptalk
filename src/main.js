@@ -54,8 +54,8 @@ class App {
     // 2. Wire up UI actions
     this.bindEvents();
 
-    // 3. Load Cleaned & Repaired Scene by default (or raw validated scene if requested)
-    this.loadSceneFromJSON(cleanedSceneData);
+    // 3. Load Cleaned & Repaired Scene by default
+    this.loadScene('cleaned');
   }
 
   bindEvents() {
@@ -63,7 +63,7 @@ class App {
     const btnCleanedScene = document.getElementById('btn-load-cleaned-scene');
     if (btnCleanedScene) {
       btnCleanedScene.addEventListener('click', () => {
-        this.loadSceneFromJSON(cleanedSceneData);
+        this.loadScene('cleaned');
       });
     }
 
@@ -71,7 +71,7 @@ class App {
     const btnValidatedScene = document.getElementById('btn-load-validated-scene');
     if (btnValidatedScene) {
       btnValidatedScene.addEventListener('click', () => {
-        this.loadSceneFromJSON(validatedSceneData);
+        this.loadScene('original');
       });
     }
 
@@ -79,7 +79,7 @@ class App {
     const btnMember2Scene = document.getElementById('btn-load-member2-scene');
     if (btnMember2Scene) {
       btnMember2Scene.addEventListener('click', () => {
-        this.loadSceneFromJSON(member2SceneData);
+        this.loadScene('sample');
       });
     }
 
@@ -87,7 +87,7 @@ class App {
     const btnTestScene = document.getElementById('btn-load-test-scene');
     if (btnTestScene) {
       btnTestScene.addEventListener('click', () => {
-        this.loadSceneFromJSON(testSceneData);
+        this.loadScene('test');
       });
     }
 
@@ -102,7 +102,8 @@ class App {
         reader.onload = (event) => {
           try {
             const parsed = JSON.parse(event.target.result);
-            this.loadSceneFromJSON(parsed);
+            this.setActiveButton(null);
+            this.loadSceneFromJSON(parsed, 'custom');
           } catch (err) {
             console.error('[App] Failed to parse JSON file:', err);
             this.viewerControls.setStatus(`Invalid JSON file: ${err.message}`, true);
@@ -123,14 +124,62 @@ class App {
   }
 
   /**
+   * Visually indicates active scene source button
+   */
+  setActiveButton(activeBtn) {
+    const buttons = [
+      document.getElementById('btn-load-cleaned-scene'),
+      document.getElementById('btn-load-validated-scene'),
+      document.getElementById('btn-load-member2-scene'),
+      document.getElementById('btn-load-test-scene')
+    ];
+    buttons.forEach(btn => {
+      if (btn) {
+        if (btn === activeBtn) {
+          btn.classList.remove('btn-secondary');
+          btn.classList.add('btn-primary');
+        } else {
+          btn.classList.remove('btn-primary');
+          btn.classList.add('btn-secondary');
+        }
+      }
+    });
+  }
+
+  /**
+   * Loads specific preset scene with consistent configuration
+   */
+  loadScene(mode) {
+    if (mode === 'cleaned') {
+      this.setActiveButton(document.getElementById('btn-load-cleaned-scene'));
+      this.loadSceneFromJSON(cleanedSceneData, 'cleaned');
+    } else if (mode === 'original') {
+      this.setActiveButton(document.getElementById('btn-load-validated-scene'));
+      this.loadSceneFromJSON(validatedSceneData, 'original');
+    } else if (mode === 'sample') {
+      this.setActiveButton(document.getElementById('btn-load-member2-scene'));
+      this.loadSceneFromJSON(member2SceneData, 'sample');
+    } else if (mode === 'test') {
+      this.setActiveButton(document.getElementById('btn-load-test-scene'));
+      this.loadSceneFromJSON(testSceneData, 'test');
+    }
+  }
+
+  /**
    * Primary pipeline function: Converts scene.json to 3D architectural scene with physical opening cutouts
    * @param {Object} rawData - Incoming scene.json data
+   * @param {string} mode - 'cleaned' | 'original' | 'sample' | 'test' | 'custom'
    */
-  loadSceneFromJSON(rawData) {
-    console.log('[App] Loading scene from JSON contract...', rawData);
+  loadSceneFromJSON(rawData, mode = 'cleaned') {
+    console.log(`[App] Loading scene (${mode})...`, rawData);
+
+    const isCleanedMode = mode === 'cleaned';
 
     // 1. Validate Input
-    const { isValid, scene, errors, warnings, validationReport } = SceneValidator.validate(rawData);
+    const { isValid, scene, errors, warnings, validationReport } = SceneValidator.validate(rawData, {
+      repair: isCleanedMode,
+      isCleanedScene: isCleanedMode
+    });
 
     if (warnings.length > 0) {
       console.warn('[App] Scene validation warnings:', warnings);
@@ -144,7 +193,7 @@ class App {
 
     this.currentSceneData = scene;
 
-    // 2. Clear Previous Scene
+    // 2. Clear Previous Scene & Active Highlights
     this.sceneManager.clearReconstruction();
     this.labels.dispose();
     this.dimRenderer.dispose();
@@ -182,10 +231,10 @@ class App {
     dimObjects.forEach(obj => this.sceneManager.dimensionsGroup.add(obj));
 
     // 10. Generate Original Blueprint Wireframe (Cyan lines for Image 1 comparison)
-    const wireGroup = this.origWireRenderer.generate(scene.walls, scene.wall_height || 3.0);
+    const wireGroup = this.origWireRenderer.generate(scene.walls, scene.wall_height || 3.0, scene.scale);
     this.sceneManager.originalWireframeGroup.add(wireGroup);
 
-    // 11. Update UI metrics
+    // 11. Update UI metrics derived dynamically from active scene
     this.viewerControls.updateMetrics({
       rooms: scene.rooms.length,
       walls: scene.walls.length,
@@ -195,16 +244,27 @@ class App {
     });
 
     // 12. Update validation warnings & diagnostics UI
-    this.updateValidationUI(validationReport, warnings);
+    this.updateValidationUI(validationReport, warnings, mode);
 
-    // 13. Fit Camera
+    // 13. Fit Camera to active loaded physical geometry
     this.sceneManager.fitCameraToScene();
 
     // 14. Geometry Accuracy Verification Report
     this.verifyAndLogGeometry(scene, wallMap);
 
-    const warnMsg = warnings.length > 0 ? ` (${warnings.length} warnings)` : '';
-    this.viewerControls.setStatus(`Scene Reconstructed: ${scene.walls.length} walls, ${scene.rooms.length} rooms${warnMsg}`);
+    const modeLabels = {
+      cleaned: 'Cleaned & Repaired Scene',
+      original: 'Original Blueprint Scene',
+      sample: 'Member 2 Sample Scene',
+      test: 'Synthetic Test Scene',
+      custom: 'Custom Scene'
+    };
+    const modeLabel = modeLabels[mode] || 'Scene';
+    const statusNotice = validationReport?.summary?.auto_repaired > 0
+      ? ` (${validationReport.summary.auto_repaired} repaired, ${validationReport.summary.remaining_unresolved} notices)`
+      : (validationReport?.summary?.total_initial_issues > 0 ? ` (${validationReport.summary.total_initial_issues} warnings)` : '');
+
+    this.viewerControls.setStatus(`${modeLabel} Loaded: ${scene.walls.length} walls, ${scene.rooms.length} rooms${statusNotice}`);
 
     return true;
   }
@@ -212,7 +272,7 @@ class App {
   /**
    * Updates validation issues list with rich actionable inspection cards
    */
-  updateValidationUI(report, legacyWarnings) {
+  updateValidationUI(report, legacyWarnings, mode = 'cleaned') {
     const valText = document.getElementById('stat-validation-text');
     const valCount = document.getElementById('stat-validation-count');
     const valList = document.getElementById('validation-warnings-list');
@@ -223,33 +283,62 @@ class App {
     const issues = (report && Array.isArray(report.issues) && report.issues.length > 0) ? report.issues : null;
 
     if (issues && issues.length > 0) {
+      const isCleaned = mode === 'cleaned' || (report.summary && report.summary.auto_repaired > 0);
       const repairedCount = report.summary ? report.summary.auto_repaired : 0;
       const totalInitial = report.summary ? report.summary.total_initial_issues : issues.length;
+      const unresolvedCount = report.summary ? report.summary.remaining_unresolved : (totalInitial - repairedCount);
 
-      if (valText) valText.textContent = `${totalInitial} Issues · ${repairedCount} Repaired`;
-      if (valCount) valCount.textContent = `${issues.length}`;
+      if (isCleaned) {
+        if (valText) valText.textContent = `${totalInitial} Initial · ${repairedCount} Repaired · ${unresolvedCount} Unresolved`;
+        if (valCount) valCount.textContent = `${unresolvedCount}`;
+        if (valBadge) {
+          valBadge.style.background = 'rgba(16, 185, 129, 0.12)';
+          valBadge.style.borderColor = 'rgba(16, 185, 129, 0.35)';
+          valBadge.style.color = '#34d399';
+        }
+      } else {
+        if (valText) valText.textContent = `${totalInitial} Issues Detected (0 Repaired)`;
+        if (valCount) valCount.textContent = `${totalInitial}`;
+        if (valBadge) {
+          valBadge.style.background = 'rgba(245, 158, 11, 0.15)';
+          valBadge.style.borderColor = 'rgba(245, 158, 11, 0.3)';
+          valBadge.style.color = '#fbbf24';
+        }
+      }
 
-      issues.forEach((issue) => {
+      // Sort issues: unresolved notices first, then repaired issues
+      const sortedIssues = [...issues].sort((a, b) => {
+        if (a.auto_repaired === b.auto_repaired) return 0;
+        return a.auto_repaired ? 1 : -1;
+      });
+
+      sortedIssues.forEach((issue) => {
         const item = document.createElement('div');
         item.className = 'issue-item';
         item.style.cursor = 'pointer';
-        item.style.padding = '4px 6px';
-        item.style.borderRadius = '4px';
+        item.style.padding = '5px 8px';
+        item.style.borderRadius = '5px';
         item.style.background = 'rgba(255, 255, 255, 0.03)';
-        item.style.border = '1px solid rgba(255, 255, 255, 0.05)';
+        item.style.border = '1px solid rgba(255, 255, 255, 0.06)';
         item.style.transition = 'all 0.15s ease';
 
         const tag = issue.element_id ? `[${issue.element_id}] ` : '';
         const statusBadge = issue.auto_repaired
           ? `<span style="color: #34d399; font-weight: 600;">[Repaired]</span> `
-          : `<span style="color: #fbbf24; font-weight: 600;">[Warning]</span> `;
+          : `<span style="color: #fbbf24; font-weight: 600;">[Notice]</span> `;
 
-        item.innerHTML = `<div>${statusBadge}<strong style="color: #60a5fa;">${tag}</strong>${issue.message}</div>`;
+        const correctionNote = (issue.auto_repaired && issue.correction_applied)
+          ? `<div style="color: #94a3b8; font-size: 9px; margin-top: 2px;">↳ ${issue.correction_applied}</div>`
+          : (!issue.auto_repaired && issue.manual_review_required)
+            ? `<div style="color: #f59e0b; font-size: 9px; margin-top: 2px;">↳ Manual review required</div>`
+            : '';
+
+        item.innerHTML = `<div>${statusBadge}<strong style="color: #60a5fa;">${tag}</strong>${issue.message}</div>${correctionNote}`;
 
         // Interactive highlight on hover & click
         item.addEventListener('mouseenter', () => {
-          item.style.background = 'rgba(59, 130, 246, 0.15)';
-          item.style.borderColor = 'rgba(59, 130, 246, 0.4)';
+          item.style.background = 'rgba(59, 130, 246, 0.18)';
+          item.style.borderColor = 'rgba(59, 130, 246, 0.5)';
           if (issue.element_id) {
             this.sceneManager.highlightElement(issue.element_id);
           }
@@ -257,7 +346,7 @@ class App {
 
         item.addEventListener('mouseleave', () => {
           item.style.background = 'rgba(255, 255, 255, 0.03)';
-          item.style.borderColor = 'rgba(255, 255, 255, 0.05)';
+          item.style.borderColor = 'rgba(255, 255, 255, 0.06)';
           this.sceneManager.clearHighlights();
         });
 
@@ -269,28 +358,9 @@ class App {
 
         valList.appendChild(item);
       });
-
-      if (valBadge) {
-        valBadge.style.background = 'rgba(245, 158, 11, 0.15)';
-        valBadge.style.borderColor = 'rgba(245, 158, 11, 0.3)';
-        valBadge.style.color = '#fbbf24';
-      }
-    } else if (legacyWarnings && legacyWarnings.length > 0) {
-      legacyWarnings.forEach(w => {
-        const item = document.createElement('div');
-        item.textContent = `• ${w}`;
-        valList.appendChild(item);
-      });
-      if (valText) valText.textContent = `Issues Detected`;
-      if (valCount) valCount.textContent = `${legacyWarnings.length}`;
-      if (valBadge) {
-        valBadge.style.background = 'rgba(245, 158, 11, 0.15)';
-        valBadge.style.borderColor = 'rgba(245, 158, 11, 0.3)';
-        valBadge.style.color = '#fbbf24';
-      }
     } else {
       const item = document.createElement('div');
-      item.textContent = '• All validations passed (0 issues)';
+      item.textContent = '• All geometry validations passed (0 issues)';
       item.style.color = '#10b981';
       valList.appendChild(item);
       if (valText) valText.textContent = `Clean Geometry`;

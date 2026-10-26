@@ -200,32 +200,33 @@ async function runMember2Tests() {
     '7.4 Issues follow strict contract (id, severity, element_type, message)');
 
   // -------------------------------------------------------------------------
-  // SUITE 8: GLB EXPORT & ROUNDTRIP INTEGRITY
+  // SUITE 8: GLB EXPORT & MODEL INTEGRITY (CLEANED SCENE)
   // -------------------------------------------------------------------------
-  console.log('\n--- SUITE 8: GLB EXPORT & MODEL INTEGRITY ---');
-  const sampleRaw = JSON.parse(fs.readFileSync('./src/data/sample_scene.json', 'utf-8'));
-  const sampleVal = SceneValidator.validate(sampleRaw);
-  const sampleScene = sampleVal.scene;
+  console.log('\n--- SUITE 8: GLB EXPORT & MODEL INTEGRITY (CLEANED SCENE) ---');
+  const cleanedRaw = JSON.parse(fs.readFileSync('./src/data/validated_scene.json', 'utf-8'));
+  const cleanedVal = SceneValidator.validate(cleanedRaw, { repair: true });
+  const cleanedScene = cleanedVal.scene;
 
-  const { meshes: sWallMeshes, wallMap: sWallMap } = wallGen.generate(sampleScene.walls, sampleScene.settings, {
-    doors: sampleScene.doors,
-    windows: sampleScene.windows
+  const { meshes: cWallMeshes, wallMap: cWallMap } = wallGen.generate(cleanedScene.walls, cleanedScene.settings, {
+    doors: cleanedScene.doors,
+    windows: cleanedScene.windows,
+    cutOpenings: true
   });
   const floorGen = new FloorGenerator();
-  const sFloorMeshes = floorGen.generate(sampleScene.rooms, sampleScene.settings);
+  const cFloorMeshes = floorGen.generate(cleanedScene.rooms, cleanedScene.settings);
   const doorGen = new DoorGenerator();
-  const sDoorObjs = doorGen.generate(sampleScene.doors, sWallMap, sampleScene.settings);
+  const cDoorObjs = doorGen.generate(cleanedScene.doors, cWallMap, cleanedScene.settings);
   const winGen = new WindowGenerator();
-  const sWinObjs = winGen.generate(sampleScene.windows, sWallMap, sampleScene.settings);
+  const cWinObjs = winGen.generate(cleanedScene.windows, cWallMap, cleanedScene.settings);
   const roomGen = new RoomGenerator();
-  const { meshes: sRoomMeshes } = roomGen.generate(sampleScene.rooms);
+  const { meshes: cRoomMeshes } = roomGen.generate(cleanedScene.rooms);
 
   const rootGroup = new THREE.Group();
-  sWallMeshes.forEach(m => rootGroup.add(m));
-  sFloorMeshes.forEach(m => rootGroup.add(m));
-  sDoorObjs.forEach(m => rootGroup.add(m));
-  sWinObjs.forEach(m => rootGroup.add(m));
-  sRoomMeshes.forEach(m => rootGroup.add(m));
+  cWallMeshes.forEach(m => rootGroup.add(m));
+  cFloorMeshes.forEach(m => rootGroup.add(m));
+  cDoorObjs.forEach(m => rootGroup.add(m));
+  cWinObjs.forEach(m => rootGroup.add(m));
+  cRoomMeshes.forEach(m => rootGroup.add(m));
 
   const exporter = new GLTFExporter();
   await new Promise((resolve, reject) => {

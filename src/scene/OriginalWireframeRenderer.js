@@ -13,40 +13,46 @@ export class OriginalWireframeRenderer {
       transparent: true,
       opacity: 0.85
     });
-
-    this.dashMaterial = new THREE.LineDashedMaterial({
-      color: 0x38bdf8,
-      linewidth: 1.5,
-      scale: 1,
-      dashSize: 0.2,
-      gapSize: 0.1,
-      transparent: true,
-      opacity: 0.7
-    });
   }
 
   /**
    * Generates wireframe geometry from source wall and opening data
    * @param {Array} walls - Walls array
    * @param {number} wallHeight - Wall height in meters
+   * @param {Object} scale - Scale object ({ meters_per_pixel })
    * @returns {THREE.Group} Group containing wireframe line segments
    */
-  generate(walls = [], wallHeight = 3.0) {
+  generate(walls = [], wallHeight = 3.0, scale = null) {
     const group = new THREE.Group();
     group.name = 'OriginalBlueprintWireframe';
 
+    const mpp = (scale && typeof scale.meters_per_pixel === 'number' && scale.meters_per_pixel > 0)
+      ? scale.meters_per_pixel
+      : 0.02;
+
     walls.forEach(wall => {
-      // Use original source coordinates if available, otherwise geometry
-      const src = wall.source || wall.geometry || wall;
-      const start = (src && Array.isArray(src.start)) ? src.start : wall.start;
-      const end = (src && Array.isArray(src.end)) ? src.end : wall.end;
+      let start = null;
+      let end = null;
+
+      // Prefer metric coordinates from geometry or unscaled metric start/end
+      if (wall.geometry && Array.isArray(wall.geometry.start) && wall.geometry.start.length >= 2) {
+        start = [wall.geometry.start[0], wall.geometry.start[1]];
+        end = [wall.geometry.end[0], wall.geometry.end[1]];
+      } else if (Array.isArray(wall.start) && wall.start.length >= 2 && wall.start[0] < 50) {
+        start = [wall.start[0], wall.start[1]];
+        end = [wall.end[0], wall.end[1]];
+      } else if (wall.source && Array.isArray(wall.source.start) && wall.source.start.length >= 2) {
+        // Convert source pixel coordinates to real-world meters using mpp scale
+        start = [Number((wall.source.start[0] * mpp).toFixed(4)), Number((wall.source.start[1] * mpp).toFixed(4))];
+        end = [Number((wall.source.end[0] * mpp).toFixed(4)), Number((wall.source.end[1] * mpp).toFixed(4))];
+      }
 
       if (!start || !end) return;
 
       const x1 = start[0], z1 = start[1];
       const x2 = end[0], z2 = end[1];
 
-      // Ground line (Y = 0.02)
+      // Ground to wall-height line loop
       const pts = [
         new THREE.Vector3(x1, 0.02, z1),
         new THREE.Vector3(x2, 0.02, z2),

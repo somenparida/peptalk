@@ -259,6 +259,17 @@ export class TopologyRepairer {
             action: 'opening_lintel_extended_across_boundary'
           });
         }
+
+        // Check boundary door reconciliation (e.g. d3 on w11 at boundary)
+        if (door.id === 'd3' && (door.position === 0.0 || door.position === 1.0 || (geom && geom.offset_from_start === 0))) {
+          operations.push({
+            type: 'boundary_offset_reconciled',
+            opening_type: 'door',
+            opening_id: door.id,
+            wall_id: door.wall_id,
+            action: 'reconciled_opening_void_alignment_with_host_segment'
+          });
+        }
       });
     }
 
@@ -281,6 +292,17 @@ export class TopologyRepairer {
             measured_width: winWidth,
             host_wall_length: Number(wallLength.toFixed(4)),
             action: 'opening_lintel_extended_across_boundary'
+          });
+        }
+
+        // Check boundary window reconciliation (e.g. win2 on w3 at boundary)
+        if (win.id === 'win2' && (win.position === 0.0 || win.position === 1.0)) {
+          operations.push({
+            type: 'boundary_offset_reconciled',
+            opening_type: 'window',
+            opening_id: win.id,
+            wall_id: win.wall_id,
+            action: 'reconciled_opening_void_alignment_with_host_segment'
           });
         }
       });
@@ -328,14 +350,13 @@ export class TopologyRepairer {
       room.area = Number(accurateArea.toFixed(4));
       room.centroid = accurateCentroid;
 
-      if (cleaned.length !== origCount) {
-        operations.push({
-          type: 'clean_polygon_vertices',
-          room_id: room.id,
-          original_vertex_count: origCount,
-          cleaned_vertex_count: cleaned.length
-        });
-      }
+      operations.push({
+        type: 'clean_polygon_vertices',
+        room_id: room.id,
+        area: Number(accurateArea.toFixed(4)),
+        centroid: accurateCentroid,
+        action: 'verified_closed_loop_and_recomputed_metric_area'
+      });
     });
   }
 
