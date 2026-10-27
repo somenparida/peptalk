@@ -189,6 +189,7 @@ class WallEdge:
     thickness: float = CONFIG.WALL_THICKNESS
     height: float = CONFIG.WALL_HEIGHT
     openings: List[OpeningInterval] = field(default_factory=list)
+    metadata: Dict[str, Any] = field(default_factory=dict)
 
     @property
     def length(self) -> float:
@@ -302,6 +303,7 @@ class WallEdge:
             "height": round(self.height, 4),
             "length": round(self.length, 4),
             "openings": [op.to_dict() for op in self.openings],
+            "metadata": self.metadata,
         }
 
     @classmethod
@@ -312,6 +314,7 @@ class WallEdge:
             end=Point2D(float(data["end"][0]), float(data["end"][1])),
             thickness=float(data.get("thickness", CONFIG.WALL_THICKNESS)),
             height=float(data.get("height", CONFIG.WALL_HEIGHT)),
+            metadata=dict(data.get("metadata", {})),
         )
         for op_data in data.get("openings", []):
             w.add_opening(OpeningInterval.from_dict(op_data))
@@ -410,5 +413,59 @@ class FloorPlan:
             "walls": [w.to_dict() for w in self.walls],
             "rooms": [r.to_dict() for r in self.rooms],
             "validation": self.validation.to_dict(),
+            "metadata": self.metadata,
+        }
+
+    def to_scene_dict(self) -> Dict[str, Any]:
+        """Converts to standard SceneSpecification schema (scene.schema.json)."""
+        doors = []
+        windows = []
+        wall_dicts = []
+        for w in self.walls:
+            wall_dicts.append({
+                "id": w.id,
+                "start": list(w.start.as_tuple()),
+                "end": list(w.end.as_tuple()),
+                "thickness": round(w.thickness, 4),
+                "height": round(w.height, 4),
+            })
+            for op in w.openings:
+                if op.opening_type == OpeningType.DOOR:
+                    doors.append({
+                        "id": op.id,
+                        "wall_id": w.id,
+                        "offset": round(op.start_dist, 4),
+                        "width": round(op.width, 4),
+                        "height": round(op.height, 4),
+                        "metadata": op.metadata,
+                    })
+                elif op.opening_type == OpeningType.WINDOW:
+                    windows.append({
+                        "id": op.id,
+                        "wall_id": w.id,
+                        "offset": round(op.start_dist, 4),
+                        "width": round(op.width, 4),
+                        "height": round(op.height, 4),
+                        "sill_height": round(op.sill_height, 4),
+                        "metadata": op.metadata,
+                    })
+        rooms = [
+            {
+                "id": r.id,
+                "name": r.name,
+                "polygon": [list(p.as_tuple()) for p in r.points],
+                "area_sq_m": round(r.area, 3),
+                "metadata": r.metadata,
+            }
+            for r in self.rooms
+        ]
+        return {
+            "units": "meters",
+            "coordinate_system": {"up_axis": "Z", "horizontal_axes": ["X", "Y"]},
+            "wall_height": CONFIG.WALL_HEIGHT,
+            "walls": wall_dicts,
+            "doors": doors,
+            "windows": windows,
+            "rooms": rooms,
             "metadata": self.metadata,
         }
