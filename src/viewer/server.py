@@ -1,131 +1,104 @@
-"""
-Local HTTP Server for the Member 2 3D Scene Viewer.
-Serves the Three.js web application and provides API endpoints for scene data and GLB models.
-"""
+"""Local HTTP server for interactive Three.js 3D architectural viewer."""
 
 from __future__ import annotations
 
+import functools
+import http.server
 import json
-import mimetypes
 import os
-import sys
-import webbrowser
-from http.server import HTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
-from typing import Optional
-
-from src.validator import SceneValidator
-from src.scene_graph import SceneGraph
-from src.exporter import SceneExporter
-
-
-STATIC_DIR = Path(__file__).parent / "static"
+import socketserver
+import threading
+import webbrowser
+from typing import Optional, Tuple
 
 
-class ViewerHandler(SimpleHTTPRequestHandler):
-    """Handles static files and API requests for the 3D Viewer."""
+class ArchitecturalViewerHandler(http.server.SimpleHTTPRequestHandler):
+    """Custom HTTP handler serving web assets and redirecting active model GLB."""
 
-    # Injected by server runner
-    current_scene_path: Optional[Path] = None
-    cached_glb_bytes: Optional[bytes] = None
-    cached_metadata: Optional[dict] = None
-    cached_report: Optional[dict] = None
+    glb_path: Optional[Path] = None
+    web_dir: Path = Path(__file__).parent / "web"
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, directory=str(STATIC_DIR), **kwargs)
+        super().__init__(*args, directory=str(self.web_dir), **kwargs)
 
-    def do_GET(self):
-        url_path = self.path.split("?")[0]
-
-        if url_path == "/api/model.glb":
-            if self.cached_glb_bytes is None:
-                self.send_error(404, "No model generated")
-                return
+    def do_GET(self) -> None:
+        # Route /model.glb or /scene.glb to the target file if specified
+        if self.path.split("?")[0] in ("/model.glb", "/scene.glb") and self.glb_path and self.glb_path.exists():
             self.send_response(200)
             self.send_header("Content-Type", "model/gltf-binary")
-            self.send_header("Content-Length", str(len(self.cached_glb_bytes)))
+            self.send_header("Content-Length", str(self.glb_path.stat().st_size))
             self.send_header("Access-Control-Allow-Origin", "*")
             self.end_headers()
-            self.wfile.write(self.cached_glb_bytes)
+            with open(self.glb_path, "rb") as f:
+                self.wfile.write(f.read())
             return
 
-        elif url_path == "/api/inspect":
-            data = json.dumps(self.cached_metadata or {}).encode("utf-8")
-            self.send_response(200)
-            self.send_header("Content-Type", "application/json")
-            self.send_header("Content-Length", str(len(data)))
-            self.send_header("Access-Control-Allow-Origin", "*")
-            self.end_headers()
-            self.wfile.write(data)
-            return
-
-        elif url_path == "/api/report":
-            data = json.dumps(self.cached_report or {}).encode("utf-8")
-            self.send_response(200)
-            self.send_header("Content-Type", "application/json")
-            self.send_header("Content-Length", str(len(data)))
-            self.send_header("Access-Control-Allow-Origin", "*")
-            self.end_headers()
-            self.wfile.write(data)
-            return
+        # Route /metadata.json
+        if self.path.split("?")[0] in ("/metadata.json", "/scene_metadata.json"):
+            candidates = []
+            if self.glb_path:
+                candidates.extend([
+                    self.glb_path.with_name(f"{self.glb_path.stem}_metadata.json"),
+                    self.glb_path.with_name("metadata.json"),
+                ])
+            candidates.append(self.web_dir / "metadata.json")
+            for meta_path in candidates:
+                if meta_path.exists():
+                    self.send_response(200)
+                    self.send_header("Content-Type", "application/json")
+                    self.send_header("Content-Length", str(meta_path.stat().st_size))
+                    self.send_header("Access-Control-Allow-Origin", "*")
+                    self.end_headers()
+                    with open(meta_path, "rb") as f:
+                        self.wfile.write(f.read())
+                    return
 
         return super().do_GET()
 
-    def end_headers(self):
-        # Enable CORS and disable aggressive caching for local dev
-        self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
-        self.send_header("Pragma", "no-cache")
-        self.send_header("Expires", "0")
-        super().end_headers()
 
+def start_viewer_server(
+    glb_path: Optional[str | Path] = None,
+    port: int = 8080,
+    open_browser: bool = True,
+    block: bool = True,
+) -> Tuple[socketserver.TCPServer, int]:
+    """Starts local server and opens browser."""
+    ArchitecturalViewerHandler.glb_path = Path(glb_path) if glb_path else None
 
-def start_viewer(scene_path: Path, port: int = 8080, open_browser: bool = True):
-    """Builds scene geometry and starts local viewer HTTP server."""
-    scene_path = Path(scene_path).resolve()
-    if not scene_path.exists():
-        raise FileNotFoundError(f"Scene file not found: {scene_path}")
+    # Try ports if selected port is occupied
+    actual_port = port
+    server = None
+    for offset in range(10):
+        try:
+            actual_port = port + offset
+            server = socketserver.TCPServer(("", actual_port), ArchitecturalViewerHandler)
+            break
+        except OSError:
+            continue
 
-    with open(scene_path, "r", encoding="utf-8") as f:
-        raw_data = json.load(f)
+    if server is None:
+        raise RuntimeError(f"Could not bind to any port from {port} to {port + 9}")
 
-    v_res = SceneValidator.validate_raw_json(raw_data)
-    if not v_res.is_valid:
-        print("\n[VALIDATION ERRORS IN SCENE]:")
-        for err in v_res.errors:
-            print(f"  - {err}")
-        sys.exit(1)
-
-    print(f"Generating 3D scene from {scene_path.name}...")
-    sg = SceneGraph.from_specification(v_res.spec)
-    trimesh_scene = sg.to_trimesh_scene()
-    glb_bytes = trimesh_scene.export(file_type="glb")
-
-    ViewerHandler.current_scene_path = scene_path
-    ViewerHandler.cached_glb_bytes = glb_bytes
-    ViewerHandler.cached_metadata = sg.get_inspection_metadata()
-    ViewerHandler.cached_report = v_res.report
-
-    server_address = ("", port)
-    try:
-        httpd = HTTPServer(server_address, ViewerHandler)
-    except OSError:
-        # If port 8080 is taken, try port 8081
-        port = port + 1
-        server_address = ("", port)
-        httpd = HTTPServer(server_address, ViewerHandler)
-
-    url = f"http://localhost:{port}/"
+    url = f"http://localhost:{actual_port}/"
     print(f"\n=======================================================")
-    print(f"  3D Scene Viewer running at: {url}")
-    print(f"  Visual Debug Mode: ACTIVE")
-    print(f"  Press Ctrl+C to stop the server")
+    print(f"[VIEWER] HNX26EPS06 3D Architectural Viewer Running at:")
+    print(f"   {url}")
+    if glb_path:
+        print(f"   Active Scene: {glb_path}")
     print(f"=======================================================\n")
 
     if open_browser:
-        webbrowser.open(url)
+        threading.Timer(0.5, lambda: webbrowser.open(url)).start()
 
-    try:
-        httpd.serve_forever()
-    except KeyboardInterrupt:
-        print("\nStopping viewer server...")
-        httpd.server_close()
+    if block:
+        try:
+            server.serve_forever()
+        except KeyboardInterrupt:
+            print("\nShutting down viewer server...")
+            server.server_close()
+    else:
+        thread = threading.Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+
+    return server, actual_port

@@ -1,0 +1,1725 @@
+{
+  "file": "benchmark_floorplan_scene.glb",
+  "file_size_bytes": 53224,
+  "scene_metrics": {
+    "total_floor_area_sq_m": 36.388880639999996,
+    "total_wall_length_m": 45.51419719047295,
+    "wall_count": 17,
+    "room_count": 6,
+    "openings": {
+      "doors": 2,
+      "windows": 5,
+      "total": 7
+    },
+    "rooms": [
+      {
+        "id": "room_1",
+        "name": "Room 1",
+        "points": [
+          [
+            4.4064,
+            3.1824
+          ],
+          [
+            4.5935999999999995,
+            3.1679999999999997
+          ],
+          [
+            4.5935999999999995,
+            2.5776
+          ],
+          [
+            5.0256,
+            2.7359999999999998
+          ],
+          [
+            5.2703999999999995,
+            3.1824
+          ],
+          [
+            6.0624,
+            3.1679999999999997
+          ],
+          [
+            6.048,
+            1.1663999999999999
+          ],
+          [
+            4.3919999999999995,
+            1.1808
+          ]
+        ],
+        "area_sq_m": 3.038,
+        "perimeter_m": 8.199,
+        "color": [
+          220,
+          212,
+          198,
+          255
+        ],
+        "metadata": {}
+      },
+      {
+        "id": "room_2",
+        "name": "Room 2",
+        "points": [
+          [
+            1.1663999999999999,
+            3.528
+          ],
+          [
+            1.9152,
+            3.5423999999999998
+          ],
+          [
+            1.9584,
+            2.9375999999999998
+          ],
+          [
+            2.6064,
+            3.5423999999999998
+          ],
+          [
+            4.2336,
+            3.5423999999999998
+          ],
+          [
+            4.248,
+            1.1808
+          ],
+          [
+            1.1808,
+            1.1663999999999999
+          ]
+        ],
+        "area_sq_m": 7.051,
+        "perimeter_m": 11.659,
+        "color": [
+          220,
+          212,
+          198,
+          255
+        ],
+        "metadata": {}
+      },
+      {
+        "id": "room_3",
+        "name": "Room 3",
+        "points": [
+          [
+            6.6528,
+            3.888
+          ],
+          [
+            7.128,
+            3.6576
+          ],
+          [
+            7.272,
+            3.1824
+          ],
+          [
+            8.1936,
+            3.1679999999999997
+          ],
+          [
+            8.1792,
+            1.1663999999999999
+          ],
+          [
+            7.4304,
+            1.1663999999999999
+          ],
+          [
+            7.142399999999999,
+            1.656
+          ],
+          [
+            6.7104,
+            1.8144
+          ],
+          [
+            6.6815999999999995,
+            1.1808
+          ],
+          [
+            6.1776,
+            1.1808
+          ],
+          [
+            6.1776,
+            3.1679999999999997
+          ],
+          [
+            6.6672,
+            3.2112
+          ]
+        ],
+        "area_sq_m": 4.023,
+        "perimeter_m": 10.019,
+        "color": [
+          220,
+          212,
+          198,
+          255
+        ],
+        "metadata": {}
+      },
+      {
+        "id": "room_4",
+        "name": "Room 4",
+        "points": [
+          [
+            3.6719999999999997,
+            3.9168
+          ],
+          [
+            4.3776,
+            4.4208
+          ],
+          [
+            4.6368,
+            5.688
+          ],
+          [
+            5.256,
+            4.9824
+          ],
+          [
+            8.1936,
+            4.968
+          ],
+          [
+            8.1792,
+            3.2976
+          ],
+          [
+            7.2863999999999995,
+            3.2976
+          ],
+          [
+            6.624,
+            3.9024
+          ],
+          [
+            6.5952,
+            3.2976
+          ],
+          [
+            5.256,
+            3.2976
+          ],
+          [
+            4.6368,
+            2.592
+          ],
+          [
+            4.3776,
+            3.8592
+          ]
+        ],
+        "area_sq_m": 6.859,
+        "perimeter_m": 14.382,
+        "color": [
+          220,
+          212,
+          198,
+          255
+        ],
+        "metadata": {}
+      },
+      {
+        "id": "room_5",
+        "name": "Room 5",
+        "points": [
+          [
+            4.3919999999999995,
+            6.739199999999999
+          ],
+          [
+            8.1792,
+            6.7536
+          ],
+          [
+            8.1936,
+            5.112
+          ],
+          [
+            5.2703999999999995,
+            5.0976
+          ],
+          [
+            4.608,
+            5.7024
+          ],
+          [
+            4.4064,
+            5.0976
+          ]
+        ],
+        "area_sq_m": 5.962,
+        "perimeter_m": 11.528,
+        "color": [
+          220,
+          212,
+          198,
+          255
+        ],
+        "metadata": {}
+      },
+      {
+        "id": "room_6",
+        "name": "Room 6",
+        "points": [
+          [
+            1.1663999999999999,
+            6.739199999999999
+          ],
+          [
+            4.2336,
+            6.7536
+          ],
+          [
+            4.248,
+            4.4784
+          ],
+          [
+            3.6576,
+            3.8016
+          ],
+          [
+            4.248,
+            3.6719999999999997
+          ],
+          [
+            2.592,
+            3.6576
+          ],
+          [
+            2.0448,
+            2.952
+          ],
+          [
+            1.9727999999999999,
+            3.6431999999999998
+          ],
+          [
+            1.1808,
+            3.6576
+          ]
+        ],
+        "area_sq_m": 9.455,
+        "perimeter_m": 13.963,
+        "color": [
+          220,
+          212,
+          198,
+          255
+        ],
+        "metadata": {}
+      }
+    ]
+  },
+  "floor_plan": {
+    "scale": 0.0144,
+    "wall_count": 17,
+    "room_count": 6,
+    "openings": {
+      "doors": 2,
+      "windows": 5,
+      "total": 7
+    },
+    "total_area_sq_m": 36.389,
+    "total_wall_length_m": 45.514,
+    "walls": [
+      {
+        "id": "cv_wall_5",
+        "start": [
+          5.2703999999999995,
+          5.04
+        ],
+        "end": [
+          8.2368,
+          5.04003621417713
+        ],
+        "thickness": 0.2,
+        "height": 2.8,
+        "length": 2.9664,
+        "openings": []
+      },
+      {
+        "id": "cv_wall_6",
+        "start": [
+          0.5616,
+          0.504
+        ],
+        "end": [
+          4.1903999999999995,
+          0.504
+        ],
+        "thickness": 0.2,
+        "height": 2.8,
+        "length": 3.6288,
+        "openings": []
+      },
+      {
+        "id": "cv_wall_8",
+        "start": [
+          6.120096350131938,
+          1.1242658125125218
+        ],
+        "end": [
+          6.12,
+          3.2399999999999998
+        ],
+        "thickness": 0.2,
+        "height": 2.8,
+        "length": 2.1157,
+        "openings": []
+      },
+      {
+        "id": "cv_wall_3_a_merged_cv_wall_3_b_a",
+        "start": [
+          1.0872000000000002,
+          1.1268
+        ],
+        "end": [
+          1.1029488073043163,
+          3.607237150429812
+        ],
+        "thickness": 0.2,
+        "height": 2.8,
+        "length": 2.4805,
+        "openings": []
+      },
+      {
+        "id": "cv_wall_3_a_merged_cv_wall_3_b_b",
+        "start": [
+          1.1029488073043163,
+          3.607237150429812
+        ],
+        "end": [
+          1.1232,
+          6.796799999999999
+        ],
+        "thickness": 0.2,
+        "height": 2.8,
+        "length": 3.1896,
+        "openings": []
+      },
+      {
+        "id": "cv_wall_11_merged_cv_wall_21",
+        "start": [
+          1.1029488073043163,
+          3.607237150429812
+        ],
+        "end": [
+          4.306373358616006,
+          3.5996411167294053
+        ],
+        "thickness": 0.2,
+        "height": 2.8,
+        "length": 3.2034,
+        "openings": []
+      },
+      {
+        "id": "cv_wall_24_merged_cv_wall_10_a_merged_cv_wall_10_b_a",
+        "start": [
+          5.2703999999999995,
+          3.2399999999999998
+        ],
+        "end": [
+          6.12,
+          3.2399999999999998
+        ],
+        "thickness": 0.2,
+        "height": 2.8,
+        "length": 0.8496,
+        "openings": []
+      },
+      {
+        "id": "cv_wall_24_merged_cv_wall_10_a_merged_cv_wall_10_b_b",
+        "start": [
+          6.12,
+          3.2399999999999998
+        ],
+        "end": [
+          7.9056,
+          3.2399999999999998
+        ],
+        "thickness": 0.2,
+        "height": 2.8,
+        "length": 1.7856,
+        "openings": []
+      },
+      {
+        "id": "cv_wall_14_merged_cv_wall_19_merged_cv_wall_26_merged_cv_wall_2_a_merged_cv_wall_2_b_a",
+        "start": [
+          4.363250751507231,
+          6.813130900965258
+        ],
+        "end": [
+          4.306373358616006,
+          3.5996411167294053
+        ],
+        "thickness": 0.2,
+        "height": 2.8,
+        "length": 3.214,
+        "openings": []
+      },
+      {
+        "id": "cv_wall_14_merged_cv_wall_19_merged_cv_wall_26_merged_cv_wall_2_a_merged_cv_wall_2_b_b",
+        "start": [
+          4.306373358616006,
+          3.5996411167294053
+        ],
+        "end": [
+          4.262410071099389,
+          1.1252012033881675
+        ],
+        "thickness": 0.2,
+        "height": 2.8,
+        "length": 2.4748,
+        "openings": []
+      },
+      {
+        "id": "cv_wall_30_b_merged_cv_wall_4_merged_cv_wall_9_merged_cv_wall_15_merged_cv_wall_28_a_merged_cv_wall_28_b_merged_cv_wall_30_a_a",
+        "start": [
+          8.236799999999999,
+          1.1232
+        ],
+        "end": [
+          8.2368,
+          5.04003621417713
+        ],
+        "thickness": 0.2,
+        "height": 2.8,
+        "length": 3.9168,
+        "openings": [
+          {
+            "id": "cv_window_3",
+            "type": "WINDOW",
+            "start_dist": 2.5344,
+            "end_dist": 3.0384,
+            "width": 0.504,
+            "height": 1.2,
+            "sill_height": 0.9,
+            "metadata": {}
+          },
+          {
+            "id": "cv_window_4",
+            "type": "WINDOW",
+            "start_dist": 3.0528,
+            "end_dist": 3.5568,
+            "width": 0.504,
+            "height": 1.2,
+            "sill_height": 0.9,
+            "metadata": {}
+          }
+        ]
+      },
+      {
+        "id": "cv_wall_30_b_merged_cv_wall_4_merged_cv_wall_9_merged_cv_wall_15_merged_cv_wall_28_a_merged_cv_wall_28_b_merged_cv_wall_30_a_b",
+        "start": [
+          8.2368,
+          5.04003621417713
+        ],
+        "end": [
+          8.2368,
+          6.4368
+        ],
+        "thickness": 0.2,
+        "height": 2.8,
+        "length": 1.3968,
+        "openings": [
+          {
+            "id": "cv_window_5",
+            "type": "WINDOW",
+            "start_dist": 0.3456,
+            "end_dist": 0.8784,
+            "width": 0.5328,
+            "height": 1.2,
+            "sill_height": 0.9,
+            "metadata": {}
+          }
+        ]
+      },
+      {
+        "id": "cv_wall_32_merged_cv_wall_7_merged_cv_wall_13_merged_cv_wall_27_merged_cv_wall_31_merged_cv_wall_29_merged_cv_wall_17_merged_cv_wall_25_a",
+        "start": [
+          1.1232,
+          6.796799999999999
+        ],
+        "end": [
+          4.363250751507231,
+          6.813130900965258
+        ],
+        "thickness": 0.2,
+        "height": 2.8,
+        "length": 3.2401,
+        "openings": [
+          {
+            "id": "cv_door_2",
+            "type": "DOOR",
+            "start_dist": 1.0366,
+            "end_dist": 1.9294,
+            "width": 0.8928,
+            "height": 2.1,
+            "sill_height": 0.0,
+            "metadata": {}
+          },
+          {
+            "id": "cv_door_1",
+            "type": "DOOR",
+            "start_dist": 1.9438,
+            "end_dist": 2.851,
+            "width": 0.9072,
+            "height": 2.1,
+            "sill_height": 0.0,
+            "metadata": {}
+          }
+        ]
+      },
+      {
+        "id": "cv_wall_32_merged_cv_wall_7_merged_cv_wall_13_merged_cv_wall_27_merged_cv_wall_31_merged_cv_wall_29_merged_cv_wall_17_merged_cv_wall_25_b",
+        "start": [
+          4.363250751507231,
+          6.813130900965258
+        ],
+        "end": [
+          8.2656,
+          6.8328
+        ],
+        "thickness": 0.2,
+        "height": 2.8,
+        "length": 3.9024,
+        "openings": []
+      },
+      {
+        "id": "cv_wall_1_merged_cv_wall_18_a_merged_cv_wall_12_merged_cv_wall_16_merged_cv_wall_18_b_merged_cv_wall_23_merged_cv_wall_20_merged_cv_wall_22_a_a",
+        "start": [
+          1.0872000000000002,
+          1.1268
+        ],
+        "end": [
+          4.262410071099389,
+          1.1252012033881675
+        ],
+        "thickness": 0.2,
+        "height": 2.8,
+        "length": 3.1752,
+        "openings": [
+          {
+            "id": "cv_window_2",
+            "type": "WINDOW",
+            "start_dist": 1.0728,
+            "end_dist": 1.62,
+            "width": 0.5472,
+            "height": 1.2,
+            "sill_height": 0.9,
+            "metadata": {}
+          },
+          {
+            "id": "cv_window_1",
+            "type": "WINDOW",
+            "start_dist": 1.6344,
+            "end_dist": 2.1672,
+            "width": 0.5328,
+            "height": 1.2,
+            "sill_height": 0.9,
+            "metadata": {}
+          }
+        ]
+      },
+      {
+        "id": "cv_wall_1_merged_cv_wall_18_a_merged_cv_wall_12_merged_cv_wall_16_merged_cv_wall_18_b_merged_cv_wall_23_merged_cv_wall_20_merged_cv_wall_22_a_b",
+        "start": [
+          4.262410071099389,
+          1.1252012033881675
+        ],
+        "end": [
+          6.120096350131938,
+          1.1242658125125218
+        ],
+        "thickness": 0.2,
+        "height": 2.8,
+        "length": 1.8577,
+        "openings": []
+      },
+      {
+        "id": "cv_wall_1_merged_cv_wall_18_a_merged_cv_wall_12_merged_cv_wall_16_merged_cv_wall_18_b_merged_cv_wall_23_merged_cv_wall_20_merged_cv_wall_22_b",
+        "start": [
+          6.120096350131938,
+          1.1242658125125218
+        ],
+        "end": [
+          8.236799999999999,
+          1.1232
+        ],
+        "thickness": 0.2,
+        "height": 2.8,
+        "length": 2.1167,
+        "openings": []
+      }
+    ],
+    "rooms": [
+      {
+        "id": "room_1",
+        "name": "Room 1",
+        "points": [
+          [
+            4.4064,
+            3.1824
+          ],
+          [
+            4.5935999999999995,
+            3.1679999999999997
+          ],
+          [
+            4.5935999999999995,
+            2.5776
+          ],
+          [
+            5.0256,
+            2.7359999999999998
+          ],
+          [
+            5.2703999999999995,
+            3.1824
+          ],
+          [
+            6.0624,
+            3.1679999999999997
+          ],
+          [
+            6.048,
+            1.1663999999999999
+          ],
+          [
+            4.3919999999999995,
+            1.1808
+          ]
+        ],
+        "area_sq_m": 3.038,
+        "perimeter_m": 8.199,
+        "color": [
+          220,
+          212,
+          198,
+          255
+        ],
+        "metadata": {}
+      },
+      {
+        "id": "room_2",
+        "name": "Room 2",
+        "points": [
+          [
+            1.1663999999999999,
+            3.528
+          ],
+          [
+            1.9152,
+            3.5423999999999998
+          ],
+          [
+            1.9584,
+            2.9375999999999998
+          ],
+          [
+            2.6064,
+            3.5423999999999998
+          ],
+          [
+            4.2336,
+            3.5423999999999998
+          ],
+          [
+            4.248,
+            1.1808
+          ],
+          [
+            1.1808,
+            1.1663999999999999
+          ]
+        ],
+        "area_sq_m": 7.051,
+        "perimeter_m": 11.659,
+        "color": [
+          220,
+          212,
+          198,
+          255
+        ],
+        "metadata": {}
+      },
+      {
+        "id": "room_3",
+        "name": "Room 3",
+        "points": [
+          [
+            6.6528,
+            3.888
+          ],
+          [
+            7.128,
+            3.6576
+          ],
+          [
+            7.272,
+            3.1824
+          ],
+          [
+            8.1936,
+            3.1679999999999997
+          ],
+          [
+            8.1792,
+            1.1663999999999999
+          ],
+          [
+            7.4304,
+            1.1663999999999999
+          ],
+          [
+            7.142399999999999,
+            1.656
+          ],
+          [
+            6.7104,
+            1.8144
+          ],
+          [
+            6.6815999999999995,
+            1.1808
+          ],
+          [
+            6.1776,
+            1.1808
+          ],
+          [
+            6.1776,
+            3.1679999999999997
+          ],
+          [
+            6.6672,
+            3.2112
+          ]
+        ],
+        "area_sq_m": 4.023,
+        "perimeter_m": 10.019,
+        "color": [
+          220,
+          212,
+          198,
+          255
+        ],
+        "metadata": {}
+      },
+      {
+        "id": "room_4",
+        "name": "Room 4",
+        "points": [
+          [
+            3.6719999999999997,
+            3.9168
+          ],
+          [
+            4.3776,
+            4.4208
+          ],
+          [
+            4.6368,
+            5.688
+          ],
+          [
+            5.256,
+            4.9824
+          ],
+          [
+            8.1936,
+            4.968
+          ],
+          [
+            8.1792,
+            3.2976
+          ],
+          [
+            7.2863999999999995,
+            3.2976
+          ],
+          [
+            6.624,
+            3.9024
+          ],
+          [
+            6.5952,
+            3.2976
+          ],
+          [
+            5.256,
+            3.2976
+          ],
+          [
+            4.6368,
+            2.592
+          ],
+          [
+            4.3776,
+            3.8592
+          ]
+        ],
+        "area_sq_m": 6.859,
+        "perimeter_m": 14.382,
+        "color": [
+          220,
+          212,
+          198,
+          255
+        ],
+        "metadata": {}
+      },
+      {
+        "id": "room_5",
+        "name": "Room 5",
+        "points": [
+          [
+            4.3919999999999995,
+            6.739199999999999
+          ],
+          [
+            8.1792,
+            6.7536
+          ],
+          [
+            8.1936,
+            5.112
+          ],
+          [
+            5.2703999999999995,
+            5.0976
+          ],
+          [
+            4.608,
+            5.7024
+          ],
+          [
+            4.4064,
+            5.0976
+          ]
+        ],
+        "area_sq_m": 5.962,
+        "perimeter_m": 11.528,
+        "color": [
+          220,
+          212,
+          198,
+          255
+        ],
+        "metadata": {}
+      },
+      {
+        "id": "room_6",
+        "name": "Room 6",
+        "points": [
+          [
+            1.1663999999999999,
+            6.739199999999999
+          ],
+          [
+            4.2336,
+            6.7536
+          ],
+          [
+            4.248,
+            4.4784
+          ],
+          [
+            3.6576,
+            3.8016
+          ],
+          [
+            4.248,
+            3.6719999999999997
+          ],
+          [
+            2.592,
+            3.6576
+          ],
+          [
+            2.0448,
+            2.952
+          ],
+          [
+            1.9727999999999999,
+            3.6431999999999998
+          ],
+          [
+            1.1808,
+            3.6576
+          ]
+        ],
+        "area_sq_m": 9.455,
+        "perimeter_m": 13.963,
+        "color": [
+          220,
+          212,
+          198,
+          255
+        ],
+        "metadata": {}
+      }
+    ],
+    "validation": {
+      "has_errors": false,
+      "error_count": 0,
+      "warning_count": 11,
+      "info_count": 88,
+      "issues": [
+        {
+          "level": "INFO",
+          "code": "DOOR_SCALE_CALIBRATED",
+          "message": "Auto-calibrated scale from 2 detected doors (0.90m standard): 0.01440 m/pixel.",
+          "entity_id": null,
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "CV_FEATURES_DETECTED",
+          "message": "Detected 2 doors and 6 windows from blueprint apertures.",
+          "entity_id": null,
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "CV_WALLS_EXTRACTED",
+          "message": "Extracted 32 raw linear wall segments from skeleton network.",
+          "entity_id": null,
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped end of wall 'cv_wall_1' by 0.061m to (8.24, 1.12)",
+          "entity_id": "cv_wall_1",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped start of wall 'cv_wall_4' by 0.061m to (8.24, 1.12)",
+          "entity_id": "cv_wall_4",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped start of wall 'cv_wall_2' by 0.060m to (4.26, 1.11)",
+          "entity_id": "cv_wall_2",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped end of wall 'cv_wall_16' by 0.060m to (4.26, 1.11)",
+          "entity_id": "cv_wall_16",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped start of wall 'cv_wall_3' by 0.040m to (1.09, 1.13)",
+          "entity_id": "cv_wall_3",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped start of wall 'cv_wall_22' by 0.040m to (1.09, 1.13)",
+          "entity_id": "cv_wall_22",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped end of wall 'cv_wall_3' by 0.061m to (1.12, 6.80)",
+          "entity_id": "cv_wall_3",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped start of wall 'cv_wall_7' by 0.061m to (1.12, 6.80)",
+          "entity_id": "cv_wall_7",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped end of wall 'cv_wall_4' by 0.034m to (8.26, 3.69)",
+          "entity_id": "cv_wall_4",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped start of wall 'cv_wall_15' by 0.034m to (8.26, 3.69)",
+          "entity_id": "cv_wall_15",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped end of wall 'cv_wall_7' by 0.036m to (2.17, 6.82)",
+          "entity_id": "cv_wall_7",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped start of wall 'cv_wall_13' by 0.036m to (2.17, 6.82)",
+          "entity_id": "cv_wall_13",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped start of wall 'cv_wall_9' by 0.054m to (8.26, 5.40)",
+          "entity_id": "cv_wall_9",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped end of wall 'cv_wall_28' by 0.056m to (8.26, 5.40)",
+          "entity_id": "cv_wall_28",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped end of wall 'cv_wall_30' by 0.007m to (8.26, 5.40)",
+          "entity_id": "cv_wall_30",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped start of wall 'cv_wall_12' by 0.014m to (2.71, 1.12)",
+          "entity_id": "cv_wall_12",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped end of wall 'cv_wall_20' by 0.014m to (2.71, 1.12)",
+          "entity_id": "cv_wall_20",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped end of wall 'cv_wall_12' by 0.028m to (3.22, 1.11)",
+          "entity_id": "cv_wall_12",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped start of wall 'cv_wall_16' by 0.028m to (3.22, 1.11)",
+          "entity_id": "cv_wall_16",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped end of wall 'cv_wall_13' by 0.034m to (3.95, 6.81)",
+          "entity_id": "cv_wall_13",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped start of wall 'cv_wall_32' by 0.034m to (3.95, 6.81)",
+          "entity_id": "cv_wall_32",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped start of wall 'cv_wall_14' by 0.051m to (4.36, 6.82)",
+          "entity_id": "cv_wall_14",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped start of wall 'cv_wall_27' by 0.033m to (4.36, 6.82)",
+          "entity_id": "cv_wall_27",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped end of wall 'cv_wall_32' by 0.017m to (4.36, 6.82)",
+          "entity_id": "cv_wall_32",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped end of wall 'cv_wall_14' by 0.065m to (4.32, 6.01)",
+          "entity_id": "cv_wall_14",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped end of wall 'cv_wall_19' by 0.065m to (4.32, 6.01)",
+          "entity_id": "cv_wall_19",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped end of wall 'cv_wall_15' by 0.024m to (8.26, 4.68)",
+          "entity_id": "cv_wall_15",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped start of wall 'cv_wall_28' by 0.022m to (8.26, 4.68)",
+          "entity_id": "cv_wall_28",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped start of wall 'cv_wall_30' by 0.002m to (8.26, 4.68)",
+          "entity_id": "cv_wall_30",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped start of wall 'cv_wall_18' by 0.036m to (5.59, 1.08)",
+          "entity_id": "cv_wall_18",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped end of wall 'cv_wall_23' by 0.036m to (5.59, 1.08)",
+          "entity_id": "cv_wall_23",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped start of wall 'cv_wall_29' by 0.008m to (7.74, 6.84)",
+          "entity_id": "cv_wall_29",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ENDPOINT_SNAPPED",
+          "message": "Snapped end of wall 'cv_wall_31' by 0.008m to (7.74, 6.84)",
+          "entity_id": "cv_wall_31",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "T_JUNCTION_SNAPPED",
+          "message": "Snapped endpoint of wall 'cv_wall_11' to interior of 'cv_wall_2' at dist 2.49m",
+          "entity_id": "cv_wall_11",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "T_JUNCTION_SNAPPED",
+          "message": "Snapped endpoint of wall 'cv_wall_21' to interior of 'cv_wall_3' at dist 2.48m",
+          "entity_id": "cv_wall_21",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "T_JUNCTION_SNAPPED",
+          "message": "Snapped endpoint of wall 'cv_wall_8' to interior of 'cv_wall_10' at dist 0.85m",
+          "entity_id": "cv_wall_8",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "T_JUNCTION_SNAPPED",
+          "message": "Snapped endpoint of wall 'cv_wall_8' to interior of 'cv_wall_18' at dist 0.53m",
+          "entity_id": "cv_wall_8",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "T_JUNCTION_SNAPPED",
+          "message": "Snapped endpoint of wall 'cv_wall_5' to interior of 'cv_wall_28' at dist 0.36m",
+          "entity_id": "cv_wall_5",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "T_JUNCTION_SNAPPED",
+          "message": "Snapped endpoint of wall 'cv_wall_5' to interior of 'cv_wall_30' at dist 0.36m",
+          "entity_id": "cv_wall_5",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "COLLINEAR_MERGED",
+          "message": "Merged collinear walls 'cv_wall_1' and 'cv_wall_18_a' into 'cv_wall_1_merged_cv_wall_18_a' (length: 2.64m)",
+          "entity_id": "cv_wall_1_merged_cv_wall_18_a",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "COLLINEAR_MERGED",
+          "message": "Merged collinear walls 'cv_wall_2_a' and 'cv_wall_2_b' into 'cv_wall_2_a_merged_cv_wall_2_b' (length: 2.70m)",
+          "entity_id": "cv_wall_2_a_merged_cv_wall_2_b",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "COLLINEAR_MERGED",
+          "message": "Merged collinear walls 'cv_wall_3_a' and 'cv_wall_3_b' into 'cv_wall_3_a_merged_cv_wall_3_b' (length: 5.67m)",
+          "entity_id": "cv_wall_3_a_merged_cv_wall_3_b",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "COLLINEAR_MERGED",
+          "message": "Merged collinear walls 'cv_wall_4' and 'cv_wall_9' into 'cv_wall_4_merged_cv_wall_9' (length: 5.31m)",
+          "entity_id": "cv_wall_4_merged_cv_wall_9",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "COLLINEAR_MERGED",
+          "message": "Merged collinear walls 'cv_wall_7' and 'cv_wall_13' into 'cv_wall_7_merged_cv_wall_13' (length: 2.82m)",
+          "entity_id": "cv_wall_7_merged_cv_wall_13",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "COLLINEAR_MERGED",
+          "message": "Merged collinear walls 'cv_wall_10_a' and 'cv_wall_10_b' into 'cv_wall_10_a_merged_cv_wall_10_b' (length: 1.34m)",
+          "entity_id": "cv_wall_10_a_merged_cv_wall_10_b",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "COLLINEAR_MERGED",
+          "message": "Merged collinear walls 'cv_wall_11' and 'cv_wall_21' into 'cv_wall_11_merged_cv_wall_21' (length: 3.21m)",
+          "entity_id": "cv_wall_11_merged_cv_wall_21",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "COLLINEAR_MERGED",
+          "message": "Merged collinear walls 'cv_wall_12' and 'cv_wall_16' into 'cv_wall_12_merged_cv_wall_16' (length: 1.56m)",
+          "entity_id": "cv_wall_12_merged_cv_wall_16",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "COLLINEAR_MERGED",
+          "message": "Merged collinear walls 'cv_wall_14' and 'cv_wall_19' into 'cv_wall_14_merged_cv_wall_19' (length: 1.68m)",
+          "entity_id": "cv_wall_14_merged_cv_wall_19",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "COLLINEAR_MERGED",
+          "message": "Merged collinear walls 'cv_wall_15' and 'cv_wall_28_a' into 'cv_wall_15_merged_cv_wall_28_a' (length: 1.35m)",
+          "entity_id": "cv_wall_15_merged_cv_wall_28_a",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "COLLINEAR_MERGED",
+          "message": "Merged collinear walls 'cv_wall_17' and 'cv_wall_25' into 'cv_wall_17_merged_cv_wall_25' (length: 1.90m)",
+          "entity_id": "cv_wall_17_merged_cv_wall_25",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "COLLINEAR_MERGED",
+          "message": "Merged collinear walls 'cv_wall_18_b' and 'cv_wall_23' into 'cv_wall_18_b_merged_cv_wall_23' (length: 1.94m)",
+          "entity_id": "cv_wall_18_b_merged_cv_wall_23",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "COLLINEAR_MERGED",
+          "message": "Merged collinear walls 'cv_wall_20' and 'cv_wall_22' into 'cv_wall_20_merged_cv_wall_22' (length: 1.62m)",
+          "entity_id": "cv_wall_20_merged_cv_wall_22",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "COLLINEAR_MERGED",
+          "message": "Merged collinear walls 'cv_wall_24' and 'cv_wall_10_a_merged_cv_wall_10_b' into 'cv_wall_24_merged_cv_wall_10_a_merged_cv_wall_10_b' (length: 2.64m)",
+          "entity_id": "cv_wall_24_merged_cv_wall_10_a_merged_cv_wall_10_b",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "COLLINEAR_MERGED",
+          "message": "Merged collinear walls 'cv_wall_26' and 'cv_wall_2_a_merged_cv_wall_2_b' into 'cv_wall_26_merged_cv_wall_2_a_merged_cv_wall_2_b' (length: 3.88m)",
+          "entity_id": "cv_wall_26_merged_cv_wall_2_a_merged_cv_wall_2_b",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "COLLINEAR_MERGED",
+          "message": "Merged collinear walls 'cv_wall_27' and 'cv_wall_31' into 'cv_wall_27_merged_cv_wall_31' (length: 3.38m)",
+          "entity_id": "cv_wall_27_merged_cv_wall_31",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "COLLINEAR_MERGED",
+          "message": "Merged collinear walls 'cv_wall_28_b' and 'cv_wall_30_a' into 'cv_wall_28_b_merged_cv_wall_30_a' (length: 0.72m)",
+          "entity_id": "cv_wall_28_b_merged_cv_wall_30_a",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "COLLINEAR_MERGED",
+          "message": "Merged collinear walls 'cv_wall_29' and 'cv_wall_17_merged_cv_wall_25' into 'cv_wall_29_merged_cv_wall_17_merged_cv_wall_25' (length: 2.92m)",
+          "entity_id": "cv_wall_29_merged_cv_wall_17_merged_cv_wall_25",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "COLLINEAR_MERGED",
+          "message": "Merged collinear walls 'cv_wall_30_b' and 'cv_wall_4_merged_cv_wall_9' into 'cv_wall_30_b_merged_cv_wall_4_merged_cv_wall_9' (length: 5.31m)",
+          "entity_id": "cv_wall_30_b_merged_cv_wall_4_merged_cv_wall_9",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "COLLINEAR_MERGED",
+          "message": "Merged collinear walls 'cv_wall_32' and 'cv_wall_7_merged_cv_wall_13' into 'cv_wall_32_merged_cv_wall_7_merged_cv_wall_13' (length: 3.24m)",
+          "entity_id": "cv_wall_32_merged_cv_wall_7_merged_cv_wall_13",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "COLLINEAR_MERGED",
+          "message": "Merged collinear walls 'cv_wall_1_merged_cv_wall_18_a' and 'cv_wall_12_merged_cv_wall_16' into 'cv_wall_1_merged_cv_wall_18_a_merged_cv_wall_12_merged_cv_wall_16' (length: 5.53m)",
+          "entity_id": "cv_wall_1_merged_cv_wall_18_a_merged_cv_wall_12_merged_cv_wall_16",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "COLLINEAR_MERGED",
+          "message": "Merged collinear walls 'cv_wall_14_merged_cv_wall_19' and 'cv_wall_26_merged_cv_wall_2_a_merged_cv_wall_2_b' into 'cv_wall_14_merged_cv_wall_19_merged_cv_wall_26_merged_cv_wall_2_a_merged_cv_wall_2_b' (length: 5.72m)",
+          "entity_id": "cv_wall_14_merged_cv_wall_19_merged_cv_wall_26_merged_cv_wall_2_a_merged_cv_wall_2_b",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "COLLINEAR_MERGED",
+          "message": "Merged collinear walls 'cv_wall_15_merged_cv_wall_28_a' and 'cv_wall_28_b_merged_cv_wall_30_a' into 'cv_wall_15_merged_cv_wall_28_a_merged_cv_wall_28_b_merged_cv_wall_30_a' (length: 1.71m)",
+          "entity_id": "cv_wall_15_merged_cv_wall_28_a_merged_cv_wall_28_b_merged_cv_wall_30_a",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "COLLINEAR_MERGED",
+          "message": "Merged collinear walls 'cv_wall_18_b_merged_cv_wall_23' and 'cv_wall_20_merged_cv_wall_22' into 'cv_wall_18_b_merged_cv_wall_23_merged_cv_wall_20_merged_cv_wall_22' (length: 5.61m)",
+          "entity_id": "cv_wall_18_b_merged_cv_wall_23_merged_cv_wall_20_merged_cv_wall_22",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "COLLINEAR_MERGED",
+          "message": "Merged collinear walls 'cv_wall_27_merged_cv_wall_31' and 'cv_wall_29_merged_cv_wall_17_merged_cv_wall_25' into 'cv_wall_27_merged_cv_wall_31_merged_cv_wall_29_merged_cv_wall_17_merged_cv_wall_25' (length: 3.90m)",
+          "entity_id": "cv_wall_27_merged_cv_wall_31_merged_cv_wall_29_merged_cv_wall_17_merged_cv_wall_25",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "COLLINEAR_MERGED",
+          "message": "Merged collinear walls 'cv_wall_30_b_merged_cv_wall_4_merged_cv_wall_9' and 'cv_wall_15_merged_cv_wall_28_a_merged_cv_wall_28_b_merged_cv_wall_30_a' into 'cv_wall_30_b_merged_cv_wall_4_merged_cv_wall_9_merged_cv_wall_15_merged_cv_wall_28_a_merged_cv_wall_28_b_merged_cv_wall_30_a' (length: 5.31m)",
+          "entity_id": "cv_wall_30_b_merged_cv_wall_4_merged_cv_wall_9_merged_cv_wall_15_merged_cv_wall_28_a_merged_cv_wall_28_b_merged_cv_wall_30_a",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "COLLINEAR_MERGED",
+          "message": "Merged collinear walls 'cv_wall_32_merged_cv_wall_7_merged_cv_wall_13' and 'cv_wall_27_merged_cv_wall_31_merged_cv_wall_29_merged_cv_wall_17_merged_cv_wall_25' into 'cv_wall_32_merged_cv_wall_7_merged_cv_wall_13_merged_cv_wall_27_merged_cv_wall_31_merged_cv_wall_29_merged_cv_wall_17_merged_cv_wall_25' (length: 7.14m)",
+          "entity_id": "cv_wall_32_merged_cv_wall_7_merged_cv_wall_13_merged_cv_wall_27_merged_cv_wall_31_merged_cv_wall_29_merged_cv_wall_17_merged_cv_wall_25",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "COLLINEAR_MERGED",
+          "message": "Merged collinear walls 'cv_wall_1_merged_cv_wall_18_a_merged_cv_wall_12_merged_cv_wall_16' and 'cv_wall_18_b_merged_cv_wall_23_merged_cv_wall_20_merged_cv_wall_22' into 'cv_wall_1_merged_cv_wall_18_a_merged_cv_wall_12_merged_cv_wall_16_merged_cv_wall_18_b_merged_cv_wall_23_merged_cv_wall_20_merged_cv_wall_22' (length: 7.15m)",
+          "entity_id": "cv_wall_1_merged_cv_wall_18_a_merged_cv_wall_12_merged_cv_wall_16_merged_cv_wall_18_b_merged_cv_wall_23_merged_cv_wall_20_merged_cv_wall_22",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "T_JUNCTION_SNAPPED",
+          "message": "Snapped endpoint of wall 'cv_wall_11_merged_cv_wall_21' to interior of 'cv_wall_3_a_merged_cv_wall_3_b' at dist 2.48m",
+          "entity_id": "cv_wall_11_merged_cv_wall_21",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "T_JUNCTION_SNAPPED",
+          "message": "Snapped endpoint of wall 'cv_wall_8' to interior of 'cv_wall_24_merged_cv_wall_10_a_merged_cv_wall_10_b' at dist 0.85m",
+          "entity_id": "cv_wall_8",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "T_JUNCTION_SNAPPED",
+          "message": "Snapped endpoint of wall 'cv_wall_11_merged_cv_wall_21' to interior of 'cv_wall_14_merged_cv_wall_19_merged_cv_wall_26_merged_cv_wall_2_a_merged_cv_wall_2_b' at dist 3.22m",
+          "entity_id": "cv_wall_11_merged_cv_wall_21",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "T_JUNCTION_SNAPPED",
+          "message": "Snapped endpoint of wall 'cv_wall_5' to interior of 'cv_wall_30_b_merged_cv_wall_4_merged_cv_wall_9_merged_cv_wall_15_merged_cv_wall_28_a_merged_cv_wall_28_b_merged_cv_wall_30_a' at dist 3.92m",
+          "entity_id": "cv_wall_5",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "T_JUNCTION_SNAPPED",
+          "message": "Snapped endpoint of wall 'cv_wall_14_merged_cv_wall_19_merged_cv_wall_26_merged_cv_wall_2_a_merged_cv_wall_2_b_a' to interior of 'cv_wall_32_merged_cv_wall_7_merged_cv_wall_13_merged_cv_wall_27_merged_cv_wall_31_merged_cv_wall_29_merged_cv_wall_17_merged_cv_wall_25' at dist 3.24m",
+          "entity_id": "cv_wall_14_merged_cv_wall_19_merged_cv_wall_26_merged_cv_wall_2_a_merged_cv_wall_2_b_a",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "T_JUNCTION_SNAPPED",
+          "message": "Snapped endpoint of wall 'cv_wall_8' to interior of 'cv_wall_1_merged_cv_wall_18_a_merged_cv_wall_12_merged_cv_wall_16_merged_cv_wall_18_b_merged_cv_wall_23_merged_cv_wall_20_merged_cv_wall_22' at dist 5.03m",
+          "entity_id": "cv_wall_8",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "T_JUNCTION_SNAPPED",
+          "message": "Snapped endpoint of wall 'cv_wall_14_merged_cv_wall_19_merged_cv_wall_26_merged_cv_wall_2_a_merged_cv_wall_2_b_b' to interior of 'cv_wall_1_merged_cv_wall_18_a_merged_cv_wall_12_merged_cv_wall_16_merged_cv_wall_18_b_merged_cv_wall_23_merged_cv_wall_20_merged_cv_wall_22_a' at dist 3.18m",
+          "entity_id": "cv_wall_14_merged_cv_wall_19_merged_cv_wall_26_merged_cv_wall_2_a_merged_cv_wall_2_b_b",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "OPENING_BOUND",
+          "message": "Bound DOOR 'cv_door_1' to wall 'cv_wall_32_merged_cv_wall_7_merged_cv_wall_13_merged_cv_wall_27_merged_cv_wall_31_merged_cv_wall_29_merged_cv_wall_17_merged_cv_wall_25_a' at interval [1.94m, 2.85m].",
+          "entity_id": "cv_door_1",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "OPENING_BOUND",
+          "message": "Bound DOOR 'cv_door_2' to wall 'cv_wall_32_merged_cv_wall_7_merged_cv_wall_13_merged_cv_wall_27_merged_cv_wall_31_merged_cv_wall_29_merged_cv_wall_17_merged_cv_wall_25_a' at interval [1.04m, 1.93m].",
+          "entity_id": "cv_door_2",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "OPENING_BOUND",
+          "message": "Bound WINDOW 'cv_window_1' to wall 'cv_wall_1_merged_cv_wall_18_a_merged_cv_wall_12_merged_cv_wall_16_merged_cv_wall_18_b_merged_cv_wall_23_merged_cv_wall_20_merged_cv_wall_22_a_a' at interval [1.63m, 2.17m].",
+          "entity_id": "cv_window_1",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "OPENING_BOUND",
+          "message": "Bound WINDOW 'cv_window_2' to wall 'cv_wall_1_merged_cv_wall_18_a_merged_cv_wall_12_merged_cv_wall_16_merged_cv_wall_18_b_merged_cv_wall_23_merged_cv_wall_20_merged_cv_wall_22_a_a' at interval [1.07m, 1.62m].",
+          "entity_id": "cv_window_2",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "OPENING_BOUND",
+          "message": "Bound WINDOW 'cv_window_3' to wall 'cv_wall_30_b_merged_cv_wall_4_merged_cv_wall_9_merged_cv_wall_15_merged_cv_wall_28_a_merged_cv_wall_28_b_merged_cv_wall_30_a_a' at interval [2.53m, 3.04m].",
+          "entity_id": "cv_window_3",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "OPENING_BOUND",
+          "message": "Bound WINDOW 'cv_window_4' to wall 'cv_wall_30_b_merged_cv_wall_4_merged_cv_wall_9_merged_cv_wall_15_merged_cv_wall_28_a_merged_cv_wall_28_b_merged_cv_wall_30_a_a' at interval [3.05m, 3.56m].",
+          "entity_id": "cv_window_4",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "OPENING_BOUND",
+          "message": "Bound WINDOW 'cv_window_5' to wall 'cv_wall_30_b_merged_cv_wall_4_merged_cv_wall_9_merged_cv_wall_15_merged_cv_wall_28_a_merged_cv_wall_28_b_merged_cv_wall_30_a_b' at interval [0.35m, 0.88m].",
+          "entity_id": "cv_window_5",
+          "details": {}
+        },
+        {
+          "level": "WARNING",
+          "code": "OPENING_OVERLAP",
+          "message": "WINDOW 'cv_window_6' overlaps an existing opening on wall 'cv_wall_30_b_merged_cv_wall_4_merged_cv_wall_9_merged_cv_wall_15_merged_cv_wall_28_a_merged_cv_wall_28_b_merged_cv_wall_30_a_b'.",
+          "entity_id": "cv_window_6",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ROOM_EXTRACTED",
+          "message": "Discovered enclosed 'Room 1' with area 7.90m\u00b2 and perimeter 11.33m.",
+          "entity_id": "room_1",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ROOM_EXTRACTED",
+          "message": "Discovered enclosed 'Room 2' with area 10.31m\u00b2 and perimeter 12.85m.",
+          "entity_id": "room_2",
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "ROOMS_AUGMENTED_FROM_MASK",
+          "message": "Recovered 6 clean enclosed room polygons directly from solid wall cavities.",
+          "entity_id": null,
+          "details": {}
+        },
+        {
+          "level": "WARNING",
+          "code": "DEAD_END_WALL",
+          "message": "Wall 'cv_wall_5' terminates at dead-end endpoint (5.27, 5.04). Preserving source geometry (insufficient evidence to prune or snap).",
+          "entity_id": "cv_wall_5",
+          "details": {
+            "wall_id": "cv_wall_5",
+            "endpoint": [
+              5.2703999999999995,
+              5.04
+            ]
+          }
+        },
+        {
+          "level": "WARNING",
+          "code": "DEAD_END_WALL",
+          "message": "Wall 'cv_wall_6' terminates at dead-end endpoint (0.56, 0.50). Preserving source geometry (insufficient evidence to prune or snap).",
+          "entity_id": "cv_wall_6",
+          "details": {
+            "wall_id": "cv_wall_6",
+            "endpoint": [
+              0.5616,
+              0.504
+            ]
+          }
+        },
+        {
+          "level": "WARNING",
+          "code": "DEAD_END_WALL",
+          "message": "Wall 'cv_wall_6' terminates at dead-end endpoint (4.19, 0.50). Preserving source geometry (insufficient evidence to prune or snap).",
+          "entity_id": "cv_wall_6",
+          "details": {
+            "wall_id": "cv_wall_6",
+            "endpoint": [
+              4.1903999999999995,
+              0.504
+            ]
+          }
+        },
+        {
+          "level": "WARNING",
+          "code": "DEAD_END_WALL",
+          "message": "Wall 'cv_wall_24_merged_cv_wall_10_a_merged_cv_wall_10_b_a' terminates at dead-end endpoint (5.27, 3.24). Preserving source geometry (insufficient evidence to prune or snap).",
+          "entity_id": "cv_wall_24_merged_cv_wall_10_a_merged_cv_wall_10_b_a",
+          "details": {
+            "wall_id": "cv_wall_24_merged_cv_wall_10_a_merged_cv_wall_10_b_a",
+            "endpoint": [
+              5.2703999999999995,
+              3.2399999999999998
+            ]
+          }
+        },
+        {
+          "level": "WARNING",
+          "code": "DEAD_END_WALL",
+          "message": "Wall 'cv_wall_24_merged_cv_wall_10_a_merged_cv_wall_10_b_b' terminates at dead-end endpoint (7.91, 3.24). Preserving source geometry (insufficient evidence to prune or snap).",
+          "entity_id": "cv_wall_24_merged_cv_wall_10_a_merged_cv_wall_10_b_b",
+          "details": {
+            "wall_id": "cv_wall_24_merged_cv_wall_10_a_merged_cv_wall_10_b_b",
+            "endpoint": [
+              7.9056,
+              3.2399999999999998
+            ]
+          }
+        },
+        {
+          "level": "WARNING",
+          "code": "DEAD_END_WALL",
+          "message": "Wall 'cv_wall_30_b_merged_cv_wall_4_merged_cv_wall_9_merged_cv_wall_15_merged_cv_wall_28_a_merged_cv_wall_28_b_merged_cv_wall_30_a_b' terminates at dead-end endpoint (8.24, 6.44). Preserving source geometry (insufficient evidence to prune or snap).",
+          "entity_id": "cv_wall_30_b_merged_cv_wall_4_merged_cv_wall_9_merged_cv_wall_15_merged_cv_wall_28_a_merged_cv_wall_28_b_merged_cv_wall_30_a_b",
+          "details": {
+            "wall_id": "cv_wall_30_b_merged_cv_wall_4_merged_cv_wall_9_merged_cv_wall_15_merged_cv_wall_28_a_merged_cv_wall_28_b_merged_cv_wall_30_a_b",
+            "endpoint": [
+              8.2368,
+              6.4368
+            ]
+          }
+        },
+        {
+          "level": "WARNING",
+          "code": "DEAD_END_WALL",
+          "message": "Wall 'cv_wall_32_merged_cv_wall_7_merged_cv_wall_13_merged_cv_wall_27_merged_cv_wall_31_merged_cv_wall_29_merged_cv_wall_17_merged_cv_wall_25_b' terminates at dead-end endpoint (8.27, 6.83). Preserving source geometry (insufficient evidence to prune or snap).",
+          "entity_id": "cv_wall_32_merged_cv_wall_7_merged_cv_wall_13_merged_cv_wall_27_merged_cv_wall_31_merged_cv_wall_29_merged_cv_wall_17_merged_cv_wall_25_b",
+          "details": {
+            "wall_id": "cv_wall_32_merged_cv_wall_7_merged_cv_wall_13_merged_cv_wall_27_merged_cv_wall_31_merged_cv_wall_29_merged_cv_wall_17_merged_cv_wall_25_b",
+            "endpoint": [
+              8.2656,
+              6.8328
+            ]
+          }
+        },
+        {
+          "level": "WARNING",
+          "code": "DEAD_END_WALLS",
+          "message": "Floor plan has 7 dead-end wall endpoints (unconnected floating partitions). Preserved as source geometry.",
+          "entity_id": null,
+          "details": {}
+        },
+        {
+          "level": "WARNING",
+          "code": "ISOLATED_WALL",
+          "message": "Wall 'cv_wall_6' is completely disconnected (dead ends at both endpoints). Preserving source geometry.",
+          "entity_id": "cv_wall_6",
+          "details": {}
+        },
+        {
+          "level": "WARNING",
+          "code": "DISCONNECTED_WALL_CLUSTERS",
+          "message": "Wall graph contains 2 disconnected components.",
+          "entity_id": null,
+          "details": {}
+        },
+        {
+          "level": "INFO",
+          "code": "SCENE_SUMMARY",
+          "message": "Floor plan contains 17 walls, 6 rooms, 2 doors, and 5 windows. Total floor area: 36.39m\u00b2.",
+          "entity_id": null,
+          "details": {}
+        }
+      ]
+    },
+    "metadata": {
+      "source": "data\\benchmark\\benchmark_floorplan.png",
+      "image_width_px": 650,
+      "image_height_px": 600,
+      "bound_openings": 7,
+      "doors_detected": 2,
+      "windows_detected": 6
+    }
+  }
+}
